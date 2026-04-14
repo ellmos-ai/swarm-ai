@@ -1,0 +1,44 @@
+# swarm-ai - LLM Swarm Intelligence Toolkit
+
+> swarm-ai is a standalone toolkit that implements five swarm-intelligence patterns for parallel LLM execution. Each pattern solves a different coordination problem -- from simple parallel chunking to emergent pheromone-based path selection -- so agents can be orchestrated the way ant colonies, hierarchies, or majority-vote committees would solve a task.
+
+Part of the ellmos family (Extra Large Language Model Operating Systems). Where clutch routes a single task to the optimal model, swarm-ai fans *one* task out across many model instances and combines their results. Zero-dependency Python 3.10+, MIT. Benchmark: 2.54x speedup, 85% parallel efficiency on 20 tasks with 3 workers (Claude Haiku 4.5).
+
+The five patterns: Epstein (split work into chunks, process in parallel, merge results), Hierarchy (boss + workers + aggregator), Stigmergy (pheromone-based indirect coordination, ant-colony style, SQLite-backed), Consensus (N agents answer independently, majority vote with confidence score), Specialist (boss routes tasks to domain-specific experts via JSON chain definitions). Each pattern ships with a CLI tool and Python API; combine them in chain-definition JSON.
+
+## Docs
+
+- [README](https://github.com/ellmos-ai/swarm-ai/blob/master/README.md): Overview, 5 patterns with examples, benchmarks, architecture
+- [CONTRIBUTING](https://github.com/ellmos-ai/swarm-ai/blob/master/CONTRIBUTING.md): Contribution workflow
+- [LICENSE](https://github.com/ellmos-ai/swarm-ai/blob/master/LICENSE): MIT license text
+
+## Swarm patterns (implementations)
+
+- [runner.py](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/runner.py): ClaudeRunner -- CLI wrapper with `run_parallel()` via ThreadPoolExecutor
+- [consensus_swarm.py](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/consensus_swarm.py): Consensus pattern (majority vote, confidence scoring)
+- [stigmergy_api.py](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/stigmergy_api.py): Stigmergy pattern (pheromone deposit / sense / evaporate)
+- [translate_swarm.py](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/translate_swarm.py): Epstein pattern (parallel translation)
+- [summarize_chunks.py](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/summarize_chunks.py): Epstein pattern (parallel summarisation)
+- [benchmark.py](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/benchmark.py): Sequential vs. parallel benchmarking across 20 tasks / 4 categories
+- [swarm_haiku_3.json](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/swarm_haiku_3.json): Hierarchy chain definition (Coordinator + 3 Workers + Aggregator)
+- [swarm_haiku_research.json](https://github.com/ellmos-ai/swarm-ai/blob/master/tools/swarm_haiku_research.json): Specialist chain (Planner + 5 Researchers + Synthesizer)
+
+## Design documents (German)
+
+- [konzepte/schwarm-operationen.md](https://github.com/ellmos-ai/swarm-ai/blob/master/konzepte/schwarm-operationen.md): Swarm operations reference
+- [konzepte/schwarm-entscheidungsbaum.md](https://github.com/ellmos-ai/swarm-ai/blob/master/konzepte/schwarm-entscheidungsbaum.md): Decision tree for picking a pattern
+- [konzepte/trampelpfadanalyse.md](https://github.com/ellmos-ai/swarm-ai/blob/master/konzepte/trampelpfadanalyse.md): Pheromone-path analysis
+
+## ellmos family (related projects)
+
+- [clutch](https://github.com/ellmos-ai/clutch): Provider-neutral LLM routing (single-task orchestration, complementary to swarm-ai)
+- [MarbleRun / llmauto](https://github.com/ellmos-ai/MarbleRun): Chain-execution framework for sequential agent loops
+- [USMC](https://github.com/ellmos-ai/usmc): Shared memory primitive (Tier 1)
+- [Rinnsal](https://github.com/ellmos-ai/rinnsal): Lightweight LLM agent infrastructure (Tier 2)
+- [BACH](https://github.com/ellmos-ai/bach): Full text-based OS for LLMs (Tier 3)
+- [Skills](https://github.com/ellmos-ai/skills): Portable skill library
+
+## Optional
+
+- [GitHub Issues](https://github.com/ellmos-ai/swarm-ai/issues): Bug reports and feature requests
+- [Benchmark results](https://github.com/ellmos-ai/swarm-ai/tree/master/results): JSON benchmark snapshots
