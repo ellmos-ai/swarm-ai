@@ -5,11 +5,17 @@
 translate_swarm.py - Schwarm-Uebersetzung mit Epstein-Methode (SQ062)
 =====================================================================
 
-Uebersetzt fehlende DE->EN Texte in languages_translations via Claude Haiku.
+Uebersetzt fehlende Texte in languages_translations via Claude Haiku.
 "Epstein-Methode": Texte in kleine Chunks buendeln, 5-10 parallele Haiku-Instanzen.
+Unterstützt 6 Zielsprachen (Referenz: .SOFTWARE/_LANG/LANGUAGE_CODES.md).
 
 Usage:
-    python translate_swarm.py                       # Alle fehlenden uebersetzen
+    python translate_swarm.py                       # Alle fehlenden DE->EN uebersetzen
+    python translate_swarm.py --target en            # Explizit: Zielsprache Englisch
+    python translate_swarm.py --target es            # Zielsprache Spanisch
+    python translate_swarm.py --target zh            # Zielsprache Chinesisch
+    python translate_swarm.py --target ja            # Zielsprache Japanisch
+    python translate_swarm.py --target ru            # Zielsprache Russisch
     python translate_swarm.py --dry-run              # Nur anzeigen, kein API-Call
     python translate_swarm.py --namespace help        # Nur einen Namespace
     python translate_swarm.py --chunk-size 5          # Chunk-Groesse anpassen
@@ -49,19 +55,34 @@ RETRY_BASE_DELAY = 2.0
 TABLE = "languages_translations"
 SOURCE_TAG = "llm_auto_swarm"
 
-SYSTEM_PROMPT = (
-    "You are a professional translator. Translate German UI/help texts "
-    "to English.\n\n"
-    "RULES:\n"
-    "- Keep markdown formatting, code blocks, headings (===, ---) unchanged\n"
-    "- Keep placeholders like {variable}, {count}, {name} unchanged\n"
-    "- Keep CLI commands (python ..., npm ..., --flags) unchanged\n"
-    "- Keep technical terms: Skill, Agent, Handler, Hub, Kernel, Daemon, Workflow, Task, Wiki, Memory\n"
-    "- Keep SQL statements unchanged\n"
-    "- Maintain the same tone (professional but friendly)\n"
-    "- If text contains ONLY code/commands/variables, return it unchanged\n"
-    "- Output ONLY valid JSON, nothing else"
-)
+SUPPORTED_LANGUAGES = ['de', 'en', 'es', 'zh', 'ja', 'ru']
+LANGUAGE_NAMES = {
+    'de': 'German', 'en': 'English', 'es': 'Spanish',
+    'zh': 'Chinese (Simplified)', 'ja': 'Japanese', 'ru': 'Russian',
+}
+DEFAULT_SOURCE = 'de'
+DEFAULT_TARGET = 'en'
+
+
+def get_system_prompt(target_lang: str) -> str:
+    target_name = LANGUAGE_NAMES.get(target_lang, 'English')
+    return (
+        f"You are a professional translator. Translate German UI/help texts "
+        f"to {target_name}.\n\n"
+        "RULES:\n"
+        "- Keep markdown formatting, code blocks, headings (===, ---) unchanged\n"
+        "- Keep placeholders like {variable}, {count}, {name} unchanged\n"
+        "- Keep CLI commands (python ..., npm ..., --flags) unchanged\n"
+        "- Keep technical terms: Skill, Agent, Handler, Hub, Kernel, Daemon, Workflow, Task, Wiki, Memory\n"
+        "- Keep SQL statements unchanged\n"
+        "- Maintain the same tone (professional but friendly)\n"
+        "- If text contains ONLY code/commands/variables, return it unchanged\n"
+        "- Output ONLY valid JSON, nothing else"
+    )
+
+
+# Legacy constant for backwards compatibility
+SYSTEM_PROMPT = get_system_prompt('en')
 
 
 # --- Hilfsfunktionen ---
@@ -95,9 +116,9 @@ def get_db_path():
     return db_path
 
 
-def get_missing_translations(db_path, namespace=None, limit=0):
+def get_missing_translations(db_path, namespace=None, limit=0, target_lang='en'):
     """
-    Holt alle DE-Texte ohne EN-Uebersetzung.
+    Holt alle DE-Texte ohne Übersetzung in der Zielsprache.
 
     Returns:
         Liste von Dicts: {id, key, namespace, value}
@@ -113,11 +134,11 @@ def get_missing_translations(db_path, namespace=None, limit=0):
             SELECT 1 FROM {TABLE} t2
             WHERE t2.key = t1.key
             AND t2.namespace = t1.namespace
-            AND t2.language = 'en'
+            AND t2.language = ?
             AND t2.value != ''
         )
     """
-    params = []
+    params = [target_lang]
 
     if namespace:
         query += " AND t1.namespace = ?"
@@ -142,33 +163,36 @@ def chunk_texts(texts, chunk_size):
 # --- Kern: API-Call pro Chunk ---
 
 
-def translate_chunk(client, chunk, chunk_index, total_chunks):
+def translate_chunk(client, chunk, chunk_index, total_chunks, target_lang='en'):
     """
     Uebersetzt einen Chunk von Texten via Haiku API.
 
     Returns:
         (chunk_index, results_list, error_or_none)
     """
+    target_name = LANGUAGE_NAMES.get(target_lang, 'English')
     texts_for_api = [
         {"key": item["key"], "namespace": item["namespace"], "de": item["value"]}
         for item in chunk
     ]
 
     user_prompt = (
-        f"Translate these {len(chunk)} German texts to English.\n\n"
+        f"Translate these {len(chunk)} German texts to {target_name}.\n\n"
         f"INPUT (JSON array):\n"
         f"{json.dumps(texts_for_api, ensure_ascii=False, indent=2)}\n\n"
-        f"OUTPUT FORMAT (JSON array, same order, same keys + \"en\" field):\n"
-        f'[{{"key": "...", "namespace": "...", "en": "translated text"}}, ...]\n\n'
+        f"OUTPUT FORMAT (JSON array, same order, same keys + \"{target_lang}\" field):\n"
+        f'[{{"key": "...", "namespace": "...", "{target_lang}": "translated text"}}, ...]\n\n'
         f"Return ONLY the JSON array, no explanation."
     )
+
+    system_prompt = get_system_prompt(target_lang)
 
     for attempt in range(MAX_RETRIES):
         try:
             message = client.messages.create(
                 model=MODEL,
                 max_tokens=4096,
-                system=SYSTEM_PROMPT,
+                system=system_prompt,
                 messages=[{"role": "user", "content": user_prompt}],
             )
 
@@ -189,11 +213,12 @@ def translate_chunk(client, chunk, chunk_index, total_chunks):
 
             mapped = []
             for orig, translated in zip(chunk, results):
-                en_text = translated.get("en", "") or translated.get("translation", "")
+                trans_text = (translated.get(target_lang, "")
+                              or translated.get("translation", ""))
                 mapped.append({
                     "key": orig["key"],
                     "namespace": orig["namespace"],
-                    "translation": en_text,
+                    "translation": trans_text,
                 })
 
             return (chunk_index, mapped, None)
@@ -221,7 +246,7 @@ def translate_chunk(client, chunk, chunk_index, total_chunks):
 # --- DB-Writer ---
 
 
-def write_results_to_db(db_path, all_results):
+def write_results_to_db(db_path, all_results, target_lang='en'):
     """
     Schreibt Uebersetzungs-Ergebnisse gesammelt in die DB.
     Single-threaded, wird NACH allen API-Calls aufgerufen.
@@ -236,8 +261,8 @@ def write_results_to_db(db_path, all_results):
             conn.execute(
                 f"INSERT INTO {TABLE} "
                 "(key, namespace, language, value, is_verified, source, created_at, updated_at) "
-                "VALUES (?, ?, 'en', ?, 0, ?, ?, ?)",
-                (item["key"], item["namespace"], item["translation"],
+                f"VALUES (?, ?, ?, ?, 0, ?, ?, ?)",
+                (item["key"], item["namespace"], target_lang, item["translation"],
                  SOURCE_TAG, now, now),
             )
             success += 1
@@ -258,14 +283,15 @@ def write_results_to_db(db_path, all_results):
 def run_swarm(source_lang="de", target_lang="en", namespace=None,
               chunk_size=DEFAULT_CHUNK_SIZE, workers=DEFAULT_WORKERS,
               limit=0, dry_run=False):
-    """Schwarm-Uebersetzung mit Epstein-Methode."""
+    """Schwarm-Übersetzung mit Epstein-Methode."""
     db_path = get_db_path()
 
     # 1. Fehlende laden
-    missing = get_missing_translations(db_path, namespace, limit)
+    missing = get_missing_translations(db_path, namespace, limit, target_lang)
 
     if not missing:
-        print("[OK] Alle Texte sind bereits uebersetzt!")
+        target_name = LANGUAGE_NAMES.get(target_lang, target_lang)
+        print(f"[OK] Alle Texte sind bereits nach {target_name} übersetzt!")
         return True
 
     # Namespace-Verteilung anzeigen
@@ -274,7 +300,7 @@ def run_swarm(source_lang="de", target_lang="en", namespace=None,
         ns = t["namespace"] or "general"
         by_ns.setdefault(ns, []).append(t)
 
-    print(f"[SWARM] {len(missing)} Texte zu uebersetzen ({source_lang} -> {target_lang})")
+    print(f"[SWARM] {len(missing)} Texte zu übersetzen ({source_lang} -> {target_lang})")
     for ns, texts in sorted(by_ns.items()):
         print(f"         {ns}: {len(texts)}")
 
@@ -313,7 +339,7 @@ def run_swarm(source_lang="de", target_lang="en", namespace=None,
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {
-            executor.submit(translate_chunk, client, chunk, i, len(chunks)): i
+            executor.submit(translate_chunk, client, chunk, i, len(chunks), target_lang): i
             for i, chunk in enumerate(chunks)
         }
 
@@ -336,18 +362,18 @@ def run_swarm(source_lang="de", target_lang="en", namespace=None,
 
     # 5. In DB schreiben
     if all_results:
-        print(f"\n[SWARM] Schreibe {len(all_results)} Uebersetzungen in DB...")
-        db_success, db_errors = write_results_to_db(db_path, all_results)
+        print(f"\n[SWARM] Schreibe {len(all_results)} Übersetzungen in DB...")
+        db_success, db_errors = write_results_to_db(db_path, all_results, target_lang)
         print(f"         Geschrieben: {db_success}")
         if db_errors > 0:
-            print(f"         Uebersprungen (Duplikate): {db_errors}")
+            print(f"         Übersprungen (Duplikate): {db_errors}")
 
     # 6. Zusammenfassung
     print(f"\n{'=' * 60}")
     print(f"  ERGEBNIS")
     print(f"{'=' * 60}")
-    print(f"  Gesamt zu uebersetzen:  {len(missing)}")
-    print(f"  Erfolgreich uebersetzt: {len(all_results)}")
+    print(f"  Gesamt zu übersetzen:   {len(missing)}")
+    print(f"  Erfolgreich übersetzt:  {len(all_results)}")
     print(f"  Fehler (API):           {len(all_errors)}")
     print(f"  Dauer:                  {elapsed:.1f}s")
     print(f"  Chunks:                 {len(chunks)} (a {chunk_size} Texte)")
@@ -362,16 +388,17 @@ def run_swarm(source_lang="de", target_lang="en", namespace=None,
     return len(all_errors) == 0
 
 
-def show_inventory(namespace=None):
-    """Zeigt Inventar der fehlenden Uebersetzungen."""
+def show_inventory(namespace=None, target_lang='en'):
+    """Zeigt Inventar der fehlenden Übersetzungen."""
     db_path = get_db_path()
-    missing = get_missing_translations(db_path, namespace)
+    target_name = LANGUAGE_NAMES.get(target_lang, target_lang)
+    missing = get_missing_translations(db_path, namespace, target_lang=target_lang)
 
     if not missing:
-        print("[OK] Alle Texte sind bereits uebersetzt!")
+        print(f"[OK] Alle Texte sind bereits nach {target_name} übersetzt!")
         return
 
-    print(f"[INVENTAR] {len(missing)} fehlende EN-Uebersetzungen\n")
+    print(f"[INVENTAR] {len(missing)} fehlende {target_name}-Übersetzungen\n")
 
     by_ns = {}
     for t in missing:
@@ -398,11 +425,11 @@ def show_inventory(namespace=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Schwarm-Uebersetzung mit Epstein-Methode (SQ062)"
+        description="Schwarm-Übersetzung mit Epstein-Methode (SQ062)"
     )
     parser.add_argument(
         "--namespace", "-n",
-        help="Nur einen Namespace uebersetzen (cli/docs/help/gui/skills)",
+        help="Nur einen Namespace übersetzen (cli/docs/help/gui/skills)",
     )
     parser.add_argument(
         "--chunk-size", type=int, default=DEFAULT_CHUNK_SIZE,
@@ -414,7 +441,7 @@ def main():
     )
     parser.add_argument(
         "--limit", type=int, default=0,
-        help="Max. Texte uebersetzen (0 = alle)",
+        help="Max. Texte übersetzen (0 = alle)",
     )
     parser.add_argument("--dry-run", action="store_true", help="Nur anzeigen, kein API-Call")
     parser.add_argument("--inventory", action="store_true", help="Inventar anzeigen")
@@ -424,7 +451,7 @@ def main():
     args = parser.parse_args()
 
     if args.inventory:
-        show_inventory(args.namespace)
+        show_inventory(args.namespace, args.target)
         return
 
     success = run_swarm(

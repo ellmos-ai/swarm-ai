@@ -2,7 +2,6 @@
 """
 test_imports.py -- Verify all core modules are importable.
 """
-import pytest
 
 
 def test_import_runner():
@@ -41,8 +40,7 @@ def test_import_summarize_chunks():
     assert "sonnet" in MODELS
 
 
-def test_benchmark_has_broken_import():
-    """benchmark.py imports from llmauto.core.runner which does not exist
-    in the standalone package. This test documents the known issue."""
-    with pytest.raises(ModuleNotFoundError, match="llmauto"):
-        import tools.benchmark  # noqa: F401
+def test_import_benchmark():
+    import tools.benchmark as benchmark
+
+    assert benchmark.run_benchmark is not None
