@@ -1,6 +1,45 @@
 # Schwarm-Operationen Protokoll
 
-**Version:** 1.0 | **Stand:** 2026-02-22 | **Bezug:** MASTERPLAN SQ051
+**Version:** 1.1 | **Stand:** 2026-06-17 | **Bezug:** MASTERPLAN SQ051
+
+## Anwendungsmodi
+
+Die 5 Grundmuster sind **Schwarmorganisation** (das WIE). Davon zu unterscheiden sind **Anwendungsmodi** (das WOFUER):
+
+| Modus | Beschreibung | Typische Grundmuster |
+|-------|-------------|---------------------|
+| **Suchschwarm** | Alle Agenten suchen dasselbe Ziel | Parallel-Chunks, Stigmergy |
+| **Aufgabenschwarm** | Agenten erledigen Teilaufgaben | Hierarchie, Parallel-Chunks, Stigmergy, Konsensus, Spezialist |
+
+### Suchschwarm-Varianten
+
+**Variante A — Echolot (Kartierung):**
+Ziel: System/Terrain kartieren (z.B. Trampelpfadanalyse). Kein konkreter Schatz, sondern Heatmap der besuchten Pfade.
+
+**Variante B — Schatzsuche (ein oder viele Schaetze):**
+Ziel: spezifische Objekte finden (Dateien, Bugs, Muster, ...).
+Abbruch-Kriterien (NICHT beim ersten Fund, es koennte mehrere geben):
+- Zeitlimit: nach N Minuten / M Agenten-Runden
+- Schatzfundrate: wenn ueber mehrere Runden kein neuer Fund -> Suche gesaettigt
+- Vollstaendigkeit: wenn alle Suchbereiche abgedeckt sind
+
+**Variante C — Single Op / Spermienprinzip (Unterform der Schatzsuche):**
+Voraussetzung: Es existiert GENAU EIN Schatz.
+Abbruch: sofort wenn der erste Agent findet (alle anderen stoppen).
+Pflicht: Signal-Mechanismus damit alle Worker den Abbruch erkennen:
+- Signal-Datei (.found im gemeinsamen Verzeichnis) — empfohlen
+- Threading.Event (nur gleicher Prozess)
+- Subprocess.kill (Orchestrator bricht Worker ab)
+- Kill-Datei + Poll (Worker prueft .stop-Datei jede Runde)
+
+### Trampelpfadanalyse (Suchschwarm als empirisches Instrument)
+
+Naive LLM-Agenten erkunden ein System ohne Anleitung, ihre besuchten Pfade werden als Heatmap aufgezeichnet.
+Ergebnis: Dokumentations-Blindstellen sichtbar machen — wo geht kein Agent hin?
+Grossversuch-Ergebnis (100 Haiku-Sonden, $3.54): groesster Blindfleck = help/ (0/100 Besuche), 0%-Aufgabe = "neuen Skill erstellen".
+Implementierung: `elephant_path_treasure_hunt.py` (Rounds-basiert v2), `*_live.py` (Continuous Flow v3 mit Leichen-System).
+
+---
 
 ## 5 Grundmuster
 

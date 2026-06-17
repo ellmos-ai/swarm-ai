@@ -1,6 +1,31 @@
 # Schwarm-Entscheidungsbaum: Wann welches Muster?
 
-**Version:** 1.0 | **Stand:** 2026-02-22 | **Bezug:** MASTERPLAN SQ051
+**Version:** 1.1 | **Stand:** 2026-06-17 | **Bezug:** MASTERPLAN SQ051
+
+## Schritt 1: Anwendungsmodus waehlen
+
+Bevor du das Grundmuster waehlst, bestimme was du erreichen willst:
+
+```
+Aufgabe gegeben
+    |
+    +-- Alle Agenten sollen dasselbe FINDEN? --> Suchschwarm
+    |       |
+    |       +-- Kartierung/Heatmap (kein konkretes Ziel)      --> Echolot (Trampelpfadanalyse)
+    |       +-- Viele/unbekannte Schaetze, Zeit unkritisch    --> Schatzsuche (Abbruch per Rate/Zeit)
+    |       +-- Genau EIN Schatz, sofortiger Abbruch noetig  --> Single Op / Spermienprinzip
+    |                                                              PFLICHT: Signal-Mechanismus
+    |
+    +-- Agenten sollen Teilaufgaben ERLEDIGEN? --> Aufgabenschwarm
+            |
+            --> weiter mit Schritt 2 (Grundmuster waehlen)
+```
+
+**Schatzsuche vs. Single Op:**
+- Schatzsuche: Ein oder viele Schaetze (z.B. Bugs). NICHT beim ersten Fund abbrechen — es koennte mehr geben. Abbruch per Schatzfundrate (keine neuen Funde mehrere Runden = gesaettigt) oder Zeitlimit.
+- Single Op: Genau EIN Schatz. Erster Fund = Ende fuer alle. Signal-Datei (.found im geteilten Verzeichnis) empfohlen als Mechanismus.
+
+## Schritt 2: Grundmuster waehlen (fuer Aufgabenschwarm)
 
 ## Entscheidungsbaum
 
