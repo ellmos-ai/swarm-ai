@@ -16,15 +16,15 @@ jobs:
     steps:
       - uses: actions/first-interaction@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: |
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          issue_message: |
             Welcome. Thanks for opening your first issue in this repository.
 
             We'll review it as soon as possible. In the meantime:
             - Check if there is a similar issue already open.
             - Add steps to reproduce, expected behavior, and environment details.
             - Note whether the report concerns the CLI tools, Python API, or design docs.
-          pr-message: |
+          pr_message: |
             Welcome. Thanks for your first pull request in this repository.
 
             A maintainer will review it soon. Please make sure:
