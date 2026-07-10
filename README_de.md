@@ -174,7 +174,7 @@ swarm-ai ist öffentlich und als experimentelles Toolkit nutzbar. Die Kernmodule
 
 Aktuelle Prüfung:
 
-- 98 lokale Tests grün.
+- 99 lokale Tests grün.
 - MIT-lizenziert.
 - Noch kein PyPI-Release.
 - Keine grafische Oberfläche und keine gehostete Landing-Page.

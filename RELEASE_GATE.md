@@ -10,7 +10,7 @@
 ## Pre-Release Checklist
 
 - [x] All 5 swarm patterns tested at unit level
-  - **Current local check (2026-06-05):** `PYTHONIOENCODING=utf-8 python -m pytest -q` -> 98 tests passed. Distribution: runner.py (18), stigmergy_api.py (22), consensus_swarm.py (18), translate_swarm.py (13), summarize_chunks.py (20), imports (7). API calls are mocked; end-to-end tests with real API calls are still tracked separately below.
+  - **Current local check (2026-07-10):** `PYTHONIOENCODING=utf-8 python -m pytest -q` -> 99 tests passed. Distribution: runner.py (19), stigmergy_api.py (22), consensus_swarm.py (18), translate_swarm.py (13), summarize_chunks.py (20), imports (7). API calls are mocked; end-to-end tests with real API calls are still tracked separately below.
 - [ ] `summarize_chunks.py` end-to-end tested
   - Unit-Tests bestanden. End-to-end mit echtem API-Call und DB ausstehend.
 - [x] `consensus_swarm.py` end-to-end tested
@@ -40,7 +40,7 @@
 
 At least **80%** of the checklist items above must be completed (green) before this repository may be set to public.
 
-**Aktueller Stand: 9/10 (90%) -- Gate freigegeben. Repo kann auf public gesetzt werden.**
+**Aktueller Stand: 9/10 (90%) -- Gate freigegeben. Repo ist public und bleibt als experimentelles Toolkit freigegeben.**
 
 ## Responsible
 

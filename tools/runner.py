@@ -133,6 +133,8 @@ class ClaudeRunner:
         for item in prompts:
             if isinstance(item, dict):
                 item_copy = dict(item)
+                if "prompt" not in item_copy:
+                    raise ValueError("Dict prompt items must include a 'prompt' key")
                 prompt = item_copy.pop("prompt")
                 merged = {**overrides, **item_copy}
                 tasks.append((prompt, merged))

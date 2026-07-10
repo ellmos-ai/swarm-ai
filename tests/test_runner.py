@@ -203,6 +203,11 @@ class TestRunParallel:
         assert len(results) == 3
         assert all(r is not None for r in results)
 
+    def test_parallel_dict_requires_prompt_key(self):
+        runner = ClaudeRunner()
+        with pytest.raises(ValueError, match="prompt"):
+            runner.run_parallel([{"model": "claude-haiku-4-5-20251001"}])
+
 
 class TestPipe:
     """Tests for pipe() convenience method."""

@@ -174,7 +174,7 @@ swarm-ai is public and usable as an experimental toolkit. The core modules have 
 
 Current verification:
 
-- 98 local tests passing.
+- 99 local tests passing.
 - MIT licensed.
 - No package release on PyPI yet.
 - No graphical interface or hosted landing page.
