@@ -1,0 +1,49 @@
+{
+  "schema": "ellmos.module.v2",
+  "id": "swarm_ai",
+  "display_name": "swarm_ai",
+  "description": "Local-first Python toolkit for inspectable LLM swarm coordination patterns.",
+  "package": null,
+  "entrypoints": {
+    "consensus": "python tools/consensus_swarm.py",
+    "benchmark": "python tools/benchmark.py"
+  },
+  "category": "orchestration",
+  "kind": "workflow",
+  "status": "experimental",
+  "visibility": "public",
+  "provides": [
+    "swarm.patterns",
+    "swarm.parallel",
+    "swarm.consensus"
+  ],
+  "requires": [],
+  "optional": [
+    "routing.default"
+  ],
+  "conflicts": [],
+  "surfaces": [
+    "library",
+    "cli",
+    "workflow"
+  ],
+  "state": {
+    "ownership": "module",
+    "location": "project"
+  },
+  "boundaries": {
+    "network": "optional",
+    "data": "application-defined",
+    "platforms": [
+      "windows",
+      "macos",
+      "linux"
+    ]
+  },
+  "source_of_truth": {
+    "type": "git-repository",
+    "path": ".",
+    "repository": "https://github.com/ellmos-ai/swarm-ai.git"
+  },
+  "adapters": []
+}

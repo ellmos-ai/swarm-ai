@@ -48,6 +48,14 @@ swarm-ai is intentionally smaller than enterprise agent platforms such as CrewAI
 | 4 | **Consensus / Majority Vote** | You need multiple independent answers and a confidence score | `tools/consensus_swarm.py` |
 | 5 | **Specialist / Boss Routing** | Different subtasks need different expert roles | `tools/swarm_haiku_research.json` |
 
+## Coordination Guardrail: Team Locks
+
+When multiple agents share files, tools, MCP sessions, or result artifacts, use a
+project-local team lock before starting parallel work. The lock procedure is a
+coordination layer around the five swarm patterns, not a sixth pattern. See
+[`konzepte/team-lock-verfahren.md`](konzepte/team-lock-verfahren.md) for the
+portable file format, claim rules, and lifecycle.
+
 ## Installation
 
 ```bash

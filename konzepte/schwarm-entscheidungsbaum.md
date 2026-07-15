@@ -71,6 +71,7 @@ Bevor du einen Schwarm startest, beantworte:
 3. **Koordination noetig?** Muessen Zwischenergebnisse aufeinander abgestimmt werden?
 4. **Kritikalitaet?** Wie schlimm ist ein Fehler in einem Teilergebnis?
 5. **Budget?** Konsensus-Schwarm kostet 3x — lohnt es sich?
+6. **Lock nötig?** Werden Dateien, Tools, MCP-Sitzungen oder Ergebnisartefakte geteilt? Dann vor dem Start `team-lock-verfahren.md` lesen und einen projektlokalen Team-Lock nutzen.
 
 ## Kostenmatrix
 

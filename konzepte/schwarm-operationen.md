@@ -43,6 +43,11 @@ Implementierung: `elephant_path_treasure_hunt.py` (Rounds-basiert v2), `*_live.p
 
 ## 5 Grundmuster
 
+Vor jedem Aufgabenschwarm mit möglicher Überschneidung gilt zusätzlich das
+Team-Lock-Verfahren aus `team-lock-verfahren.md`. Es ist kein sechstes Muster,
+sondern schützt gemeinsame Dateien, Tools, MCP-Sitzungen und Ergebnisartefakte
+über einen projektlokalen Koordinationsraum.
+
 ### 1. Parallel-Chunks
 
 Aufgabe -> N gleichgrosse Chunks -> N parallele Agenten -> Ergebnisse zusammenfuehren
