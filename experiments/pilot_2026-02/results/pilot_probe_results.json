@@ -255,7 +255,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\. \n\nDEIN AUFTRAG: \"Erstelle einen neuen Task in BACH mit dem Titel 'Server-Migration planen'\"\n\nDu weisst NICHT was B"
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\. \n\nDEIN AUFTRAG: \"Erstelle einen neuen Task in BACH mit dem Titel 'Server-Migration planen'\"\n\nDu weisst NICHT was B"
       },
       {
         "role": "assistant",
@@ -539,7 +539,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Starte das BACH System\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus und versuc"
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Starte das BACH System\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus und versuc"
       },
       {
         "role": "assistant",
@@ -793,7 +793,7 @@
     ],
     "success": true,
     "error_messages": [
-      "C:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\extensions\\ExplorerPro\\src\\modules\\editor\\syntax_highlighter.py\nC:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vani",
+      "<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\extensions\\ExplorerPro\\src\\modules\\editor\\syntax_highlighter.py\n<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vani",
       "     1→# -*- coding: utf-8 -*-\n     2→\"\"\"\n     3→bach_paths.py - Zentrale Self-Healing Pfad-Konfiguration v2.0.0\n     4→=============================="
     ],
     "timeline": [
@@ -914,7 +914,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Finde meine Steuerbelege in BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus "
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Finde meine Steuerbelege in BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus "
       },
       {
         "role": "assistant",
@@ -1254,7 +1254,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Welche Tasks sind gerade offen in BACH?\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es "
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Welche Tasks sind gerade offen in BACH?\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es "
       },
       {
         "role": "assistant",
@@ -1443,7 +1443,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Finde alle Python-Tools in BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus u"
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Finde alle Python-Tools in BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus u"
       },
       {
         "role": "assistant",
@@ -1710,7 +1710,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Schreibe einen Wiki-Artikel ueber Docker in BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. "
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Schreibe einen Wiki-Artikel ueber Docker in BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. "
       },
       {
         "role": "assistant",
@@ -1752,7 +1752,7 @@
     "model": "Haiku",
     "task": "Logs lesen",
     "visited_paths": [
-      "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
+      "<USER_HOME>\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
       "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log",
       "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**",
       "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/logs/**",
@@ -1777,7 +1777,7 @@
         "timestamp": "2026-02-15T00:12:20.420Z",
         "tool": "Read",
         "id": "toolu_014UALXrDRGxbD2GBWsBrWSc",
-        "path": "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md"
+        "path": "<USER_HOME>\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md"
       },
       {
         "timestamp": "2026-02-15T00:12:23.106Z",
@@ -1902,7 +1902,7 @@
     "timeline": [
       {
         "time": "2026-02-15T00:12:20.420Z",
-        "action": "Read: C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md"
+        "action": "Read: <USER_HOME>\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md"
       },
       {
         "time": "2026-02-15T00:12:23.106Z",
@@ -1985,7 +1985,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Lies die letzten Logs aus BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus un"
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Lies die letzten Logs aus BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus un"
       },
       {
         "role": "assistant",
@@ -2275,7 +2275,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Welche Agenten gibt es in BACH?\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus u"
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Welche Agenten gibt es in BACH?\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus u"
       },
       {
         "role": "assistant",
@@ -2497,7 +2497,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Exportiere Daten aus der BACH-Datenbank\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es "
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Exportiere Daten aus der BACH-Datenbank\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es "
       },
       {
         "role": "assistant",
@@ -2733,9 +2733,9 @@
     "error_messages": [
       "<tool_use_error>Sibling tool call errored</tool_use_error>",
       "<tool_use_error>Sibling tool call errored</tool_use_error>",
-      "C:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\agents\\_experts\\foerderplaner\\Kontext\\Übersicht Spiele in Schränken.docx\nC:\\Users\\User\\OneDrive\\KI",
-      "C:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\skills\\_templates\\gesundheitsmanager-schema.md\nC:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system",
-      "C:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\tools\\maintenance\\README.md\nC:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\tools\\generators\\R",
+      "<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\agents\\_experts\\foerderplaner\\Kontext\\Übersicht Spiele in Schränken.docx\n<USER_HOME>\\OneDrive\\KI",
+      "<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\skills\\_templates\\gesundheitsmanager-schema.md\n<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system",
+      "<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\tools\\maintenance\\README.md\n<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system\\tools\\generators\\R",
       "     1→#!/usr/bin/env python3\n     2→# -*- coding: utf-8 -*-\n     3→\"\"\"\n     4→bach.py - BACH v2.0 Unified CLI (Registry-Based)\n     5→===============",
       "     1→\"\"\"\n     2→BACH Library API - Programmatischer Zugriff ohne CLI\n     3→=====================================================\n     4→\n     5→Dre",
       "     1→# -*- coding: utf-8 -*-\n     2→\"\"\"\n     3→bach_paths.py - Zentrale Self-Healing Pfad-Konfiguration v2.0.0\n     4→==============================",
@@ -2849,7 +2849,7 @@
     "conversation": [
       {
         "role": "user",
-        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter C:\\Users\\User\\.\n\nDEIN AUFTRAG: \"Pruefe den System-Status von BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus"
+        "text": "Du bist ein Assistent. Der Nutzer arbeitet auf einem Windows-PC unter <USER_HOME>\\.\n\nDEIN AUFTRAG: \"Pruefe den System-Status von BACH\"\n\nDu weisst NICHT was BACH ist oder wo es liegt. Finde es heraus"
       },
       {
         "role": "assistant",
