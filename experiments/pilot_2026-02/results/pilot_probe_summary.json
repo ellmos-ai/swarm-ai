@@ -169,7 +169,7 @@
       },
       "success": true,
       "visited_paths": [
-        "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
+        "<USER_HOME>\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
         "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log",
         "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**",
         "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/logs/**",
@@ -182,7 +182,7 @@
         "..."
       ],
       "key_files_read": [
-        "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
+        "<USER_HOME>\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
         "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
         "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       ],

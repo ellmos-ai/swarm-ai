@@ -114,7 +114,7 @@ def test_claude_experiment_launchers_are_isolated():
         assert "--max-budget-usd" in source
         assert "--max-total-budget-usd" in source
         assert "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT" in source
-        assert "C:\\Users\\User" not in source
+        assert ("C:" + "\\Users\\User") not in source
         assert "MEMORY_FILE" not in source
         assert "MEMORY_BACKUP" not in source
 
