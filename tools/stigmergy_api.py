@@ -1,345 +1,295 @@
-"""
-stigmergy_api.py — Pheromon-basierte Schwarm-Koordination
+"""SQLite-backed stigmergic coordination for swarm agents.
 
-Stigmergy: Agenten kommunizieren indirekt ueber Markierungen in der Umgebung,
-aehnlich wie Ameisen Pheromone hinterlassen.
-
-Implementierung: SQLite-basierte shared_memory_working Tabelle als Pheromon-Traeger
-Namespace: 'stigmergy' (gespeichert via tags + related_to)
-
-Mapping auf shared_memory_working Spalten:
-    type      = 'note'
-    content   = JSON: {namespace, path_id, strength, metadata, agent_id, timestamp}
-    tags      = '["stigmergy"]'
-    related_to = path_id (fuer schnelles Filtern)
-    priority  = int(strength * 10)  (0-10 Skala)
-    agent_id  = Agent der das Pheromon hinterlassen hat
-
-Implementierung: 2026-03-01
+The API owns a small standalone table and initializes it on first use.  Older
+``shared_memory_working`` pheromones are imported idempotently when present.
 """
 from __future__ import annotations
-from typing import Optional
-import sqlite3
+
 import json
-from datetime import datetime
+import math
+import sqlite3
+from contextlib import contextmanager
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Iterator, Optional
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _timestamp_rank(value: object) -> float:
+    """Normalize legacy ISO timestamps for deterministic migration ordering."""
+    if not isinstance(value, str) or not value.strip():
+        return float("-inf")
+    try:
+        parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError:
+        return float("-inf")
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.timestamp()
 
 
 class StigmergyAPI:
-    """
-    Pheromon-basierte Koordination fuer Schwarm-Agenten.
+    """Coordinate agents through ranked, persistent pheromone records."""
 
-    Agenten hinterlassen 'Pheromone' (Markierungen) in shared_memory_working.
-    Andere Agenten lesen diese und waehlen vielversprechende Pfade.
+    NAMESPACE = "stigmergy"
+    TABLE = "swarm_pheromones"
+    LEGACY_TABLE = "shared_memory_working"
 
-    Konzept: Ein System das sich selbst koordinieren kann, braucht keine zentrale Steuerung.
-
-    Tabellen-Mapping (shared_memory_working):
-        type       = 'note'
-        content    = JSON mit {namespace, path_id, strength, metadata, agent_id, timestamp}
-        tags       = '["stigmergy"]'
-        related_to = path_id
-        priority   = int(strength * 10)
-    """
-
-    NAMESPACE = 'stigmergy'
-    TABLE = 'shared_memory_working'
-
-    def __init__(self, db_path: str, agent_id: str = 'anonymous'):
-        self.db_path = db_path
-        self.agent_id = agent_id
+    def __init__(self, db_path: str, agent_id: str = "anonymous", *,
+                 strict: bool = False, migrate_legacy: bool = True):
+        if not str(db_path).strip():
+            raise ValueError("db_path must not be empty")
+        if str(db_path).strip() == ":memory:":
+            raise ValueError(":memory: is not supported; use a file-backed SQLite path")
+        if not isinstance(agent_id, str) or not agent_id.strip():
+            raise ValueError("agent_id must be a non-empty string")
+        self.db_path = str(db_path)
+        self.agent_id = agent_id.strip()
+        self.strict = strict
+        self.last_error: Optional[str] = None
+        self.initialize_schema(migrate_legacy=migrate_legacy)
 
     def _connect(self) -> sqlite3.Connection:
-        """Erstelle eine DB-Verbindung mit Row-Factory."""
-        conn = sqlite3.connect(self.db_path)
+        path = Path(self.db_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        conn = sqlite3.connect(self.db_path, timeout=10)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA busy_timeout = 10000")
+        conn.execute("PRAGMA journal_mode = WAL")
         return conn
 
-    def _make_content(self, path_id: str, strength: float,
-                      metadata: dict | None) -> str:
-        """Baue den JSON-Content-String fuer ein Pheromon."""
-        return json.dumps({
-            'namespace': self.NAMESPACE,
-            'path_id': path_id,
-            'strength': strength,
-            'metadata': metadata or {},
-            'agent_id': self.agent_id,
-            'timestamp': datetime.now().isoformat(),
-        }, ensure_ascii=False)
-
-    def _parse_content(self, content_str: str) -> dict | None:
-        """Parse den JSON-Content eines Pheromons. None bei Fehler."""
+    @contextmanager
+    def _connection(self) -> Iterator[sqlite3.Connection]:
+        """Commit or roll back a transaction and always close the handle."""
+        conn = self._connect()
         try:
-            data = json.loads(content_str)
-            if data.get('namespace') == self.NAMESPACE:
-                return data
-        except (json.JSONDecodeError, TypeError, AttributeError):
-            pass
-        return None
+            with conn:
+                yield conn
+        finally:
+            conn.close()
 
-    def deposit(self, path_id: str, strength: float = 1.0, metadata: dict = None) -> bool:
-        """
-        Hinterlasse ein Pheromon auf einem Pfad.
+    def _failure(self, exc: Exception, default):
+        self.last_error = f"{type(exc).__name__}: {exc}"
+        if self.strict:
+            raise exc
+        return default
 
-        Args:
-            path_id: Identifier des Pfads/der Aufgabe (z.B. 'approach_A', 'module_xyz')
-            strength: Pheromon-Staerke (0.0 - 1.0), hoeher = vielversprechender
-            metadata: Zusaetzliche Infos (Ergebnis, Bewertung, Kontext)
+    def initialize_schema(self, *, migrate_legacy: bool = True) -> None:
+        """Create the standalone schema and optionally import legacy records."""
+        with self._connection() as conn:
+            conn.execute(f"""
+                CREATE TABLE IF NOT EXISTS {self.TABLE} (
+                    path_id TEXT PRIMARY KEY,
+                    strength REAL NOT NULL CHECK(strength >= 0 AND strength <= 1),
+                    metadata_json TEXT NOT NULL DEFAULT '{{}}',
+                    agent_id TEXT NOT NULL,
+                    created_at TEXT NOT NULL,
+                    updated_at TEXT NOT NULL,
+                    is_active INTEGER NOT NULL DEFAULT 1 CHECK(is_active IN (0, 1))
+                )
+            """)
+            conn.execute(f"""
+                CREATE INDEX IF NOT EXISTS idx_{self.TABLE}_ranking
+                ON {self.TABLE}(is_active, strength DESC, updated_at DESC)
+            """)
+            if migrate_legacy:
+                self._migrate_legacy(conn)
 
-        Returns:
-            True bei Erfolg, False bei Fehler
+    def _migrate_legacy(self, conn: sqlite3.Connection) -> int:
+        exists = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+            (self.LEGACY_TABLE,),
+        ).fetchone()
+        if not exists:
+            return 0
+        columns = {
+            row["name"] for row in conn.execute(
+                f"PRAGMA table_info({self.LEGACY_TABLE})"
+            ).fetchall()
+        }
+        if not {"content", "is_active"}.issubset(columns):
+            return 0
+        candidates = {}
+        for row in conn.execute(
+            f"SELECT rowid AS legacy_rowid, content FROM {self.LEGACY_TABLE} "
+            "WHERE is_active = 1 ORDER BY rowid ASC"
+        ).fetchall():
+            try:
+                data = json.loads(row["content"])
+                if data.get("namespace") != self.NAMESPACE:
+                    continue
+                path_id = str(data["path_id"]).strip()
+                if not path_id:
+                    continue
+                strength = float(data.get("strength", 1))
+                if not math.isfinite(strength):
+                    continue
+                strength = max(0.0, min(1.0, strength))
+                metadata = data.get("metadata") or {}
+                if not isinstance(metadata, dict):
+                    continue
+                metadata_json = json.dumps(metadata, ensure_ascii=False)
+                agent_id = str(data.get("agent_id") or "legacy")
+                legacy_timestamp = data.get("timestamp")
+                timestamp = (
+                    legacy_timestamp.strip()
+                    if isinstance(legacy_timestamp, str) and legacy_timestamp.strip()
+                    else _utc_now()
+                )
+            except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+                continue
+            rank = (_timestamp_rank(legacy_timestamp), strength, row["legacy_rowid"])
+            current = candidates.get(path_id)
+            if current is None or rank > current[0]:
+                candidates[path_id] = (
+                    rank,
+                    (path_id, strength, metadata_json, agent_id, timestamp, timestamp),
+                )
 
-        SQL-Strategie:
-            Pruefen ob bereits ein aktives Pheromon fuer diesen path_id existiert.
-            Falls ja: UPDATE (Staerke + Metadata aktualisieren)
-            Falls nein: INSERT neuen Eintrag
-        """
+        migrated = 0
+        for path_id in sorted(candidates):
+            params = candidates[path_id][1]
+            cursor = conn.execute(f"""
+                INSERT INTO {self.TABLE}
+                    (path_id, strength, metadata_json, agent_id, created_at, updated_at, is_active)
+                VALUES (?, ?, ?, ?, ?, ?, 1)
+                ON CONFLICT(path_id) DO NOTHING
+            """, params)
+            migrated += cursor.rowcount
+        return migrated
+
+    @staticmethod
+    def _validate_path(path_id: str) -> str:
+        if not isinstance(path_id, str) or not path_id.strip():
+            raise ValueError("path_id must be a non-empty string")
+        return path_id.strip()
+
+    def deposit(self, path_id: str, strength: float = 1.0,
+                metadata: Optional[dict] = None) -> bool:
+        """Atomically create or update one pheromone."""
         try:
+            path_id = self._validate_path(path_id)
+            strength = float(strength)
+            if not math.isfinite(strength):
+                raise ValueError("strength must be finite")
             strength = max(0.0, min(1.0, strength))
-            content_json = self._make_content(path_id, strength, metadata)
-            priority = int(strength * 10)
-            now = datetime.now().isoformat()
-            tags_json = json.dumps([self.NAMESPACE])
+            if metadata is not None and not isinstance(metadata, dict):
+                raise TypeError("metadata must be a dictionary")
+            metadata_json = json.dumps(metadata or {}, ensure_ascii=False)
+            now = _utc_now()
+            with self._connection() as conn:
+                conn.execute(f"""
+                    INSERT INTO {self.TABLE}
+                        (path_id, strength, metadata_json, agent_id, created_at, updated_at, is_active)
+                    VALUES (?, ?, ?, ?, ?, ?, 1)
+                    ON CONFLICT(path_id) DO UPDATE SET
+                        strength = excluded.strength,
+                        metadata_json = excluded.metadata_json,
+                        agent_id = excluded.agent_id,
+                        updated_at = excluded.updated_at,
+                        is_active = 1
+                """, (path_id, strength, metadata_json, self.agent_id, now, now))
+            self.last_error = None
+            return True
+        except Exception as exc:
+            return self._failure(exc, False)
 
-            conn = self._connect()
-            try:
-                # Pruefen ob schon ein aktives Stigmergy-Pheromon fuer diesen path_id existiert
-                cursor = conn.execute("""
-                    SELECT id FROM shared_memory_working
-                    WHERE type = 'note'
-                      AND is_active = 1
-                      AND tags = ?
-                      AND related_to = ?
-                """, (tags_json, path_id))
-                existing = cursor.fetchone()
-
-                if existing:
-                    # Update: Staerke und Metadata aktualisieren
-                    conn.execute("""
-                        UPDATE shared_memory_working
-                        SET content = ?, priority = ?, agent_id = ?, updated_at = ?
-                        WHERE id = ?
-                    """, (content_json, priority, self.agent_id, now, existing['id']))
-                else:
-                    # Insert: Neues Pheromon anlegen
-                    conn.execute("""
-                        INSERT INTO shared_memory_working
-                        (agent_id, session_id, type, content, priority,
-                         is_active, created_at, updated_at, tags, related_to)
-                        VALUES (?, NULL, 'note', ?, ?, 1, ?, ?, ?, ?)
-                    """, (self.agent_id, content_json, priority,
-                          now, now, tags_json, path_id))
-
-                conn.commit()
-                return True
-            finally:
-                conn.close()
-
-        except Exception:
-            return False
-
-    def sense(self, path_prefix: str = '') -> list[dict]:
-        """
-        Lese alle Pheromone (welche Pfade sind vielversprechend?).
-
-        Args:
-            path_prefix: Optional Filter fuer Pfad-IDs (z.B. 'approach_')
-
-        Returns:
-            Liste von {path_id, strength, agent_id, metadata, timestamp},
-            sortiert nach strength DESC
-
-        SQL:
-            SELECT content, created_at FROM shared_memory_working
-            WHERE type='note' AND is_active=1 AND tags='["stigmergy"]'
-              AND related_to LIKE path_prefix || '%'
-            ORDER BY priority DESC, updated_at DESC
-        """
+    def sense(self, path_prefix: str = "") -> list[dict]:
+        """Return active pheromones ordered by strength and recency."""
         try:
-            tags_json = json.dumps([self.NAMESPACE])
-            like_pattern = f"{path_prefix}%"
-
-            conn = self._connect()
-            try:
-                cursor = conn.execute("""
-                    SELECT content, created_at, updated_at
-                    FROM shared_memory_working
-                    WHERE type = 'note'
-                      AND is_active = 1
-                      AND tags = ?
-                      AND related_to LIKE ?
-                    ORDER BY priority DESC, updated_at DESC
-                """, (tags_json, like_pattern))
-
-                results = []
-                for row in cursor.fetchall():
-                    data = self._parse_content(row['content'])
-                    if data:
-                        results.append({
-                            'path_id': data['path_id'],
-                            'strength': data['strength'],
-                            'agent_id': data['agent_id'],
-                            'metadata': data.get('metadata', {}),
-                            'timestamp': data.get('timestamp', row['created_at']),
-                        })
-                return results
-            finally:
-                conn.close()
-
-        except Exception:
-            return []
+            if not isinstance(path_prefix, str):
+                raise TypeError("path_prefix must be a string")
+            escaped = (path_prefix.replace("\\", "\\\\")
+                       .replace("%", "\\%")
+                       .replace("_", "\\_"))
+            with self._connection() as conn:
+                rows = conn.execute(f"""
+                    SELECT path_id, strength, metadata_json, agent_id, created_at, updated_at
+                    FROM {self.TABLE}
+                    WHERE is_active = 1 AND path_id LIKE ? ESCAPE '\\'
+                    ORDER BY strength DESC, updated_at DESC, path_id ASC
+                """, (f"{escaped}%",)).fetchall()
+            results = []
+            for row in rows:
+                try:
+                    metadata = json.loads(row["metadata_json"])
+                except (TypeError, json.JSONDecodeError):
+                    metadata = {}
+                results.append({
+                    "path_id": row["path_id"],
+                    "strength": row["strength"],
+                    "agent_id": row["agent_id"],
+                    "metadata": metadata,
+                    "timestamp": row["updated_at"] or row["created_at"],
+                })
+            self.last_error = None
+            return results
+        except Exception as exc:
+            return self._failure(exc, [])
 
     def evaporate(self, decay_rate: float = 0.1) -> int:
-        """
-        Verdunste schwache Pheromone (Aufraeumen).
-
-        Inspiriert von Ameisen-Algorithmen: Pheromone verdunsten mit der Zeit,
-        nur regelmaessig genutzte Pfade bleiben stark.
-
-        Args:
-            decay_rate: Anteil der zu loeschenden schwachen Pheromone (0.0 - 1.0)
-                        0.1 = loeschung der schwachsten 10% der Pheromone
-
-        Returns:
-            Anzahl geloeschter Pheromone (deaktiviert via is_active=0)
-
-        Strategie:
-            1. Alle Stigmergy-Eintraege zaehlen
-            2. Unterste X% nach priority ermitteln
-            3. Diese via is_active=0 deaktivieren
-        """
+        """Deactivate the weakest fraction; a zero rate is a true no-op."""
         try:
+            decay_rate = float(decay_rate)
+            if not math.isfinite(decay_rate):
+                raise ValueError("decay_rate must be finite")
             decay_rate = max(0.0, min(1.0, decay_rate))
-            tags_json = json.dumps([self.NAMESPACE])
-            now = datetime.now().isoformat()
-
-            conn = self._connect()
-            try:
-                # Gesamtzahl aktiver Stigmergy-Pheromone
-                cursor = conn.execute("""
-                    SELECT COUNT(*) as cnt FROM shared_memory_working
-                    WHERE type = 'note' AND is_active = 1 AND tags = ?
-                """, (tags_json,))
-                total = cursor.fetchone()['cnt']
-
+            if decay_rate == 0:
+                return 0
+            with self._connection() as conn:
+                # Reserve the writer slot before COUNT/SELECT so a concurrent
+                # deposit cannot invalidate a WAL read transaction upgrade.
+                conn.execute("BEGIN IMMEDIATE")
+                total = conn.execute(
+                    f"SELECT COUNT(*) FROM {self.TABLE} WHERE is_active = 1"
+                ).fetchone()[0]
                 if total == 0:
                     return 0
-
-                # Anzahl zu loeschender Eintraege (mindestens 1 wenn decay_rate > 0)
-                to_delete = max(1, int(total * decay_rate))
-
-                # IDs der schwachsten Pheromone ermitteln (niedrigste priority zuerst)
-                cursor = conn.execute("""
-                    SELECT id FROM shared_memory_working
-                    WHERE type = 'note' AND is_active = 1 AND tags = ?
-                    ORDER BY priority ASC, updated_at ASC
+                to_delete = min(total, math.ceil(total * decay_rate))
+                rows = conn.execute(f"""
+                    SELECT path_id FROM {self.TABLE}
+                    WHERE is_active = 1
+                    ORDER BY strength ASC, updated_at ASC, path_id ASC
                     LIMIT ?
-                """, (tags_json, to_delete))
-                ids_to_deactivate = [row['id'] for row in cursor.fetchall()]
+                """, (to_delete,)).fetchall()
+                ids = [row["path_id"] for row in rows]
+                conn.executemany(f"""
+                    UPDATE {self.TABLE} SET is_active = 0, updated_at = ?
+                    WHERE path_id = ?
+                """, [(_utc_now(), path_id) for path_id in ids])
+            self.last_error = None
+            return len(ids)
+        except Exception as exc:
+            return self._failure(exc, 0)
 
-                if not ids_to_deactivate:
-                    return 0
-
-                # Deaktivieren statt Loeschen (sichereres Pattern)
-                placeholders = ','.join('?' for _ in ids_to_deactivate)
-                conn.execute(f"""
-                    UPDATE shared_memory_working
-                    SET is_active = 0, updated_at = ?
-                    WHERE id IN ({placeholders})
-                """, [now] + ids_to_deactivate)
-                conn.commit()
-
-                return len(ids_to_deactivate)
-            finally:
-                conn.close()
-
-        except Exception:
-            return 0
-
-    def get_best_path(self, path_prefix: str = '') -> Optional[str]:
-        """
-        Gibt den Pfad mit dem staerksten Pheromon zurueck.
-
-        Kurzform fuer: sense()[0]['path_id'] falls Pheromone vorhanden.
-
-        Args:
-            path_prefix: Optional Filter
-
-        Returns:
-            path_id des besten Pfads, oder None wenn keine Pheromone
-        """
-        try:
-            results = self.sense(path_prefix)
-            if results:
-                return results[0]['path_id']
-            return None
-        except Exception:
-            return None
+    def get_best_path(self, path_prefix: str = "") -> Optional[str]:
+        results = self.sense(path_prefix)
+        return results[0]["path_id"] if results else None
 
     def dump(self) -> dict:
-        """
-        Debug: Zeige alle Pheromone als dict.
-
-        Returns:
-            {path_id: {strength, agent_id, metadata, timestamp}, ...}
-        """
-        try:
-            all_pheromones = self.sense()
-            return {
-                p['path_id']: {
-                    'strength': p['strength'],
-                    'agent_id': p['agent_id'],
-                    'metadata': p.get('metadata', {}),
-                    'timestamp': p['timestamp'],
-                }
-                for p in all_pheromones
+        return {
+            item["path_id"]: {
+                "strength": item["strength"],
+                "agent_id": item["agent_id"],
+                "metadata": item["metadata"],
+                "timestamp": item["timestamp"],
             }
-        except Exception:
-            return {}
+            for item in self.sense()
+        }
 
 
-# ============================================================
-# Convenience-Funktionen (Kurz-API fuer haeufige Use-Cases)
-# ============================================================
-
-def deposit_pheromone(
-    db_path: str,
-    agent_id: str,
-    path_id: str,
-    strength: float = 1.0,
-    metadata: dict = None
-) -> bool:
-    """
-    Kurz-API: Pheromon hinterlassen ohne Instanz zu erstellen.
-
-    Beispiel:
-        deposit_pheromone('data/swarm.db', 'agent_A', 'approach_refactor', 0.9,
-                          {'result': 'success', 'time_ms': 450})
-    """
-    api = StigmergyAPI(db_path, agent_id)
-    return api.deposit(path_id, strength, metadata)
+def deposit_pheromone(db_path: str, agent_id: str, path_id: str,
+                      strength: float = 1.0,
+                      metadata: Optional[dict] = None) -> bool:
+    return StigmergyAPI(db_path, agent_id).deposit(path_id, strength, metadata)
 
 
-def sense_pheromones(db_path: str, path_prefix: str = '') -> list[dict]:
-    """
-    Kurz-API: Alle Pheromone lesen ohne Instanz zu erstellen.
-
-    Beispiel:
-        paths = sense_pheromones('data/swarm.db', 'approach_')
-        best = paths[0] if paths else None
-    """
-    api = StigmergyAPI(db_path)
-    return api.sense(path_prefix)
+def sense_pheromones(db_path: str, path_prefix: str = "") -> list[dict]:
+    return StigmergyAPI(db_path).sense(path_prefix)
 
 
-def get_best_pheromone_path(db_path: str, path_prefix: str = '') -> Optional[str]:
-    """
-    Kurz-API: Besten Pfad bestimmen.
-
-    Typischer Schwarm-Workflow:
-        1. Agent A: deposit_pheromone(db, 'A', 'approach_1', 0.8)
-        2. Agent B: deposit_pheromone(db, 'B', 'approach_2', 0.6)
-        3. Agent C: best = get_best_pheromone_path(db)  # -> 'approach_1'
-        4. Agent C: folgt approach_1
-    """
-    api = StigmergyAPI(db_path)
-    return api.get_best_path(path_prefix)
+def get_best_pheromone_path(db_path: str, path_prefix: str = "") -> Optional[str]:
+    return StigmergyAPI(db_path).get_best_path(path_prefix)

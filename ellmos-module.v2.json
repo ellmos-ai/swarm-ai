@@ -6,7 +6,10 @@
   "package": null,
   "entrypoints": {
     "consensus": "python tools/consensus_swarm.py",
-    "benchmark": "python tools/benchmark.py"
+    "benchmark": "python tools/benchmark.py",
+    "stigmergy_init": "python tools/stigmergy_init.py",
+    "translate": "python tools/translate_swarm.py",
+    "summarize": "python tools/summarize_chunks.py"
   },
   "category": "orchestration",
   "kind": "workflow",
@@ -15,7 +18,11 @@
   "provides": [
     "swarm.patterns",
     "swarm.parallel",
-    "swarm.consensus"
+    "swarm.consensus",
+    "swarm.stigmergy",
+    "swarm.translation",
+    "swarm.summarization",
+    "swarm.team_lock"
   ],
   "requires": [],
   "optional": [

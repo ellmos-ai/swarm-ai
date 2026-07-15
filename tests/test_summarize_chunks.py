@@ -6,8 +6,6 @@ Tests the ChunkSummarizer class logic without real API calls.
 """
 import sqlite3
 import pytest
-from unittest.mock import patch, MagicMock
-from pathlib import Path
 
 from tools.summarize_chunks import (
     ChunkSummarizer,
@@ -32,9 +30,9 @@ class TestChunkSummarizerInit:
         summarizer = ChunkSummarizer(model="sonnet")
         assert summarizer.model_id == MODELS["sonnet"]
 
-    def test_unknown_model_defaults_to_haiku(self):
-        summarizer = ChunkSummarizer(model="unknown")
-        assert summarizer.model_id == MODELS["haiku"]
+    def test_unknown_model_is_rejected(self):
+        with pytest.raises(ValueError, match="unknown"):
+            ChunkSummarizer(model="unknown")
 
     def test_initial_stats(self):
         summarizer = ChunkSummarizer()
@@ -219,3 +217,103 @@ class TestGetUnsummarizedChunks:
         summarizer = ChunkSummarizer(model="haiku", db_path=db_path)
         chunks = summarizer.get_unsummarized_chunks(limit=3)
         assert len(chunks) == 3
+
+    def test_rejects_non_positive_limit(self, tmp_path):
+        summarizer = ChunkSummarizer(db_path=tmp_path / "missing.db")
+        with pytest.raises(ValueError, match="limit"):
+            summarizer.get_unsummarized_chunks(limit=0)
+
+
+class TestStandaloneSchema:
+    def test_initializes_new_database(self, tmp_path):
+        db_path = tmp_path / "data" / "chunks.db"
+        summarizer = ChunkSummarizer(db_path=db_path)
+        summarizer.initialize_schema()
+        assert db_path.exists()
+        assert summarizer.get_unsummarized_chunks() == []
+
+    def test_chunk_claim_is_exclusive(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        first = ChunkSummarizer(db_path=db_path)
+        first.initialize_schema()
+        first.run_id = 1
+        first._prepare_claims()
+        second = ChunkSummarizer(db_path=db_path)
+        second.run_id = 2
+        assert first._claim_chunk(42) is True
+        assert second._claim_chunk(42) is False
+        first._release_chunk(42)
+        assert second._claim_chunk(42) is True
+
+    def test_live_request_requires_limit_and_budget(self, tmp_path):
+        summarizer = ChunkSummarizer(db_path=tmp_path / "chunks.db")
+        chunk = [{"chunk_text": "short"}]
+        with pytest.raises(ValueError, match="positive limit"):
+            summarizer._validate_request_budget(chunk, None, 1.0, False)
+        with pytest.raises(ValueError, match="max_budget"):
+            summarizer._validate_request_budget(chunk, 1, None, False)
+        for budget in (float("nan"), float("inf")):
+            with pytest.raises(ValueError, match="finite"):
+                summarizer._validate_request_budget(chunk, 1, budget, False)
+
+    def test_summary_budget_bound_includes_all_retries(self, tmp_path):
+        summarizer = ChunkSummarizer(db_path=tmp_path / "chunks.db")
+        chunk = [{"chunk_text": "x" * 1000}]
+        bound = summarizer._validate_request_budget(chunk, 1, None, True)
+        prompt_overhead = len(
+            "Fasse den folgenden Text-Chunk zusammen:\n\n---\n\n---".encode("utf-8")
+        )
+        one_attempt = (
+            (1000 + len(SYSTEM_PROMPT.encode("utf-8")) + prompt_overhead)
+            * COST_PER_1M["haiku"]["input"]
+            + 256 * COST_PER_1M["haiku"]["output"]
+        ) / 1_000_000
+        assert bound == pytest.approx(one_attempt * MAX_RETRIES)
+
+    def test_save_summary_refuses_concurrent_overwrite(self, tmp_path):
+        summarizer = ChunkSummarizer(db_path=tmp_path / "chunks.db")
+        summarizer.initialize_schema()
+        with summarizer._db() as conn:
+            chunk_id = conn.execute(
+                "INSERT INTO document_chunks (chunk_number, chunk_text) VALUES (1, 'x')"
+            ).lastrowid
+        summarizer.save_summary(chunk_id, "first")
+        with pytest.raises(RuntimeError, match="concurrently"):
+            summarizer.save_summary(chunk_id, "second")
+
+    def test_failed_wrapper_closes_run_ledger(self, tmp_path, monkeypatch):
+        db_path = tmp_path / "chunks.db"
+        summarizer = ChunkSummarizer(db_path=db_path)
+        summarizer.initialize_schema()
+
+        def interrupted(*args, **kwargs):
+            summarizer.run_id = summarizer._create_run()
+            summarizer._prepare_claims()
+            assert summarizer._claim_chunk(99)
+            raise KeyboardInterrupt("stop")
+
+        monkeypatch.setattr(summarizer, "_run", interrupted)
+        with pytest.raises(KeyboardInterrupt):
+            summarizer.run(limit=1, max_budget_usd=1)
+        with sqlite3.connect(db_path) as conn:
+            status, finished = conn.execute(
+                "SELECT status, finished_at FROM parallel_chunks_runs"
+            ).fetchone()
+            claims = conn.execute("SELECT COUNT(*) FROM swarm_chunk_claims").fetchone()[0]
+        assert status == "failed"
+        assert finished is not None
+        assert claims == 0
+
+    def test_reusing_instance_resets_per_run_stats(self, tmp_path, monkeypatch):
+        summarizer = ChunkSummarizer(db_path=tmp_path / "chunks.db")
+
+        def one_chunk(*args, **kwargs):
+            summarizer.stats["chunks_processed"] += 1
+            summarizer.stats["total_input_tokens"] += 10
+            return dict(summarizer.stats)
+
+        monkeypatch.setattr(summarizer, "_run", one_chunk)
+        first = summarizer.run(dry_run=True)
+        second = summarizer.run(dry_run=True)
+        assert first["chunks_processed"] == second["chunks_processed"] == 1
+        assert first["total_input_tokens"] == second["total_input_tokens"] == 10

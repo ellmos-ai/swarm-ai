@@ -6,6 +6,8 @@ These tests use a real SQLite in-memory/temp DB -- no API mocking needed.
 The Stigmergy pattern is purely local (SQLite-based pheromone coordination).
 """
 import json
+import sqlite3
+
 import pytest
 
 from tools.stigmergy_api import (
@@ -122,6 +124,12 @@ class TestStigmergyEvaporate:
         deleted = api.evaporate(decay_rate=0.5)
         assert deleted == 0
 
+    def test_zero_decay_is_noop(self, stigmergy_db):
+        api = StigmergyAPI(stigmergy_db)
+        api.deposit("keep", strength=0.1)
+        assert api.evaporate(decay_rate=0) == 0
+        assert api.get_best_path() == "keep"
+
     def test_evaporate_clamps_rate(self, stigmergy_db):
         api = StigmergyAPI(stigmergy_db, agent_id="agent_A")
         api.deposit("path_1", strength=0.5)
@@ -138,6 +146,22 @@ class TestStigmergyEvaporate:
 
         deleted = api.evaporate(decay_rate=0.01)  # 1% of 2 = 0.02, rounded up to 1
         assert deleted == 1
+
+    def test_evaporation_reserves_writer_before_reading(self, stigmergy_db, monkeypatch):
+        api = StigmergyAPI(stigmergy_db, strict=True)
+        api.deposit("path_1", 0.2)
+        statements = []
+        original_connect = api._connect
+
+        def traced_connect():
+            conn = original_connect()
+            conn.set_trace_callback(statements.append)
+            return conn
+
+        monkeypatch.setattr(api, "_connect", traced_connect)
+        assert api.evaporate(0.5) == 1
+        normalized = [statement.strip().upper() for statement in statements]
+        assert "BEGIN IMMEDIATE" in normalized
 
 
 class TestStigmergyGetBestPath:
@@ -210,6 +234,51 @@ class TestConvenienceFunctions:
     def test_get_best_pheromone_path_empty(self, stigmergy_db):
         result = get_best_pheromone_path(stigmergy_db)
         assert result is None
+
+
+class TestStandaloneSchema:
+    def test_memory_database_is_rejected_explicitly(self):
+        with pytest.raises(ValueError, match="file-backed"):
+            StigmergyAPI(":memory:")
+
+    def test_new_database_is_initialized_automatically(self, tmp_path):
+        db_path = tmp_path / "nested" / "new.db"
+        api = StigmergyAPI(str(db_path), strict=True)
+        assert api.deposit("new_path", 0.6)
+        assert api.get_best_path() == "new_path"
+
+    def test_literal_prefix_does_not_treat_wildcards_as_patterns(self, stigmergy_db):
+        api = StigmergyAPI(stigmergy_db)
+        api.deposit("task_1", 0.8)
+        api.deposit("taskX1", 0.9)
+        assert [p["path_id"] for p in api.sense("task_")] == ["task_1"]
+
+    def test_legacy_duplicate_migration_selects_newest_valid_record(self, stigmergy_db):
+        records = [
+            {
+                "namespace": "stigmergy", "path_id": "shared", "strength": 0.1,
+                "metadata": {"version": "old"}, "timestamp": "2026-01-01T00:00:00Z",
+            },
+            {
+                "namespace": "stigmergy", "path_id": "shared", "strength": 0.9,
+                "metadata": {"version": "new"}, "timestamp": "2026-02-01T00:00:00Z",
+            },
+            {
+                "namespace": "stigmergy", "path_id": "invalid", "strength": 0.8,
+                "metadata": ["not", "a", "dict"], "timestamp": "2026-03-01T00:00:00Z",
+            },
+        ]
+        with sqlite3.connect(stigmergy_db) as conn:
+            conn.executemany(
+                "INSERT INTO shared_memory_working (content, is_active) VALUES (?, 1)",
+                [(json.dumps(record),) for record in records],
+            )
+        api = StigmergyAPI(stigmergy_db, strict=True)
+        sensed = api.sense()
+        assert len(sensed) == 1
+        assert sensed[0]["path_id"] == "shared"
+        assert sensed[0]["strength"] == 0.9
+        assert sensed[0]["metadata"] == {"version": "new"}
 
 
 class TestMultiAgentScenario:

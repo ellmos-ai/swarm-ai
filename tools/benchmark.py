@@ -17,9 +17,11 @@ Usage:
 """
 import argparse
 import json
+import math
+import platform
 import sys
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 # Sicherstellen dass das Paket importierbar ist
@@ -28,7 +30,7 @@ _parent = str(PACKAGE_DIR.parent)
 if _parent not in sys.path:
     sys.path.insert(0, _parent)
 
-from tools.runner import ClaudeRunner
+from tools.runner import ClaudeRunner  # noqa: E402
 
 
 # ============================================================
@@ -512,7 +514,7 @@ def print_results(results, total_duration, mode_label):
         categories[cat]["output"] += r["output_length"]
 
     if len(categories) > 1:
-        print(f"\n  Per Kategorie:")
+        print("\n  Per Kategorie:")
         for cat, stats in sorted(categories.items()):
             label = TASK_CATALOG.get(cat, {}).get("label", cat)
             avg = stats["duration"] / stats["count"] if stats["count"] else 0
@@ -581,13 +583,34 @@ def main():
                         help="Modell (default: haiku fuer guenstige Benchmarks)")
     parser.add_argument("--timeout", type=int, default=300,
                         help="Timeout pro Task in Sekunden (default: 300)")
+    parser.add_argument("--limit", type=int,
+                        help="Maximale Task-Anzahl; fuer Live-Laeufe erforderlich")
+    parser.add_argument("--max-budget-usd", type=float,
+                        help="Gesamtbudget; fuer Live-Laeufe erforderlich")
     parser.add_argument("--export", help="Ergebnisse als JSON exportieren")
 
     args = parser.parse_args()
 
+    if args.workers <= 0:
+        parser.error("--workers must be greater than zero")
+    if args.timeout <= 0:
+        parser.error("--timeout must be greater than zero")
+
     # --run/--parallel/--sequential/--compare deaktiviert dry-run
     if args.run or args.parallel or args.sequential or args.compare:
         args.dry_run = False
+
+    # Default: --compare wenn --run ohne spezifischen Modus
+    if args.run and not args.parallel and not args.sequential and not args.compare:
+        args.compare = True
+
+    if not args.dry_run:
+        if args.limit is None or not 1 <= args.limit <= 20:
+            parser.error("live benchmarks require --limit between 1 and 20")
+        if (args.max_budget_usd is None or
+                not math.isfinite(args.max_budget_usd) or
+                args.max_budget_usd <= 0):
+            parser.error("live benchmarks require a positive finite --max-budget-usd")
 
     # Kategorien filtern
     categories = [args.category] if args.category else None
@@ -597,6 +620,9 @@ def main():
         print(f"Keine Tasks gefunden fuer Kategorie '{args.category}'.")
         print(f"Verfuegbar: {', '.join(TASK_CATALOG.keys())}")
         return 1
+
+    if not args.dry_run:
+        tasks = tasks[:args.limit]
 
     # Dry-Run: Nur Tasks anzeigen
     if args.dry_run:
@@ -616,11 +642,14 @@ def main():
                 print(f"  - {t['name']}: {t['prompt'][:70]}...")
 
         print(f"\nGesamt: {len(tasks)} Tasks")
-        print("Ausfuehren mit: python benchmark.py --run [--parallel|--sequential|--compare]")
+        print(
+            "Ausfuehren mit: python benchmark.py --run --limit N "
+            "--max-budget-usd USD [--parallel|--sequential|--compare]"
+        )
         return 0
 
     # Runner erstellen
-    print(f"\nllmauto Benchmark")
+    print("\nllmauto Benchmark")
     print(f"  Modell:     {args.model}")
     print(f"  Tasks:      {len(tasks)}")
     print(f"  Worker:     {args.workers}")
@@ -628,18 +657,18 @@ def main():
     print(f"  Kategorien: {', '.join(set(t['category'] for t in tasks))}")
     print()
 
+    run_modes = int(args.sequential or args.compare) + int(args.parallel or args.compare)
+    expected_calls = len(tasks) * run_modes
+    per_call_budget = args.max_budget_usd / expected_calls
     runner = ClaudeRunner(
         model=args.model,
         timeout=args.timeout,
-        cwd=str(PACKAGE_DIR.parent.parent),  # system/
+        cwd=str(PACKAGE_DIR.parent),
+        max_budget_usd=per_call_budget,
     )
 
     all_results = []
     seq_results = seq_duration = par_results = par_duration = None
-
-    # Default: --compare wenn --run ohne spezifischen Modus
-    if args.run and not args.parallel and not args.sequential and not args.compare:
-        args.compare = True
 
     if args.sequential or args.compare:
         print("--- Sequentieller Durchlauf ---")
@@ -661,9 +690,16 @@ def main():
     # JSON-Export
     if args.export and all_results:
         export_data = {
-            "timestamp": datetime.now().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
             "model": args.model,
             "max_workers": args.workers,
+            "max_budget_usd": args.max_budget_usd,
+            "per_call_budget_usd": per_call_budget,
+            "environment": {
+                "python": platform.python_version(),
+                "platform": platform.platform(),
+                "repository": "swarm-ai",
+            },
             "results": [{k: v for k, v in r.items() if k != "prompt"} for r in all_results],
         }
         if seq_duration is not None:

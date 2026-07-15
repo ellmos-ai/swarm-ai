@@ -2,10 +2,8 @@
 """
 Shared fixtures for swarm-ai test suite.
 """
-import os
 import sys
 import sqlite3
-import tempfile
 from pathlib import Path
 
 import pytest

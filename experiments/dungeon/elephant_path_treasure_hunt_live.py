@@ -28,14 +28,14 @@ CLI-Parameter:
 v3.0 - Continuous Flow + Leichen + CLI-konfigurierbar
 """
 
+import argparse
 import subprocess
 import time
 import json
+import math
 import os
 import sys
 import re
-import shutil
-import atexit
 import threading
 from pathlib import Path
 from datetime import datetime
@@ -49,14 +49,63 @@ DEFAULT_POOL = 5
 DEFAULT_TIMEOUT = 180
 DEFAULT_TASK = None  # Wird unten gesetzt
 
-TARGET_PATH = r"C:\Users\User\OneDrive\.AI\BACH_v2_vanilla\system"
+TARGET_PATH = os.getenv("SWARM_EXPERIMENT_TARGET", "")
 MODEL = "haiku"
+DUNGEON_FIXTURE_MARKER = ".swarm-dungeon-fixture"
+DUNGEON_FIXTURE_MARKER_CONTENT = "SWARM_AI_DUNGEON_FIXTURE_V1"
 RESULTS_DIR = Path(__file__).parent / "elephant_path_treasure_hunt"
-RESULTS_DIR.mkdir(exist_ok=True)
 
-# MEMORY.md
-MEMORY_FILE = Path.home() / ".claude" / "projects" / "C--Users-User" / "memory" / "MEMORY.md"
-MEMORY_BACKUP = MEMORY_FILE.parent / "MEMORY.md.experiment_backup"
+
+def experiment_budget_per_agent():
+    raw = os.getenv("SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT", "")
+    try:
+        value = float(raw)
+    except ValueError as exc:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        ) from exc
+    if not math.isfinite(value) or value <= 0:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        )
+    return value
+
+
+def validate_total_budget(agent_count, total_budget):
+    requested = experiment_budget_per_agent() * agent_count
+    if requested > total_budget:
+        raise SystemExit(
+            f"per-agent caps total ${requested:.2f}, above the run budget "
+            f"${total_budget:.2f}"
+        )
+
+
+def require_explicit_opt_in():
+    if os.getenv("SWARM_ENABLE_LEGACY_EXPERIMENTS") != "I_UNDERSTAND":
+        raise SystemExit(
+            "Historical experiment disabled. Set "
+            "SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND explicitly."
+        )
+    target = Path(TARGET_PATH).expanduser()
+    if not TARGET_PATH or not target.is_dir() or target.resolve().parent == target.resolve():
+        raise SystemExit("SWARM_EXPERIMENT_TARGET must name an existing non-root directory")
+    marker = target / DUNGEON_FIXTURE_MARKER
+    if (not marker.is_file() or
+            marker.read_text(encoding="utf-8").strip() != DUNGEON_FIXTURE_MARKER_CONTENT):
+        raise SystemExit(
+            f"Dungeon experiments require an isolated fixture marker: {marker}"
+        )
+    experiment_budget_per_agent()
+
+
+def resolve_within_target(relative_path, label):
+    target = Path(TARGET_PATH).expanduser().resolve()
+    candidate = (target / relative_path).resolve()
+    try:
+        candidate.relative_to(target)
+    except ValueError as exc:
+        raise SystemExit(f"{label} must stay inside SWARM_EXPERIMENT_TARGET") from exc
+    return candidate
 
 # Leichen-Verzeichnis (im Dungeon sichtbar fuer alle Agenten)
 CORPSE_DIR_NAME = ".leichen"
@@ -92,72 +141,31 @@ BACH_TASKS = [
 
 
 def parse_cli():
-    """Parst CLI-Argumente."""
-    args = {
-        "dungeon": DEFAULT_DUNGEON,
-        "treasure": DEFAULT_TREASURE,
-        "agents": DEFAULT_AGENTS,
-        "pool": DEFAULT_POOL,
-        "timeout": DEFAULT_TIMEOUT,
-        "task": DEFAULT_TASK,
-        "test": False,
-    }
-    i = 1
-    while i < len(sys.argv):
-        a = sys.argv[i]
-        if a == "--test":
-            args["test"] = True
-            args["agents"] = 5
-        elif a == "--dungeon" and i + 1 < len(sys.argv):
-            i += 1
-            args["dungeon"] = sys.argv[i]
-        elif a == "--treasure" and i + 1 < len(sys.argv):
-            i += 1
-            args["treasure"] = sys.argv[i]
-        elif a == "--agents" and i + 1 < len(sys.argv):
-            i += 1
-            args["agents"] = int(sys.argv[i])
-        elif a == "--pool" and i + 1 < len(sys.argv):
-            i += 1
-            args["pool"] = int(sys.argv[i])
-        elif a == "--timeout" and i + 1 < len(sys.argv):
-            i += 1
-            args["timeout"] = int(sys.argv[i])
-        elif a == "--task" and i + 1 < len(sys.argv):
-            i += 1
-            args["task"] = sys.argv[i]
-        i += 1
-    return args
-
-
-# --- MEMORY.md ---
-def backup_memory():
-    if not MEMORY_FILE.exists():
-        return False
-    shutil.copy2(MEMORY_FILE, MEMORY_BACKUP)
-    with open(MEMORY_FILE, "w", encoding="utf-8") as f:
-        f.write("# Memory\n")
-    print(f"  MEMORY.md gesichert und geleert")
-    return True
-
-
-def restore_memory():
-    if not MEMORY_BACKUP.exists():
-        return False
-    shutil.copy2(MEMORY_BACKUP, MEMORY_FILE)
-    MEMORY_BACKUP.unlink()
-    print(f"  MEMORY.md wiederhergestellt")
-    return True
-
-
-def emergency_restore():
-    if MEMORY_BACKUP.exists():
-        try:
-            shutil.copy2(MEMORY_BACKUP, MEMORY_FILE)
-            MEMORY_BACKUP.unlink()
-            print("\n  [NOTFALL] MEMORY.md wiederhergestellt!")
-        except Exception:
-            print(f"\n  [FEHLER] MEMORY.md manuell aus {MEMORY_BACKUP} wiederherstellen!")
+    """Parse strictly so typos can never fall through to a full run."""
+    parser = argparse.ArgumentParser(description="Historical continuous dungeon swarm")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--test", action="store_true", help="Run five agents")
+    mode.add_argument("--run", action="store_true", help="Run the configured experiment")
+    parser.add_argument("--dungeon", default=DEFAULT_DUNGEON)
+    parser.add_argument("--treasure", default=DEFAULT_TREASURE)
+    parser.add_argument("--agents", type=int, default=DEFAULT_AGENTS)
+    parser.add_argument("--pool", type=int, default=DEFAULT_POOL)
+    parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+    parser.add_argument("--task", default=DEFAULT_TASK)
+    parser.add_argument("--max-total-budget-usd", type=float, required=True)
+    args = parser.parse_args()
+    if args.test:
+        args.agents = 5
+    if not 1 <= args.agents <= 100:
+        parser.error("--agents must be between 1 and 100")
+    if not 1 <= args.pool <= 20:
+        parser.error("--pool must be between 1 and 20")
+    if args.timeout <= 0:
+        parser.error("--timeout must be greater than zero")
+    if (not math.isfinite(args.max_total_budget_usd) or
+            args.max_total_budget_usd <= 0):
+        parser.error("--max-total-budget-usd must be positive and finite")
+    return vars(args)
 
 
 # --- Leichen-System ---
@@ -179,10 +187,10 @@ def write_corpse(dungeon_base, agent_id, cause, last_position, findings):
 
 
 def cleanup_corpses(dungeon_base):
-    """Raeumt Leichen nach Experiment auf."""
+    """Preserve corpse markers; they may predate this run."""
     corpse_dir = Path(dungeon_base) / CORPSE_DIR_NAME
     if corpse_dir.exists():
-        shutil.rmtree(corpse_dir)
+        print(f"  [SAFE-CLEANUP] Leichen-Verzeichnis bleibt erhalten: {corpse_dir}")
 
 
 # --- Stream-JSON Parser ---
@@ -258,7 +266,7 @@ REGELN:
 5. Schaue nach .leichen/ Verzeichnissen - dort liegen Warnungen von gescheiterten Agenten!
 6. Maximal 20 Schritte
 
-WICHTIG: Nutze Forward-Slashes (/) in Bash, nicht Backslashes.
+WICHTIG: Nutze ausschließlich Glob/Grep/Read/Edit/Write innerhalb des Fixture-Ziels.
 
 Am Ende IMMER:
   CODEWORT: (das Wort oder "nicht gefunden")
@@ -279,11 +287,14 @@ Los."""
     cmd = [
         "claude", "-p",
         "--model", MODEL,
+        "--max-budget-usd", str(experiment_budget_per_agent()),
         "--verbose",
-        "--dangerously-skip-permissions",
+        "--permission-mode", "dontAsk",
         "--no-session-persistence",
-        "--disable-slash-commands",
-        "--tools", "Bash,Glob,Grep,Read,Edit,Write",
+        "--safe-mode",
+        "--disallowedTools", "mcp__*",
+        "--tools", "Glob,Grep,Read,Edit,Write",
+        "--allowedTools", "Glob", "Grep", "Read", "Edit", "Write",
         "--output-format", "stream-json",
         prompt,
     ]
@@ -301,7 +312,8 @@ Los."""
         try:
             result = subprocess.run(
                 cmd, capture_output=True,
-                timeout=config["timeout"], env=env, cwd=r"C:\Users\User",
+                timeout=config["timeout"], env=env,
+                cwd=str(Path(TARGET_PATH).expanduser().resolve()),
             )
             stdout_data = result.stdout
             returncode = result.returncode
@@ -382,18 +394,15 @@ Los."""
 # --- Main ---
 def main():
     config = parse_cli()
+    require_explicit_opt_in()
+    RESULTS_DIR.mkdir(exist_ok=True)
+    validate_total_budget(config["agents"], config["max_total_budget_usd"])
 
     if config["test"]:
         print("  *** TESTMODUS: 5 Agenten ***")
 
-    dungeon_full = Path(TARGET_PATH) / config["dungeon"]
-    treasure_full = Path(TARGET_PATH) / config["treasure"]
-
-    # Startup-Check
-    if MEMORY_BACKUP.exists():
-        print("  [!] WARNUNG: Backup von vorherigem Crash!")
-        restore_memory()
-        print()
+    dungeon_full = resolve_within_target(config["dungeon"], "--dungeon")
+    treasure_full = resolve_within_target(config["treasure"], "--treasure")
 
     # Schatz pruefen
     if not treasure_full.exists():
@@ -417,13 +426,6 @@ def main():
     print(f"{'='*65}")
     print()
 
-    # MEMORY
-    print("  [SETUP] Bereite naive Umgebung vor...")
-    memory_backed_up = backup_memory()
-    if memory_backed_up:
-        atexit.register(emergency_restore)
-    print()
-
     experiment_start = time.time()
     semaphore = threading.Semaphore(config["pool"])
     results_lock = threading.Lock()
@@ -440,12 +442,6 @@ def main():
     # Warten
     for t in threads:
         t.join(timeout=config["timeout"] + 60)
-
-    # MEMORY zurueck
-    if memory_backed_up:
-        print("\n  [CLEANUP] MEMORY.md wird wiederhergestellt...")
-        restore_memory()
-        atexit.unregister(emergency_restore)
 
     # Leichen aufraeumen
     cleanup_corpses(dungeon_full)

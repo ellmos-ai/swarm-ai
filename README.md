@@ -33,7 +33,7 @@ swarm-ai is intentionally smaller than enterprise agent platforms such as CrewAI
 ## Why swarm-ai
 
 - **Parallel LLM execution:** fan out chunked work across multiple Claude or Anthropic calls.
-- **Consensus checks:** ask several agents independently and compute agreement, confidence, and votes.
+- **Consensus checks:** ask several agents independently and compute response rate, agreement, confidence, and votes.
 - **Stigmergy experiments:** use a SQLite-backed pheromone store so agents can leave indirect coordination signals.
 - **Chain definitions:** describe hierarchy and specialist swarms as JSON files instead of hardcoding every run.
 - **Local-first workflow:** code, prompts, benchmark results, and design notes stay in the repo.
@@ -55,6 +55,8 @@ project-local team lock before starting parallel work. The lock procedure is a
 coordination layer around the five swarm patterns, not a sixth pattern. See
 [`konzepte/team-lock-verfahren.md`](konzepte/team-lock-verfahren.md) for the
 portable file format, claim rules, and lifecycle.
+The tested `tools/team_lock.py` implementation uses atomic per-resource claim
+files and immutable per-participant attendance records.
 
 ## Installation
 
@@ -82,6 +84,7 @@ Run several agents on the same question and aggregate the answer:
 PYTHONIOENCODING=utf-8 python tools/consensus_swarm.py \
   --mode boolean \
   --agents 7 \
+  --max-budget-usd 0.25 \
   --question "Is Python dynamically typed?"
 ```
 
@@ -100,6 +103,7 @@ result = run_consensus(
     question="Is Rust memory-safe?",
     num_agents=5,
     mode="boolean",
+    max_budget_usd=0.25,
 )
 
 print(result["consensus"]["consensus_answer"])
@@ -121,6 +125,9 @@ best = api.get_best_path()
 api.evaporate(decay_rate=0.1)
 ```
 
+The file-backed schema is initialized automatically. `:memory:` is rejected
+because a multi-connection coordination store must persist across connections.
+
 ### Parallel Claude CLI calls
 
 Use `ClaudeRunner` when you want to fan out independent prompts through Claude Code:
@@ -128,7 +135,10 @@ Use `ClaudeRunner` when you want to fan out independent prompts through Claude C
 ```python
 from tools.runner import ClaudeRunner
 
-runner = ClaudeRunner(model="claude-haiku-4-5-20251001")
+runner = ClaudeRunner(
+    model="claude-haiku-4-5-20251001",
+    max_budget_usd=0.25,
+)
 results = runner.run_parallel(
     [
         "Analyze security vulnerabilities in Flask apps",
@@ -139,13 +149,34 @@ results = runner.run_parallel(
 )
 ```
 
+The runner is read-only by default (`Read`, `Glob`, `Grep`), pre-approves only
+that set in non-interactive `dontAsk` mode, denies configured MCP tools, and
+does not persist sessions. Pass explicit `allowed_tools` and `available_tools`
+only when a reviewed task really requires a wider capability surface.
+
+### Standalone chunk databases
+
+The database-bound tools can initialize their own schemas:
+
+```bash
+python tools/translate_swarm.py --init-db
+python tools/summarize_chunks.py --init-db
+python tools/translate_swarm.py --limit 20 --max-budget-usd 1
+python tools/summarize_chunks.py --limit 20 --max-budget-usd 1
+```
+
+Translation results are matched by key and namespace rather than response order.
+The summarizer uses expiring SQLite claims so concurrent runs do not pay twice
+for the same chunk. Real API end-to-end verification remains an open release task.
+
 ## Benchmarks
 
 The included benchmark compares sequential and parallel execution:
 
 ```bash
 PYTHONIOENCODING=utf-8 python tools/benchmark.py
-PYTHONIOENCODING=utf-8 python tools/benchmark.py --compare --workers 3
+PYTHONIOENCODING=utf-8 python tools/benchmark.py --compare --workers 3 \
+  --limit 5 --max-budget-usd 2
 ```
 
 Measured result from `results/benchmark_20260306.json`:
@@ -180,9 +211,17 @@ swarm_ai/
 
 swarm-ai is public and usable as an experimental toolkit. The core modules have a local test suite; some concept and experiment files still reference BACH because they document the origin of the patterns. Production use should start from the `tools/` modules and the tested Python APIs.
 
+Historical launchers under `experiments/` fail closed. They require an explicit
+test/full-run CLI mode, `SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND`, a
+validated target, a per-agent budget environment variable, and a total-run CLI
+budget. Write-capable dungeon and maintenance experiments additionally require
+an isolated fixture marker. They run with Claude safe mode, a fixed built-in
+tool allowlist, MCP disabled, and never modify user memory files.
+
 Current verification:
 
-- 99 local tests passing.
+- 166 local tests passing on the 2026-07-15 review baseline.
+- Ruff, `compileall`, a high-severity Bandit gate, and pinned Linux/Windows/macOS GitHub Actions are enabled.
 - MIT licensed.
 - No package release on PyPI yet.
 - No graphical interface or hosted landing page.

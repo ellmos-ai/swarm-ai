@@ -6,8 +6,7 @@ Handles environment, fallback, timeout, and output capture.
 """
 import subprocess
 import os
-import sys
-from pathlib import Path
+import math
 from datetime import datetime
 
 
@@ -16,13 +15,28 @@ class ClaudeRunner:
 
     def __init__(self, model="claude-sonnet-4-6", fallback_model=None,
                  permission_mode="dontAsk", allowed_tools=None, timeout=1800,
-                 cwd=None):
+                 cwd=None, max_budget_usd=None, allow_mcp=False,
+                 persist_sessions=False, available_tools=None):
+        if not isinstance(model, str) or not model.strip():
+            raise ValueError("model must be a non-empty string")
+        if timeout <= 0:
+            raise ValueError("timeout must be greater than zero")
+        if (max_budget_usd is not None and
+                (not math.isfinite(float(max_budget_usd)) or max_budget_usd <= 0)):
+            raise ValueError("max_budget_usd must be finite and greater than zero")
         self.model = model
         self.fallback_model = fallback_model
         self.permission_mode = permission_mode
-        self.allowed_tools = allowed_tools or ["Read", "Edit", "Write", "Bash", "Glob", "Grep"]
+        # Safe default: callers must explicitly opt into shell or write access.
+        self.allowed_tools = ["Read", "Glob", "Grep"] if allowed_tools is None else list(allowed_tools)
+        self.available_tools = (
+            list(self.allowed_tools) if available_tools is None else list(available_tools)
+        )
         self.timeout = timeout
         self.cwd = cwd
+        self.max_budget_usd = max_budget_usd
+        self.allow_mcp = bool(allow_mcp)
+        self.persist_sessions = bool(persist_sessions)
 
     def _build_env(self):
         """Prepare environment: remove CLAUDECODE, set encoding."""
@@ -33,8 +47,30 @@ class ClaudeRunner:
 
     def _build_cmd(self, prompt, **overrides):
         """Build the Claude CLI command."""
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError("prompt must be a non-empty string")
         model = overrides.get("model", self.model)
+        if not isinstance(model, str) or not model.strip():
+            raise ValueError("model must be a non-empty string")
         continue_conv = overrides.get("continue_conversation", False)
+        permission_mode = overrides.get("permission_mode", self.permission_mode)
+        if not isinstance(permission_mode, str) or not permission_mode.strip():
+            raise ValueError("permission_mode must be a non-empty string")
+        allowed_overridden = "allowed_tools" in overrides
+        allowed_tools = overrides.get("allowed_tools", self.allowed_tools)
+        if isinstance(allowed_tools, str):
+            raise TypeError("allowed_tools must be a sequence of tool names")
+        allowed_tools = list(allowed_tools)
+        if any(not isinstance(tool, str) or not tool.strip() for tool in allowed_tools):
+            raise ValueError("allowed_tools entries must be non-empty strings")
+        available_tools = overrides.get(
+            "available_tools", allowed_tools if allowed_overridden else self.available_tools
+        )
+        if isinstance(available_tools, str):
+            raise TypeError("available_tools must be a sequence of tool names")
+        available_tools = list(available_tools)
+        if any(not isinstance(tool, str) or not tool.strip() for tool in available_tools):
+            raise ValueError("available_tools entries must be non-empty strings")
 
         cmd = ["claude"]
         if continue_conv:
@@ -42,12 +78,24 @@ class ClaudeRunner:
         cmd.extend([
             "--model", model,
             "-p", prompt,
-            "--permission-mode", self.permission_mode,
-            "--allowedTools", ",".join(self.allowed_tools),
+            "--permission-mode", permission_mode,
         ])
+        # --tools only restricts built-in tools; MCP needs a separate deny rule.
+        cmd.extend(["--tools", ",".join(available_tools)])
+        if allowed_tools:
+            cmd.extend(["--allowedTools", *allowed_tools])
+        if not overrides.get("allow_mcp", self.allow_mcp):
+            cmd.extend(["--disallowedTools", "mcp__*"])
+        if not overrides.get("persist_sessions", self.persist_sessions):
+            cmd.append("--no-session-persistence")
         fallback = overrides.get("fallback_model", self.fallback_model)
         if fallback:
             cmd.extend(["--fallback-model", fallback])
+        max_budget = overrides.get("max_budget_usd", self.max_budget_usd)
+        if max_budget is not None:
+            if not math.isfinite(float(max_budget)) or max_budget <= 0:
+                raise ValueError("max_budget_usd must be finite and greater than zero")
+            cmd.extend(["--max-budget-usd", str(max_budget)])
         return cmd
 
     def run(self, prompt, **overrides):
@@ -61,6 +109,8 @@ class ClaudeRunner:
         env = self._build_env()
         cwd = overrides.get("cwd", self.cwd)
         timeout = overrides.get("timeout", self.timeout)
+        if timeout <= 0:
+            raise ValueError("timeout must be greater than zero")
 
         start = datetime.now()
         try:
@@ -129,6 +179,14 @@ class ClaudeRunner:
         """
         from concurrent.futures import ThreadPoolExecutor, as_completed
 
+        if max_workers <= 0:
+            raise ValueError("max_workers must be greater than zero")
+        if isinstance(prompts, (str, bytes)):
+            raise TypeError("prompts must be an iterable of prompt items, not a string")
+        prompts = list(prompts)
+        if len(prompts) > 100:
+            raise ValueError("at most 100 prompts are allowed per parallel run")
+
         tasks = []
         for item in prompts:
             if isinstance(item, dict):
@@ -140,6 +198,10 @@ class ClaudeRunner:
                 tasks.append((prompt, merged))
             else:
                 tasks.append((item, overrides))
+
+        for prompt, _ in tasks:
+            if not isinstance(prompt, str) or not prompt.strip():
+                raise ValueError("each prompt must be a non-empty string")
 
         results = [None] * len(tasks)
 
@@ -154,10 +216,11 @@ class ClaudeRunner:
                 try:
                     results[idx] = future.result()
                 except Exception as e:
+                    task_overrides = tasks[idx][1]
                     results[idx] = {
                         "success": False, "output": "", "stderr": str(e),
                         "returncode": -4, "duration_s": 0,
-                        "model": overrides.get("model", self.model),
+                        "model": task_overrides.get("model", self.model),
                     }
 
         return results

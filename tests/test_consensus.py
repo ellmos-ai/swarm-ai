@@ -16,6 +16,7 @@ from tools.consensus_swarm import (
     DEFAULT_AGENTS,
     MODEL,
     COST_PER_1M,
+    resolve_model_costs,
 )
 
 
@@ -46,10 +47,9 @@ class TestBuildPrompts:
         assert "neutral" in system
         assert "GENAU EINE" in system
 
-    def test_classify_without_categories_falls_to_answer(self):
-        """classify mode without categories should fall through to answer mode."""
-        system, user = build_prompts("Test", mode="classify", categories=None)
-        assert "Wissens-Agent" in system  # answer mode prompt
+    def test_classify_without_categories_is_rejected(self):
+        with pytest.raises(ValueError, match="requires"):
+            build_prompts("Test", mode="classify", categories=None)
 
 
 class TestComputeConsensus:
@@ -129,7 +129,28 @@ class TestComputeConsensus:
         consensus = compute_consensus(results, mode="answer")
         assert consensus["valid_responses"] == 2
         assert consensus["total_agents"] == 3
-        assert consensus["confidence"] == 1.0  # 2/2 valid agree
+        assert consensus["confidence"] == pytest.approx(2 / 3)
+        assert consensus["agreement_ratio"] == 1.0
+        assert consensus["response_rate"] == pytest.approx(2 / 3)
+
+    def test_invalid_boolean_answer_is_not_counted(self):
+        results = [
+            {"answer": "JA", "agent_id": 0, "input_tokens": 1, "output_tokens": 1, "error": None},
+            {"answer": "Vielleicht", "agent_id": 1, "input_tokens": 1, "output_tokens": 1, "error": None},
+        ]
+        consensus = compute_consensus(results, mode="boolean")
+        assert consensus["valid_responses"] == 1
+        assert consensus["confidence"] == 0.5
+
+    def test_tie_has_no_arbitrary_winner(self):
+        results = [
+            {"answer": "JA", "agent_id": 0, "input_tokens": 1, "output_tokens": 1, "error": None},
+            {"answer": "NEIN", "agent_id": 1, "input_tokens": 1, "output_tokens": 1, "error": None},
+        ]
+        consensus = compute_consensus(results, mode="boolean")
+        assert consensus["tie"] is True
+        assert consensus["consensus_answer"] is None
+        assert consensus["tied_answers"] == ["JA", "NEIN"]
 
 
 class TestQueryAgent:
@@ -165,7 +186,9 @@ class TestRunConsensus:
             num_agents=3,
             dry_run=True,
         )
-        assert result == {"dry_run": True}
+        assert result["dry_run"] is True
+        assert result["agents"] == 3
+        assert result["conservative_cost_bound_usd"] > result["estimated_cost_usd"]
         captured = capsys.readouterr()
         assert "DRY-RUN" in captured.out
         assert "Geschaetzte Kosten" in captured.out
@@ -189,12 +212,21 @@ class TestRunConsensus:
             num_agents=3,
             workers=2,
             mode="answer",
+            max_budget_usd=1.0,
         )
 
         assert result["consensus"]["consensus_answer"] == "Paris"
         assert result["consensus"]["confidence"] == 1.0
         assert result["stats"]["total_input_tokens"] == 150  # 3 * 50
         assert result["stats"]["total_output_tokens"] == 30  # 3 * 10
+
+    def test_live_run_requires_budget_before_api_setup(self):
+        with pytest.raises(ValueError, match="max_budget_usd"):
+            run_consensus(question="Test", num_agents=1)
+        with pytest.raises(ValueError, match="finite"):
+            run_consensus(
+                question="Test", num_agents=1, max_budget_usd=float("nan")
+            )
 
 
 class TestCostEstimation:
@@ -211,3 +243,10 @@ class TestCostEstimation:
 
     def test_model_is_haiku(self):
         assert "haiku" in MODEL.lower()
+
+    def test_model_specific_costs(self):
+        assert resolve_model_costs("claude-sonnet-5")["input"] == 3.0
+
+    def test_unknown_model_requires_explicit_costs(self):
+        with pytest.raises(ValueError, match="no pricing"):
+            resolve_model_costs("future-model")

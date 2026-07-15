@@ -1,47 +1,32 @@
-# Release Gate - Pre-Public Checklist
+# Release Gate - Public Experimental Toolkit
 
-**Status:** READY (9/10 -- 90%)
+**Status:** CORE GATES PASS / EXTERNAL API E2E OPEN
 
-> This repository has passed the gating threshold and is ready for public release.
-> At least 80% of the checklist must be completed before the visibility can be changed to public.
+Das Repository ist bereits öffentlich. Dieses Gate beschreibt daher keine
+Sichtbarkeitsfreigabe, sondern den nachweisbaren Stand des experimentellen Toolkits.
 
----
+## Verifizierte Gates (2026-07-15)
 
-## Pre-Release Checklist
+- [x] `PYTHONIOENCODING=utf-8 python -m pytest -q` → **166 passed**.
+- [x] `python -m ruff check tools tests` → keine Befunde.
+- [x] `python -m compileall -q tools tests experiments` → erfolgreich.
+- [x] Bandit-Scan der produktiven Tools → keine High-Severity-Befunde.
+- [x] Keine echten API-Keys oder getrackten Datenbanken.
+- [x] Keine persönlichen Zielpfade und kein
+  `--dangerously-skip-permissions` in ausführbaren Python-Quellen.
+- [x] Standalone-Schema-Initialisierung für alle drei DB-gebundenen Tools.
+- [x] Historische, schreibfähige Experimente sind standardmäßig gesperrt und
+  verlangen expliziten Modus, Opt-in, Pro-Agent-/Gesamtbudget sowie validierte
+  Ziele/Fixtures; Benutzer-Memory wird nicht verändert.
+- [x] GitHub Actions sind SHA-gepinnt; Windows/Linux/macOS-Matrix, CodeQL,
+  High-Severity-Bandit-Gate und Dependabot sind konfiguriert.
+- [x] MIT-Lizenz, Security Policy, englische und deutsche README vorhanden.
 
-- [x] All 5 swarm patterns tested at unit level
-  - **Current local check (2026-07-10):** `PYTHONIOENCODING=utf-8 python -m pytest -q` -> 99 tests passed. Distribution: runner.py (19), stigmergy_api.py (22), consensus_swarm.py (18), translate_swarm.py (13), summarize_chunks.py (20), imports (7). API calls are mocked; end-to-end tests with real API calls are still tracked separately below.
-- [ ] `summarize_chunks.py` end-to-end tested
-  - Unit-Tests bestanden. End-to-end mit echtem API-Call und DB ausstehend.
-- [x] `consensus_swarm.py` end-to-end tested
-  - Unit-Tests bestanden inkl. gemocktem Full-Run (dry-run + mocked API).
-- [x] `benchmark.py` executed with current model
-  - Import-Bug behoben 2026-04-15: `from llmauto.core.runner` -> `from tools.runner`. benchmark.py läuft jetzt mit dem standalone-Paket.
-- [x] No hardcoded API keys or secrets in any file
-  - Geprüft 2026-03-15: Keine echten Keys. Nur Platzhalter (`sk-ant-api03-...`) in Doku/Fehlermeldungen.
-- [x] No personal paths (`C:\Users\lukas`, etc.) in source code
-  - Geprüft 2026-03-15: Keine persönlichen Pfade in tools/*.py.
-- [x] No BACH-specific database dependencies
-  - Keine harten BACH-Imports oder BACH-Secrets-Fallbacks in den getesteten Tools. Konzept- und Experimentdateien dürfen BACH als Ursprung der Muster referenzieren; produktive Einstiege sind die `tools/`-Module.
-- [x] `README.md` up-to-date and accurate
-  - Alle 5 Patterns dokumentiert, Architektur-Diagramm, Benchmark-Ergebnisse, Quick Start.
-- [x] GitHub Actions smoke workflow current
-  - Geprüft 2026-06-05: Testworkflow nutzt aktuelle Action-Majors (`actions/checkout@v6`, `actions/setup-python@v6`) und führt `python -m pytest -q` mit `PYTHONIOENCODING=utf-8` aus.
-- [x] License header present in all source files
-  - MIT License vorhanden. Docstrings in allen Modulen.
+## Offenes externes Gate
 
-## Open Issues
+- [ ] Je ein echter, kostenbewusst freigegebener API-/DB-End-to-End-Lauf für
+  `consensus_swarm.py`, `summarize_chunks.py` und `translate_swarm.py`.
 
-1. **End-to-end Tests:** summarize_chunks.py und translate_swarm.py brauchen noch einen echten API-Lauf (nicht gate-blockend -- Unit-Tests decken die Logik ab, end-to-end wäre zusätzliche Absicherung gegen API-Drift)
-
-> BACH-Referenzen (ehemals Issue 2) wurden 2026-04-15 bereinigt: Author-Headers, System-Prompt, Pfad-Beispiele und BACH-Secrets-Fallback in consensus_swarm.py entfernt. Repo ist als experimentelles Toolkit standalone nutzbar; historische Konzepttexte können BACH weiterhin als Ursprungskontext nennen.
-
-## Gating Rule
-
-At least **80%** of the checklist items above must be completed (green) before this repository may be set to public.
-
-**Aktueller Stand: 9/10 (90%) -- Gate freigegeben. Repo ist public und bleibt als experimentelles Toolkit freigegeben.**
-
-## Responsible
-
-**Lukas Geiger** ([github.com/lukisch](https://github.com/lukisch))
+Bis dieses Gate geschlossen ist, bleibt die korrekte Bezeichnung
+**public experimental**, nicht production-ready. Gemockte API-Tests sichern die
+lokale Logik, können aber Provider- oder SDK-Drift nicht vollständig beweisen.

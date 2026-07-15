@@ -6,13 +6,10 @@ Elephant Path Experiment - Trampelpfadanalyse
 Naive LLM-Agenten erkunden PARALLEL ein Dateisystem.
 Ergebnisse in data/elephant_path_100/
 
-v6.0 - Optimierungen:
+v6.2 - Sicherheitsgrenzen:
   - Kein Delay mehr: Alle Threads starten sofort, Semaphore regelt Parallelitaet
-  - Fruehe MEMORY.md Wiederherstellung nach letztem Semaphore-Acquire
-  - atexit-Handler als Sicherheitsnetz (auch bei doppeltem Ctrl+C)
-  - Startup-Check: Backup von vorherigem Crash wird erkannt
-  - --tools statt --allowedTools (echte Tool-Restriction)
-  - --disable-slash-commands (keine Skills im Kontext)
+  - Naiver Kontext via Claude --safe-mode, ohne Benutzerdaten zu veraendern
+  - Nur Read/Glob/Grep; konfigurierte MCP-Tools werden separat gesperrt
   - subprocess.run (Windows-kompatibel)
 
 Verwendung:
@@ -22,13 +19,13 @@ Konfiguration: NUM_PROBES, MAX_CONCURRENT, TIMEOUT_SECONDS unten anpassen.
 Auch nutzbar fuer beliebige Ordnerstrukturen (TARGET_PATH aendern).
 """
 
+import argparse
 import subprocess
 import time
 import json
+import math
 import os
 import sys
-import shutil
-import atexit
 import threading
 from pathlib import Path
 from datetime import datetime
@@ -38,13 +35,69 @@ NUM_PROBES = 100
 TIMEOUT_SECONDS = 120
 MAX_CONCURRENT = 5
 MODEL = "haiku"
-TARGET_PATH = r"C:\Users\User\OneDrive\.AI\BACH_v2_vanilla\system"
+TARGET_PATH = os.getenv("SWARM_EXPERIMENT_TARGET", "")
 RESULTS_DIR = Path(__file__).parent / "elephant_path_post_signs"
-RESULTS_DIR.mkdir(exist_ok=True)
 
-# MEMORY.md Pfade
-MEMORY_FILE = Path.home() / ".claude" / "projects" / "C--Users-User" / "memory" / "MEMORY.md"
-MEMORY_BACKUP = MEMORY_FILE.parent / "MEMORY.md.experiment_backup"
+
+def experiment_budget_per_agent():
+    raw = os.getenv("SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT", "")
+    try:
+        value = float(raw)
+    except ValueError as exc:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        ) from exc
+    if not math.isfinite(value) or value <= 0:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        )
+    return value
+
+
+def parse_cli():
+    parser = argparse.ArgumentParser(description="Historical read-only elephant-path run")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--test", action="store_true", help="Run one probe")
+    mode.add_argument("--run", action="store_true", help="Run the configured probe swarm")
+    parser.add_argument("--probes", type=int, default=NUM_PROBES)
+    parser.add_argument("--max-concurrent", type=int, default=MAX_CONCURRENT)
+    parser.add_argument("--timeout", type=int, default=TIMEOUT_SECONDS)
+    parser.add_argument("--max-total-budget-usd", type=float, required=True)
+    args = parser.parse_args()
+    if args.test:
+        args.probes = 1
+        args.max_concurrent = 1
+    if not 1 <= args.probes <= 100:
+        parser.error("--probes must be between 1 and 100")
+    if not 1 <= args.max_concurrent <= 20:
+        parser.error("--max-concurrent must be between 1 and 20")
+    if args.timeout <= 0:
+        parser.error("--timeout must be greater than zero")
+    if (not math.isfinite(args.max_total_budget_usd) or
+            args.max_total_budget_usd <= 0):
+        parser.error("--max-total-budget-usd must be positive and finite")
+    return args
+
+
+def validate_total_budget(agent_count, total_budget):
+    requested = experiment_budget_per_agent() * agent_count
+    if requested > total_budget:
+        raise SystemExit(
+            f"per-agent caps total ${requested:.2f}, above the run budget "
+            f"${total_budget:.2f}"
+        )
+
+
+def require_explicit_opt_in():
+    if os.getenv("SWARM_ENABLE_LEGACY_EXPERIMENTS") != "I_UNDERSTAND":
+        raise SystemExit(
+            "Historical experiment disabled. Set "
+            "SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND explicitly."
+        )
+    target = Path(TARGET_PATH).expanduser()
+    if not TARGET_PATH or not target.is_dir() or target.resolve().parent == target.resolve():
+        raise SystemExit("SWARM_EXPERIMENT_TARGET must name an existing non-root directory")
+    experiment_budget_per_agent()
 
 # 20 verschiedene Auftraege (je 5x = 100)
 TASKS = [
@@ -95,44 +148,6 @@ active_count = 0
 completed_count = 0
 error_count = 0
 results = {}
-all_acquired = threading.Event()  # Signalisiert: letzter Thread hat Semaphore
-acquired_count = 0
-
-
-# --- MEMORY.md Verwaltung ---
-def backup_memory():
-    """Sichert MEMORY.md und ersetzt durch leere Datei."""
-    if not MEMORY_FILE.exists():
-        print(f"  WARNUNG: {MEMORY_FILE} existiert nicht, ueberspringe Backup")
-        return False
-    shutil.copy2(MEMORY_FILE, MEMORY_BACKUP)
-    with open(MEMORY_FILE, "w", encoding="utf-8") as f:
-        f.write("# Memory\n")
-    print(f"  MEMORY.md gesichert und durch leere Version ersetzt")
-    return True
-
-
-def restore_memory():
-    """Stellt MEMORY.md aus Backup wieder her."""
-    if not MEMORY_BACKUP.exists():
-        return False
-    shutil.copy2(MEMORY_BACKUP, MEMORY_FILE)
-    MEMORY_BACKUP.unlink()
-    print(f"  MEMORY.md wiederhergestellt")
-    return True
-
-
-def emergency_restore():
-    """atexit-Handler: Stellt MEMORY.md wieder her falls vergessen."""
-    if MEMORY_BACKUP.exists():
-        try:
-            shutil.copy2(MEMORY_BACKUP, MEMORY_FILE)
-            MEMORY_BACKUP.unlink()
-            print("\n  [NOTFALL] MEMORY.md per atexit wiederhergestellt!")
-        except Exception:
-            print(f"\n  [FEHLER] MEMORY.md manuell wiederherstellen aus: {MEMORY_BACKUP}")
-
-
 # --- Stream-JSON Parser ---
 def parse_stream_json(raw_text):
     """Parst stream-json Output und extrahiert Tool-Aufrufe und Pfade."""
@@ -183,7 +198,7 @@ def parse_stream_json(raw_text):
 # --- Probe-Runner ---
 def run_probe(probe_num, task_text):
     """Startet eine einzelne Probe."""
-    global active_count, completed_count, error_count, acquired_count
+    global active_count, completed_count, error_count
 
     prompt = PROMPT_TEMPLATE.format(task=task_text, target_path=TARGET_PATH)
     stream_file = RESULTS_DIR / f"probe_{probe_num:03d}.stream.jsonl"
@@ -197,11 +212,14 @@ def run_probe(probe_num, task_text):
     cmd = [
         "claude", "-p",
         "--model", MODEL,
+        "--max-budget-usd", str(experiment_budget_per_agent()),
         "--verbose",
-        "--dangerously-skip-permissions",
+        "--permission-mode", "dontAsk",
         "--no-session-persistence",
-        "--disable-slash-commands",
-        "--tools", "Bash,Glob,Grep,Read",
+        "--safe-mode",
+        "--disallowedTools", "mcp__*",
+        "--tools", "Glob,Grep,Read",
+        "--allowedTools", "Glob", "Grep", "Read",
         "--output-format", "stream-json",
         prompt,
     ]
@@ -211,11 +229,8 @@ def run_probe(probe_num, task_text):
 
     with lock:
         active_count += 1
-        acquired_count += 1
-        print(f"  >> [{probe_num:3d}] GESTARTET (aktiv: {active_count}, acquired: {acquired_count}/{NUM_PROBES})")
+        print(f"  >> [{probe_num:3d}] GESTARTET (aktiv: {active_count})")
         sys.stdout.flush()
-        if acquired_count >= NUM_PROBES:
-            all_acquired.set()
 
     start_time = time.time()
     timed_out = False
@@ -226,7 +241,8 @@ def run_probe(probe_num, task_text):
         try:
             result = subprocess.run(
                 cmd, capture_output=True,
-                timeout=TIMEOUT_SECONDS, env=env, cwd=r"C:\Users\User",
+                timeout=TIMEOUT_SECONDS, env=env,
+                cwd=str(Path(TARGET_PATH).expanduser().resolve()),
             )
             stdout_data = result.stdout
             stderr_data = result.stderr
@@ -315,29 +331,24 @@ def run_probe(probe_num, task_text):
 
 
 def main():
-    # Startup-Check: Backup von vorherigem Crash?
-    if MEMORY_BACKUP.exists():
-        print("  [!] WARNUNG: Backup von vorherigem Experiment-Crash gefunden!")
-        print(f"      Stelle MEMORY.md wieder her aus: {MEMORY_BACKUP}")
-        restore_memory()
-        print()
+    global NUM_PROBES, MAX_CONCURRENT, TIMEOUT_SECONDS, semaphore
+    args = parse_cli()
+    NUM_PROBES = args.probes
+    MAX_CONCURRENT = args.max_concurrent
+    TIMEOUT_SECONDS = args.timeout
+    semaphore = threading.Semaphore(MAX_CONCURRENT)
+    require_explicit_opt_in()
+    validate_total_budget(NUM_PROBES, args.max_total_budget_usd)
+    RESULTS_DIR.mkdir(exist_ok=True)
 
     print(f"{'='*60}")
     print(f"  ELEPHANT PATH EXPERIMENT v6.1 - POST-SCHILDER-TEST")
     print(f"  {NUM_PROBES} {MODEL.title()}, max {MAX_CONCURRENT} parallel")
     print(f"  Timeout: {TIMEOUT_SECONDS}s, Ziel: {TARGET_PATH}")
-    print(f"  Naive Mode: MEMORY leer, Skills deaktiviert,")
-    print(f"              nur Bash/Glob/Grep/Read")
+    print("  Naive Mode: Claude --safe-mode, nur Glob/Grep/Read")
     print(f"  Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"  Output: {RESULTS_DIR}")
     print(f"{'='*60}")
-    print()
-
-    # MEMORY.md sichern + atexit-Sicherheitsnetz
-    print("  [SETUP] Bereite naive Umgebung vor...")
-    memory_backed_up = backup_memory()
-    if memory_backed_up:
-        atexit.register(emergency_restore)
     print()
 
     experiment_start = time.time()
@@ -352,21 +363,8 @@ def main():
         t.start()
         threads.append(t)
 
-    print(f"  {NUM_PROBES} Threads erstellt. Warte auf Semaphore-Zuteilung...")
+    print(f"  {NUM_PROBES} Threads erstellt.")
     print()
-
-    # Warte bis alle Threads den Semaphore acquired haben
-    # (= alle claude-Prozesse gestartet, MEMORY.md nicht mehr benoetigt)
-    all_acquired.wait(timeout=NUM_PROBES * TIMEOUT_SECONDS)
-
-    # MEMORY.md frueh wiederherstellen
-    if memory_backed_up:
-        print()
-        print("  [RESTORE] Alle Proben gestartet - MEMORY.md wird wiederhergestellt...")
-        restore_memory()
-        atexit.unregister(emergency_restore)
-        print("  [RESTORE] Fertig! Andere Claude-Sessions koennen jetzt normal starten.")
-        print()
 
     # Auf alle Ergebnisse warten
     print(f"  Warte auf Ergebnisse...")
@@ -381,8 +379,10 @@ def main():
         "version": "6.1",
         "mode": "naive-post-signs",
         "naive_setup": {
-            "memory_cleared": memory_backed_up,
-            "tools_restricted": "Bash,Glob,Grep,Read",
+            "memory_cleared": False,
+            "safe_mode": True,
+            "tools_restricted": "Glob,Grep,Read",
+            "mcp_disabled": True,
             "skills_disabled": True,
         },
         "target_path": TARGET_PATH,

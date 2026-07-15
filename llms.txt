@@ -1,6 +1,6 @@
 # swarm-ai - LLM Swarm Intelligence Toolkit
 
-## Last-checked: 2026-07-10
+## Last-checked: 2026-07-15
 
 Canonical repository: https://github.com/ellmos-ai/swarm-ai
 
@@ -50,7 +50,10 @@ The project is part of the ellmos family. It is distinct from Docker Swarm, host
 
 ## Verification State
 
-- Local test suite: 99 pytest tests.
+- Local test suite: 166 pytest tests.
+- Core lint/compile/security gates: Ruff, compileall, Bandit high severity.
+- Historical experiments require explicit modes, finite per-agent/total budgets,
+  safe mode, and validated fixture targets; they never modify user memory files.
 - Python requirement: 3.10+.
 - Runtime dependency: `anthropic`.
 - CLI/API calls require `ANTHROPIC_API_KEY`.

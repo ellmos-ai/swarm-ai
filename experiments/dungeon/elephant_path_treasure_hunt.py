@@ -25,15 +25,15 @@ v2.0 - Runden-basiert:
   - Testmodus: --test fuer 1 Runde mit 5 Agenten
 """
 
+import argparse
 import subprocess
 import time
 import json
+import math
 import os
 import sys
 import re
 import hashlib
-import shutil
-import atexit
 import threading
 from pathlib import Path
 from datetime import datetime
@@ -44,10 +44,48 @@ NUM_ROUNDS = 10
 TIMEOUT_SECONDS = 180
 MAX_CONCURRENT = 5     # API-Limit innerhalb einer Runde
 MODEL = "haiku"
-TARGET_PATH = r"C:\Users\User\OneDrive\.AI\BACH_v2_vanilla\system"
+TARGET_PATH = os.getenv("SWARM_EXPERIMENT_TARGET", "")
 DUNGEON_PATH = "data/swarm/dungeon"  # Relativ zu TARGET_PATH
+DUNGEON_FIXTURE_MARKER = ".swarm-dungeon-fixture"
+DUNGEON_FIXTURE_MARKER_CONTENT = "SWARM_AI_DUNGEON_FIXTURE_V1"
 RESULTS_DIR = Path(__file__).parent / "elephant_path_treasure_hunt"
-RESULTS_DIR.mkdir(exist_ok=True)
+
+
+def experiment_budget_per_agent():
+    raw = os.getenv("SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT", "")
+    try:
+        value = float(raw)
+    except ValueError as exc:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        ) from exc
+    if not math.isfinite(value) or value <= 0:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        )
+    return value
+
+
+def parse_cli():
+    parser = argparse.ArgumentParser(description="Historical round-based dungeon swarm")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--test", action="store_true", help="Run one round with five agents")
+    mode.add_argument("--run", action="store_true", help="Run the configured full experiment")
+    parser.add_argument("--max-total-budget-usd", type=float, required=True)
+    args = parser.parse_args()
+    if (not math.isfinite(args.max_total_budget_usd) or
+            args.max_total_budget_usd <= 0):
+        parser.error("--max-total-budget-usd must be positive and finite")
+    return args
+
+
+def validate_total_budget(agent_count, total_budget):
+    requested = experiment_budget_per_agent() * agent_count
+    if requested > total_budget:
+        raise SystemExit(
+            f"per-agent caps total ${requested:.2f}, above the run budget "
+            f"${total_budget:.2f}"
+        )
 
 TREASURE_WORD = "STIGMERGIE"
 DECOY_WORD = "FALSCHGOLD"
@@ -71,9 +109,23 @@ KNOWN_TRAPS = {
     },
 }
 
-# MEMORY.md Pfade
-MEMORY_FILE = Path.home() / ".claude" / "projects" / "C--Users-User" / "memory" / "MEMORY.md"
-MEMORY_BACKUP = MEMORY_FILE.parent / "MEMORY.md.experiment_backup"
+def require_explicit_opt_in():
+    """Fail closed before this historical, write-capable experiment starts."""
+    if os.getenv("SWARM_ENABLE_LEGACY_EXPERIMENTS") != "I_UNDERSTAND":
+        raise SystemExit(
+            "Historical experiment disabled. Set "
+            "SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND explicitly."
+        )
+    target = Path(TARGET_PATH).expanduser()
+    if not TARGET_PATH or not target.is_dir() or target.resolve().parent == target.resolve():
+        raise SystemExit("SWARM_EXPERIMENT_TARGET must name an existing non-root directory")
+    marker = target / DUNGEON_FIXTURE_MARKER
+    if (not marker.is_file() or
+            marker.read_text(encoding="utf-8").strip() != DUNGEON_FIXTURE_MARKER_CONTENT):
+        raise SystemExit(
+            f"Dungeon experiments require an isolated fixture marker: {marker}"
+        )
+    experiment_budget_per_agent()
 
 
 def _is_valid_json(content):
@@ -103,7 +155,7 @@ REGELN:
 8. Maximal 20 Schritte
 
 WICHTIG:
-- Nutze Forward-Slashes in Bash (/) nicht Backslashes (\)
+- Nutze ausschließlich Glob/Grep/Read/Edit/Write innerhalb des Fixture-Ziels
 - Wenn eine Datei einen Fehler hat, benutze Edit/Write um ihn zu beheben
 
 Am Ende IMMER diese Zusammenfassung:
@@ -116,37 +168,6 @@ Am Ende IMMER diese Zusammenfassung:
   AUFTRAG_ERFUELLT: ja oder nein
 
 Los."""
-
-
-# --- MEMORY.md Verwaltung ---
-def backup_memory():
-    if not MEMORY_FILE.exists():
-        print(f"  WARNUNG: {MEMORY_FILE} existiert nicht")
-        return False
-    shutil.copy2(MEMORY_FILE, MEMORY_BACKUP)
-    with open(MEMORY_FILE, "w", encoding="utf-8") as f:
-        f.write("# Memory\n")
-    print(f"  MEMORY.md gesichert und durch leere Version ersetzt")
-    return True
-
-
-def restore_memory():
-    if not MEMORY_BACKUP.exists():
-        return False
-    shutil.copy2(MEMORY_BACKUP, MEMORY_FILE)
-    MEMORY_BACKUP.unlink()
-    print(f"  MEMORY.md wiederhergestellt")
-    return True
-
-
-def emergency_restore():
-    if MEMORY_BACKUP.exists():
-        try:
-            shutil.copy2(MEMORY_BACKUP, MEMORY_FILE)
-            MEMORY_BACKUP.unlink()
-            print("\n  [NOTFALL] MEMORY.md per atexit wiederhergestellt!")
-        except Exception:
-            print(f"\n  [FEHLER] MEMORY.md manuell aus {MEMORY_BACKUP} wiederherstellen!")
 
 
 # --- Dungeon Snapshot ---
@@ -180,14 +201,16 @@ def check_traps(dungeon_base):
 
 def restore_dungeon_from_template(dungeon_base):
     """Stellt den Dungeon aus dem Template wieder her."""
-    template_script = Path(__file__).parent.parent / "_templates" / "dungeon_template.py"
+    template_script = Path(__file__).parent / "dungeon_template.py"
     if template_script.exists():
         # Template-Script importieren und ausfuehren
         import importlib.util
         spec = importlib.util.spec_from_file_location("dungeon_template", template_script)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        mod.create_dungeon(str(dungeon_base), TREASURE_WORD, DECOY_WORD)
+        mod.create_dungeon(
+            str(dungeon_base), TREASURE_WORD, DECOY_WORD, force=True
+        )
         return True
     return False
 
@@ -298,11 +321,14 @@ def run_agent(agent_id, round_num, results_lock, round_results, sem):
     cmd = [
         "claude", "-p",
         "--model", MODEL,
+        "--max-budget-usd", str(experiment_budget_per_agent()),
         "--verbose",
-        "--dangerously-skip-permissions",
+        "--permission-mode", "dontAsk",
         "--no-session-persistence",
-        "--disable-slash-commands",
-        "--tools", "Bash,Glob,Grep,Read,Edit,Write",
+        "--safe-mode",
+        "--disallowedTools", "mcp__*",
+        "--tools", "Glob,Grep,Read,Edit,Write",
+        "--allowedTools", "Glob", "Grep", "Read", "Edit", "Write",
         "--output-format", "stream-json",
         prompt,
     ]
@@ -317,7 +343,8 @@ def run_agent(agent_id, round_num, results_lock, round_results, sem):
         try:
             result = subprocess.run(
                 cmd, capture_output=True,
-                timeout=TIMEOUT_SECONDS, env=env, cwd=r"C:\Users\User",
+                timeout=TIMEOUT_SECONDS, env=env,
+                cwd=str(Path(TARGET_PATH).expanduser().resolve()),
             )
             stdout_data = result.stdout
             stderr_data = result.stderr
@@ -388,8 +415,10 @@ def run_agent(agent_id, round_num, results_lock, round_results, sem):
 
 # --- Hauptprogramm ---
 def main():
-    # CLI-Args
-    test_mode = "--test" in sys.argv
+    args = parse_cli()
+    require_explicit_opt_in()
+    RESULTS_DIR.mkdir(exist_ok=True)
+    test_mode = args.test
     if test_mode:
         agents_per_round = 5
         num_rounds = 1
@@ -399,13 +428,8 @@ def main():
         num_rounds = NUM_ROUNDS
 
     total_agents = agents_per_round * num_rounds
+    validate_total_budget(total_agents, args.max_total_budget_usd)
     dungeon_base = Path(TARGET_PATH) / DUNGEON_PATH
-
-    # Startup-Check
-    if MEMORY_BACKUP.exists():
-        print("  [!] WARNUNG: Backup von vorherigem Crash!")
-        restore_memory()
-        print()
 
     print(f"{'='*65}")
     print(f"  SCHATZSUCHE v2.0 - Runden-basiertes Swarm Pattern E")
@@ -416,13 +440,6 @@ def main():
     print(f"  Agenten koennen Fallen REPARIEREN (Edit/Write)")
     print(f"  Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*65}")
-    print()
-
-    # MEMORY sichern
-    print("  [SETUP] Bereite naive Umgebung vor...")
-    memory_backed_up = backup_memory()
-    if memory_backed_up:
-        atexit.register(emergency_restore)
     print()
 
     experiment_start = time.time()
@@ -505,12 +522,6 @@ def main():
         # Spaetere Runden sehen die Fixes der frueheren.
         print()
 
-    # MEMORY wiederherstellen
-    if memory_backed_up:
-        print("  [CLEANUP] MEMORY.md wird wiederhergestellt...")
-        restore_memory()
-        atexit.unregister(emergency_restore)
-
     experiment_elapsed = time.time() - experiment_start
 
     # --- Gesamtauswertung ---
@@ -523,7 +534,7 @@ def main():
         "name": "Schatzsuche v2.0 - Runden-basiert",
         "test_mode": test_mode,
         "model": MODEL,
-        "rounds": num_rounds,
+        "round_count": num_rounds,
         "agents_per_round": agents_per_round,
         "total_agents": total_agents,
         "timeout_seconds": TIMEOUT_SECONDS,
@@ -539,7 +550,7 @@ def main():
             "total_not_found": total_agents - total_treasure - total_decoy,
             "final_trap_status": {k: v for k, v in final_traps.items()},
         },
-        "rounds": all_round_data,
+        "round_results": all_round_data,
     }
 
     with open(RESULTS_DIR / "experiment.json", "w", encoding="utf-8") as f:

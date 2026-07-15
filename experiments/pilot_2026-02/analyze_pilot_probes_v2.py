@@ -3,6 +3,7 @@
 import json
 import sys
 import os
+from pathlib import Path
 
 # Task-IDs und deren Aufträge
 tasks_meta = {
@@ -18,8 +19,16 @@ tasks_meta = {
     'a743337': {'model': 'Sonnet', 'task': 'System-Status'}
 }
 
-# Subagents-Verzeichnis (Windows-Pfad)
-subagents_dir = r'C:\Users\User\.claude\projects\C--Users-User\ed9e7375-ff86-437f-9cb1-33fb25854ca2\subagents'
+# Subagents-Verzeichnis muss explizit angegeben werden; keine Benutzerpfade im Code.
+subagents_arg = sys.argv[1] if len(sys.argv) > 1 else os.getenv("SWARM_SUBAGENTS_DIR")
+if not subagents_arg:
+    raise SystemExit(
+        "Usage: analyze_pilot_probes_v2.py SUBAGENTS_DIR "
+        "(or set SWARM_SUBAGENTS_DIR)"
+    )
+subagents_dir = str(Path(subagents_arg).expanduser().resolve())
+if not Path(subagents_dir).is_dir():
+    raise SystemExit(f"Subagents directory not found: {subagents_dir}")
 
 # Ergebnis-Struktur
 results = {}

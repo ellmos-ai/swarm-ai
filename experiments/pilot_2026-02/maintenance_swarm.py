@@ -16,9 +16,11 @@ Verwendung:
 v2.1 - Karte optimiert: Todesarten, durchsuchte Bereiche, 1-Call-Lesen
 """
 
+import argparse
 import subprocess
 import time
 import json
+import math
 import os
 import sys
 import re
@@ -27,32 +29,78 @@ import threading
 from pathlib import Path
 from datetime import datetime
 
-TARGET_PATH = r"C:\Users\User\OneDrive\.AI\BACH_v2_vanilla\system"
+TARGET_PATH = os.getenv("SWARM_EXPERIMENT_TARGET", "")
+FIXTURE_MARKER = ".swarm-maintenance-fixture"
+FIXTURE_MARKER_CONTENT = "SWARM_AI_MAINTENANCE_FIXTURE_V1"
 MODEL = "haiku"
 RESULTS_DIR = Path(__file__).parent / "maintenance_swarm_results"
 MAP_DIR = Path(TARGET_PATH) / "data" / "swarm" / "map"
 
 
+def experiment_budget_per_agent():
+    raw = os.getenv("SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT", "")
+    try:
+        value = float(raw)
+    except ValueError as exc:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        ) from exc
+    if not math.isfinite(value) or value <= 0:
+        raise SystemExit(
+            "SWARM_EXPERIMENT_MAX_BUDGET_USD_PER_AGENT must be a positive number"
+        )
+    return value
+
+
+def validate_total_budget(agent_count, total_budget):
+    requested = experiment_budget_per_agent() * agent_count
+    if requested > total_budget:
+        raise SystemExit(
+            f"per-agent caps total ${requested:.2f}, above the run budget "
+            f"${total_budget:.2f}"
+        )
+
+
+def require_explicit_opt_in():
+    if os.getenv("SWARM_ENABLE_LEGACY_EXPERIMENTS") != "I_UNDERSTAND":
+        raise SystemExit(
+            "Historical experiment disabled. Set "
+            "SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND explicitly."
+        )
+    target = Path(TARGET_PATH).expanduser()
+    if not TARGET_PATH or not target.is_dir() or target.resolve().parent == target.resolve():
+        raise SystemExit("SWARM_EXPERIMENT_TARGET must name an existing non-root directory")
+    marker = target / FIXTURE_MARKER
+    if not marker.is_file() or marker.read_text(encoding="utf-8").strip() != FIXTURE_MARKER_CONTENT:
+        raise SystemExit(
+            f"Maintenance experiments require an isolated fixture marker: {marker}"
+        )
+    experiment_budget_per_agent()
+
+
 def parse_cli():
-    args = {"agents": 20, "pool": 5, "timeout": 300, "test": False}
-    i = 1
-    while i < len(sys.argv):
-        a = sys.argv[i]
-        if a == "--test":
-            args["test"] = True
-            args["agents"] = 3
-            args["pool"] = 2
-        elif a == "--agents" and i + 1 < len(sys.argv):
-            i += 1
-            args["agents"] = int(sys.argv[i])
-        elif a == "--pool" and i + 1 < len(sys.argv):
-            i += 1
-            args["pool"] = int(sys.argv[i])
-        elif a == "--timeout" and i + 1 < len(sys.argv):
-            i += 1
-            args["timeout"] = int(sys.argv[i])
-        i += 1
-    return args
+    parser = argparse.ArgumentParser(description="Historical maintenance fixture swarm")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--test", action="store_true", help="Run three agents")
+    mode.add_argument("--run", action="store_true", help="Run the configured experiment")
+    parser.add_argument("--agents", type=int, default=20)
+    parser.add_argument("--pool", type=int, default=5)
+    parser.add_argument("--timeout", type=int, default=300)
+    parser.add_argument("--max-total-budget-usd", type=float, required=True)
+    args = parser.parse_args()
+    if args.test:
+        args.agents = 3
+        args.pool = 2
+    if not 1 <= args.agents <= 100:
+        parser.error("--agents must be between 1 and 100")
+    if not 1 <= args.pool <= 20:
+        parser.error("--pool must be between 1 and 20")
+    if args.timeout <= 0:
+        parser.error("--timeout must be greater than zero")
+    if (not math.isfinite(args.max_total_budget_usd) or
+            args.max_total_budget_usd <= 0):
+        parser.error("--max-total-budget-usd must be positive and finite")
+    return vars(args)
 
 
 # --- Karte des Rumtreibers ---
@@ -213,9 +261,8 @@ PROMPT = """Du bist Wartungs-Bot {bot_id} im BACH-System.
 BACH liegt unter: {target}
 
 ===== KARTE DES RUMTREIBERS =====
-ZUERST die Karte lesen! EIN Befehl reicht:
-
-  cat {map_dir}/bot_*.json 2>/dev/null || echo "Karte leer"
+ZUERST die Karte mit Glob `{map_dir}/bot_*.json` finden und die Treffer mit
+Read lesen.
 
 So siehst du ALLE Bots auf einen Blick. Interpretiere die Karte:
 - status "dead", cause "verhungert" = Bot hat Timeout erreicht, KEIN Schatz dort
@@ -229,18 +276,8 @@ WICHTIG: Wo Tote liegen wurde NICHTS GEFUNDEN. Geh in ANDERE Bereiche!
 Wo ein Bot "verhungert" ist war das Gebiet zu gross oder leer.
 Wo ein Bot an einer "falle" starb gibt es ein echtes Problem.
 
-DEIN ERSTER BEFEHL muss die Karte lesen (cat oben).
-DEIN ZWEITER BEFEHL muss deine Position auf die Karte schreiben:
-
-echo '{{"agent_id":"bot_{bot_id}","position":"DEIN_BEREICH","doing":"was_du_tust","status":"exploring","findings":[],"searched":[],"treasure_here":false,"updated":"jetzt"}}' > {map_dir}/bot_{bot_id}.json
-
-JEDES MAL wenn du in einen neuen Bereich gehst oder etwas findest:
-  SOFORT die Karte aktualisieren! Schreibe die JSON-Datei neu mit aktuellem Stand.
-  Beispiel nach einem Fix:
-echo '{{"agent_id":"bot_{bot_id}","position":"hub","doing":"bom entfernt","status":"exploring","findings":["hub/_legacy.py: BOM entfernt"],"searched":["hub"],"treasure_here":false,"updated":"jetzt"}}' > {map_dir}/bot_{bot_id}.json
-
-WICHTIG: Die Karte ist dein EINZIGER Kommunikationskanal! Ohne Updates
-bist du UNSICHTBAR. Die GUI zeigt nur was auf der Karte steht!
+Der Controller verwaltet deinen Kartenstatus. Melde Position, Findings und
+durchsuchte Bereiche vollständig in der Abschlusszusammenfassung.
 =================================
 
 ===== PORTSCHLUESSEL =====
@@ -254,15 +291,15 @@ ABER: Auf dem Weg dorthin musst du auch Fallen reparieren!
 AUFGABE - Suche Probleme und behebe sie SOFORT:
 
 1. ENCODING: BOM entfernen (Dateien die mit EF BB BF beginnen)
-2. NUL-DATEIEN: Dateien mit NUL-Bytes drin → LOESCHEN
+2. NUL-DATEIEN: Dateien mit NUL-Bytes melden; nicht automatisch löschen
 3. KAPUTTE JSONS: Syntax-Fehler reparieren (fehlende Kommas, Klammern)
-4. __PYCACHE__: Ganze __pycache__ Verzeichnisse loeschen
-5. LEERE DATEIEN: Verdaechtige leere .py-Dateien loeschen (NICHT __init__.py!)
+4. __PYCACHE__: __pycache__ Verzeichnisse melden; nicht automatisch löschen
+5. LEERE DATEIEN: Verdaechtige leere .py-Dateien melden (NICHT __init__.py!)
 6. PORTSCHLUESSEL: portschluessel.json FINDEN (irgendwo tief versteckt)
 
 REGELN:
-- Forward-Slashes (/) in Bash, NICHT Backslashes
-- Loesche NUR Artefakte, KEINE echten Dateien
+- Nutze ausschließlich Glob/Grep/Read/Edit/Write innerhalb des Fixture-Ziels
+- Lösche keine Dateien oder Verzeichnisse
 - MEIDE Bereiche wo andere Bots schon waren (Karte!)
 - Schnell handeln: Problem finden → sofort fixen → Karte updaten → weiter
 - KARTE UPDATEN nach jedem Fix (findings-Array erweitern!)
@@ -297,11 +334,14 @@ def run_agent(agent_id, config, semaphore, results_lock, all_results):
     cmd = [
         "claude", "-p",
         "--model", MODEL,
+        "--max-budget-usd", str(experiment_budget_per_agent()),
         "--verbose",
-        "--dangerously-skip-permissions",
+        "--permission-mode", "dontAsk",
         "--no-session-persistence",
-        "--disable-slash-commands",
-        "--tools", "Bash,Glob,Grep,Read,Edit,Write",
+        "--safe-mode",
+        "--disallowedTools", "mcp__*",
+        "--tools", "Glob,Grep,Read,Edit,Write",
+        "--allowedTools", "Glob", "Grep", "Read", "Edit", "Write",
         "--output-format", "stream-json",
         prompt,
     ]
@@ -323,7 +363,8 @@ def run_agent(agent_id, config, semaphore, results_lock, all_results):
         try:
             result = subprocess.run(
                 cmd, capture_output=True,
-                timeout=config["timeout"], env=env, cwd=r"C:\Users\User",
+                timeout=config["timeout"], env=env,
+                cwd=str(Path(TARGET_PATH).expanduser().resolve()),
             )
             stdout_data = result.stdout
             returncode = result.returncode
@@ -402,6 +443,8 @@ def run_agent(agent_id, config, semaphore, results_lock, all_results):
 
 def main():
     config = parse_cli()
+    require_explicit_opt_in()
+    validate_total_budget(config["agents"], config["max_total_budget_usd"])
     RESULTS_DIR.mkdir(exist_ok=True)
     # Alte Ergebnisse loeschen
     for old in RESULTS_DIR.glob("bot_*"):

@@ -4,9 +4,9 @@ test_runner.py -- Unit tests for ClaudeRunner (tools/runner.py).
 
 All tests mock subprocess.run to avoid actual CLI calls.
 """
-import subprocess
-from unittest.mock import patch, MagicMock
 import pytest
+import subprocess
+from unittest.mock import MagicMock, patch
 
 from tools.runner import ClaudeRunner
 
@@ -22,7 +22,10 @@ class TestClaudeRunnerInit:
         assert runner.timeout == 1800
         assert runner.cwd is None
         assert "Read" in runner.allowed_tools
-        assert "Bash" in runner.allowed_tools
+        assert "Bash" not in runner.allowed_tools
+        assert "Edit" not in runner.allowed_tools
+        assert runner.allow_mcp is False
+        assert runner.persist_sessions is False
 
     def test_custom_values(self):
         runner = ClaudeRunner(
@@ -38,6 +41,21 @@ class TestClaudeRunnerInit:
         assert runner.timeout == 60
         assert runner.cwd == "/tmp/test"
         assert runner.allowed_tools == ["Read"]
+        assert runner.available_tools == ["Read"]
+
+    def test_rejects_invalid_timeout(self):
+        with pytest.raises(ValueError, match="timeout"):
+            ClaudeRunner(timeout=0)
+
+    def test_explicit_empty_tools_is_preserved(self):
+        assert ClaudeRunner(allowed_tools=[]).allowed_tools == []
+
+    def test_rejects_invalid_budget(self):
+        with pytest.raises(ValueError, match="max_budget_usd"):
+            ClaudeRunner(max_budget_usd=0)
+        for budget in (float("nan"), float("inf")):
+            with pytest.raises(ValueError, match="finite"):
+                ClaudeRunner(max_budget_usd=budget)
 
 
 class TestBuildEnv:
@@ -81,10 +99,45 @@ class TestBuildCmd:
         assert "--fallback-model" in cmd
         assert "claude-haiku-4-5-20251001" in cmd
 
+    def test_empty_tools_are_explicitly_disabled(self):
+        cmd = ClaudeRunner(allowed_tools=[])._build_cmd("Hello")
+        index = cmd.index("--tools")
+        assert cmd[index + 1] == ""
+        assert "--allowedTools" not in cmd
+
     def test_override_model(self):
         runner = ClaudeRunner(model="claude-sonnet-4-6")
         cmd = runner._build_cmd("Hello", model="claude-haiku-4-5-20251001")
         assert "claude-haiku-4-5-20251001" in cmd
+
+    def test_max_budget_is_serialized(self):
+        cmd = ClaudeRunner(max_budget_usd=1.25)._build_cmd("Hello")
+        index = cmd.index("--max-budget-usd")
+        assert cmd[index + 1] == "1.25"
+
+    def test_override_rejects_nonfinite_budget(self):
+        with pytest.raises(ValueError, match="finite"):
+            ClaudeRunner()._build_cmd("Hello", max_budget_usd=float("nan"))
+
+    def test_default_command_denies_mcp_and_session_persistence(self):
+        cmd = ClaudeRunner()._build_cmd("Hello")
+        index = cmd.index("--disallowedTools")
+        assert cmd[index + 1] == "mcp__*"
+        assert "--no-session-persistence" in cmd
+        allowed_index = cmd.index("--allowedTools")
+        assert cmd[allowed_index + 1:allowed_index + 4] == ["Read", "Glob", "Grep"]
+
+    def test_capability_overrides_are_honored(self):
+        cmd = ClaudeRunner()._build_cmd(
+            "Hello", allowed_tools=["Read", "Edit"], permission_mode="default",
+            allow_mcp=True, persist_sessions=True,
+        )
+        assert cmd[cmd.index("--tools") + 1] == "Read,Edit"
+        allowed_index = cmd.index("--allowedTools")
+        assert cmd[allowed_index + 1:allowed_index + 3] == ["Read", "Edit"]
+        assert cmd[cmd.index("--permission-mode") + 1] == "default"
+        assert "--disallowedTools" not in cmd
+        assert "--no-session-persistence" not in cmd
 
 
 class TestRun:
@@ -207,6 +260,14 @@ class TestRunParallel:
         runner = ClaudeRunner()
         with pytest.raises(ValueError, match="prompt"):
             runner.run_parallel([{"model": "claude-haiku-4-5-20251001"}])
+
+    def test_parallel_rejects_zero_workers(self):
+        with pytest.raises(ValueError, match="max_workers"):
+            ClaudeRunner().run_parallel(["test"], max_workers=0)
+
+    def test_parallel_rejects_string_as_prompt_collection(self):
+        with pytest.raises(TypeError, match="not a string"):
+            ClaudeRunner().run_parallel("abc")
 
 
 class TestPipe:

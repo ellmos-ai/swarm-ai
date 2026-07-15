@@ -72,14 +72,43 @@ Siehe auch:
   - data/elephant_path_treasure_hunt.py (Launcher-Script)
 """
 
-import os
-import sys
+import argparse
 from pathlib import Path
 
+DUNGEON_MARKER = ".swarm-ai-dungeon-template"
+DUNGEON_MARKER_CONTENT = "SWARM_AI_DUNGEON_TEMPLATE_V1"
+KNOWN_FILES = [
+    "README.md",
+    "raum_1/HINWEIS.md",
+    "raum_1/falle_1.py",
+    "raum_2/HINWEIS.md",
+    "raum_2/falle_2.json",
+    "raum_3/HINWEIS.md",
+    "raum_3/falle_3.txt",
+    "raum_3/ablenkung.txt",
+    "kammer/HINWEIS.md",
+    "kammer/falsche_truhe.txt",
+    "kammer/tresor/schatz.txt",
+]
 
-def create_dungeon(base_dir, codewort="STIGMERGIE", decoy="FALSCHGOLD"):
+
+def create_dungeon(base_dir, codewort="STIGMERGIE", decoy="FALSCHGOLD", *,
+                   force=False):
     """Erstellt den kompletten Dungeon."""
     base = Path(base_dir)
+    marker = base / DUNGEON_MARKER
+    non_empty = base.exists() and any(base.iterdir())
+    if non_empty:
+        if not force:
+            raise FileExistsError(
+                f"Refusing to overwrite non-empty dungeon target: {base}. "
+                "Pass force=True only for a generator-owned fixture."
+            )
+        if (not marker.is_file() or
+                marker.read_text(encoding="utf-8").strip() != DUNGEON_MARKER_CONTENT):
+            raise FileExistsError(
+                f"Refusing force overwrite without matching dungeon marker: {marker}"
+            )
 
     dirs = [
         base,
@@ -89,8 +118,16 @@ def create_dungeon(base_dir, codewort="STIGMERGIE", decoy="FALSCHGOLD"):
         base / "kammer",
         base / "kammer" / "tresor",
     ]
+    for directory in dirs:
+        if directory.exists() and not directory.is_dir():
+            raise FileExistsError(f"Dungeon directory path is not a directory: {directory}")
+    for relative in KNOWN_FILES:
+        destination = base / relative
+        if destination.exists() and not destination.is_file():
+            raise FileExistsError(f"Dungeon file path is not a file: {destination}")
     for d in dirs:
         d.mkdir(parents=True, exist_ok=True)
+    marker.write_text(DUNGEON_MARKER_CONTENT + "\n", encoding="utf-8")
 
     # --- README.md ---
     (base / "README.md").write_text(f"""# Schatzsuche im Dungeon
@@ -309,6 +346,12 @@ Melde "{codewort}" als dein Codewort!
 
 
 if __name__ == "__main__":
-    target = sys.argv[1] if len(sys.argv) > 1 else "data/swarm/dungeon"
-    word = sys.argv[2] if len(sys.argv) > 2 else "STIGMERGIE"
-    create_dungeon(target, word)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("target", nargs="?", default="data/swarm/dungeon")
+    parser.add_argument("codeword", nargs="?", default="STIGMERGIE")
+    parser.add_argument(
+        "--force", action="store_true",
+        help="overwrite known fixture files in a non-empty reviewed target",
+    )
+    args = parser.parse_args()
+    create_dungeon(args.target, args.codeword, force=args.force)

@@ -33,7 +33,7 @@ swarm-ai ist bewusst kleiner als Enterprise-Agentenplattformen wie CrewAI, OpenA
 ## Warum swarm-ai
 
 - **Parallele LLM-Ausführung:** große Aufgaben in Teilstücke aufteilen und über mehrere Claude- oder Anthropic-Aufrufe verarbeiten.
-- **Konsensprüfungen:** mehrere Agenten unabhängig antworten lassen und Zustimmung, Konfidenz und Stimmen berechnen.
+- **Konsensprüfungen:** mehrere Agenten unabhängig antworten lassen und Antwortrate, Zustimmung, Konfidenz und Stimmen berechnen.
 - **Stigmergie-Experimente:** ein SQLite-basierter Pheromonspeicher ermöglicht indirekte Koordinationssignale zwischen Agenten.
 - **Chain-Definitionen:** Hierarchie- und Spezialisten-Schwärme werden als JSON beschrieben statt fest verdrahtet.
 - **Local-first Workflow:** Code, Prompts, Benchmarks und Designdokumente bleiben lokal und versioniert im Repo.
@@ -55,6 +55,8 @@ sollte vor der parallelen Arbeit ein projektlokaler Team-Lock gesetzt werden. Da
 Lock-Verfahren ist eine Koordinationsschicht um die fünf Schwarmmuster, kein
 sechstes Muster. Das portable Dateiformat, Claim-Regeln und der Lebenszyklus sind
 in [`konzepte/team-lock-verfahren.md`](konzepte/team-lock-verfahren.md) beschrieben.
+Die getestete Implementierung `tools/team_lock.py` nutzt atomare Claims pro
+Ressource und unveränderliche Anwesenheitsdateien pro Teilnehmer.
 
 ## Installation
 
@@ -82,6 +84,7 @@ Mehrere Agenten beantworten dieselbe Frage, anschließend wird aggregiert:
 PYTHONIOENCODING=utf-8 python tools/consensus_swarm.py \
   --mode boolean \
   --agents 7 \
+  --max-budget-usd 0.25 \
   --question "Is Python dynamically typed?"
 ```
 
@@ -100,6 +103,7 @@ result = run_consensus(
     question="Is Rust memory-safe?",
     num_agents=5,
     mode="boolean",
+    max_budget_usd=0.25,
 )
 
 print(result["consensus"]["consensus_answer"])
@@ -121,6 +125,9 @@ best = api.get_best_path()
 api.evaporate(decay_rate=0.1)
 ```
 
+Das dateibasierte Schema wird automatisch initialisiert. `:memory:` wird
+abgewiesen, weil ein Koordinationsspeicher mehrere Verbindungen überdauern muss.
+
 ### Parallele Claude-CLI-Aufrufe
 
 `ClaudeRunner` verteilt unabhängige Prompts parallel über Claude Code:
@@ -128,7 +135,10 @@ api.evaporate(decay_rate=0.1)
 ```python
 from tools.runner import ClaudeRunner
 
-runner = ClaudeRunner(model="claude-haiku-4-5-20251001")
+runner = ClaudeRunner(
+    model="claude-haiku-4-5-20251001",
+    max_budget_usd=0.25,
+)
 results = runner.run_parallel(
     [
         "Analyze security vulnerabilities in Flask apps",
@@ -139,13 +149,35 @@ results = runner.run_parallel(
 )
 ```
 
+Der Runner ist standardmäßig nur lesend (`Read`, `Glob`, `Grep`), genehmigt im
+nichtinteraktiven `dontAsk`-Modus nur diese Werkzeuge vorab, sperrt konfigurierte
+MCP-Werkzeuge und speichert keine Sitzungen. Ein größerer Werkzeugumfang muss
+über `allowed_tools` und `available_tools` ausdrücklich freigegeben werden.
+
+### Eigenständige Chunk-Datenbanken
+
+Die datenbankgebundenen Tools können ihre Schemas selbst initialisieren:
+
+```bash
+python tools/translate_swarm.py --init-db
+python tools/summarize_chunks.py --init-db
+python tools/translate_swarm.py --limit 20 --max-budget-usd 1
+python tools/summarize_chunks.py --limit 20 --max-budget-usd 1
+```
+
+Übersetzungen werden anhand von Schlüssel und Namespace statt anhand der
+Antwortreihenfolge zugeordnet. Der Summarizer reserviert Chunks zeitlich begrenzt
+in SQLite, damit parallele Läufe nicht doppelt API-Kosten erzeugen. Echte
+API-End-to-End-Tests bleiben eine offene Release-Aufgabe.
+
 ## Benchmarks
 
 Der enthaltene Benchmark vergleicht sequenzielle und parallele Ausführung:
 
 ```bash
 PYTHONIOENCODING=utf-8 python tools/benchmark.py
-PYTHONIOENCODING=utf-8 python tools/benchmark.py --compare --workers 3
+PYTHONIOENCODING=utf-8 python tools/benchmark.py --compare --workers 3 \
+  --limit 5 --max-budget-usd 2
 ```
 
 Gemessenes Ergebnis aus `results/benchmark_20260306.json`:
@@ -180,9 +212,17 @@ swarm_ai/
 
 swarm-ai ist öffentlich und als experimentelles Toolkit nutzbar. Die Kernmodule besitzen eine lokale Testsuite; einige Konzept- und Experimentdateien referenzieren weiterhin BACH, weil sie die Herkunft der Muster dokumentieren. Für produktive Nutzung sollten die Module unter `tools/` und die getesteten Python-APIs als Einstieg dienen.
 
+Historische Launcher unter `experiments/` brechen ohne ausdrücklichen Test- oder
+Vollmodus, `SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND`, ein geprüftes Ziel,
+ein Pro-Agent-Budget und ein Gesamtbudget ab. Schreibfähige Dungeon- und
+Maintenance-Experimente verlangen zusätzlich einen isolierten Fixture-Marker.
+Sie laufen im Claude-Safe-Mode mit fester Werkzeugfreigabe und gesperrtem MCP;
+Benutzer-Memory-Dateien werden nicht verändert.
+
 Aktuelle Prüfung:
 
-- 99 lokale Tests grün.
+- 166 lokale Tests auf der Review-Baseline vom 15.07.2026 grün.
+- Ruff, `compileall`, ein Bandit-Gate für hohe Schweregrade und gepinnte Linux-/Windows-/macOS-Actions sind aktiviert.
 - MIT-lizenziert.
 - Noch kein PyPI-Release.
 - Keine grafische Oberfläche und keine gehostete Landing-Page.
