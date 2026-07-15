@@ -56,8 +56,8 @@ def test_two_processes_have_one_winner_and_keep_attendance(tmp_path):
 
 
 def test_only_owner_token_can_release(tmp_path):
-    owner = TeamLock(tmp_path, "owner", token="owner-token")
-    other = TeamLock(tmp_path, "other", token="other-token")
+    owner = TeamLock(tmp_path, "owner", token="owner")
+    other = TeamLock(tmp_path, "other", token="other")
     assert owner.claim("db.sqlite", kind="database")
     assert other.release("db.sqlite", kind="database") is False
     assert owner.release("db.sqlite", kind="database") is True
@@ -66,7 +66,7 @@ def test_only_owner_token_can_release(tmp_path):
 def test_token_cannot_escape_attendance_directory(tmp_path):
     sentinel = tmp_path / "sentinel.json"
     sentinel.write_text("keep", encoding="utf-8")
-    lock = TeamLock(tmp_path / "project", "owner", token="../../sentinel")
+    lock = TeamLock(tmp_path / "project", "owner", token="../../x")
     attendance = lock.register("worker", "safe token hashing")
     assert attendance.parent == (tmp_path / "project" / ".team-locks" / "attendance")
     assert lock.leave() is True
@@ -74,8 +74,8 @@ def test_token_cannot_escape_attendance_directory(tmp_path):
 
 
 def test_double_release_cannot_delete_new_owner_claim(tmp_path):
-    original = TeamLock(tmp_path, "original", token="shared-owner-token")
-    newcomer = TeamLock(tmp_path, "newcomer", token="new-token")
+    original = TeamLock(tmp_path, "original", token="shared")
+    newcomer = TeamLock(tmp_path, "newcomer", token="new")
     assert original.claim("shared.txt")
 
     def release_original():

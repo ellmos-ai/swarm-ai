@@ -14,24 +14,24 @@
       },
       "success": true,
       "visited_paths": [
-        "Glob: C:/Users/User/**/BACH*/**",
-        "Glob: C:/Users/User/**/bach*/**",
-        "Grep: BACH_v2 in C:/Users/User",
-        "Bash: ls -la \"/c/Users/User/OneDrive/\"",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/\"",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\"",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\"",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\"",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\"",
+        "Glob: <USER_HOME>/**/BACH*/**",
+        "Glob: <USER_HOME>/**/bach*/**",
+        "Grep: BACH_v2 in <USER_HOME>",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/\"",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\"",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\"",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\"",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\"",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\"",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
       ],
       "final_output_preview": "Gut! Jeder Agent hat eine SKILL.md Datei. Ich lese nun die SKILL.md Dateien der verbleibenden Agenten, um vollständige Informationen zu erhalten."
     },
@@ -47,21 +47,21 @@
       },
       "success": true,
       "visited_paths": [
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/TODO*",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json",
-        "Grep: (def|class).*(task|queue|todo) in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/TODO*",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json",
+        "Grep: (def|class).*(task|queue|todo) in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
       ],
       "final_output_preview": "**10. [Aktion: Bash] Hole Details zu weiteren Tasks → Fortsetzung**"
     },
@@ -77,24 +77,24 @@
       },
       "success": true,
       "visited_paths": [
-        "Glob: C:/Users/User/**/BACH*/**",
-        "Glob: C:/Users/User/**/bach*/**",
-        "Grep: BACH_v2 in C:/Users/User",
-        "Bash: ls -la /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/",
-        "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*",
-        "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.py",
-        "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.md",
-        "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py",
-        "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py",
-        "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/README*",
+        "Glob: <USER_HOME>/**/BACH*/**",
+        "Glob: <USER_HOME>/**/bach*/**",
+        "Grep: BACH_v2 in <USER_HOME>",
+        "Bash: ls -la <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.py",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.md",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/README*",
         "..."
       ],
       "key_files_read": [
-        "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py",
-        "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
-        "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
-        "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
-        "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db"
       ],
       "final_output_preview": "Perfekt, ich habe den Status-Handler gefunden. Ich lese ihn jetzt."
     },
@@ -110,19 +110,19 @@
       },
       "success": true,
       "visited_paths": [
-        "Bash: find /c/Users/User -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20",
-        "Bash: ls -la /c/Users/User/OneDrive/",
-        "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/",
-        "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/",
-        "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
-        "Glob: /c/Users/User/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py",
-        "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/\"",
-        "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" ",
-        "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
+        "Bash: find <USER_HOME> -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20",
+        "Bash: ls -la <USER_HOME>/OneDrive/",
+        "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/",
+        "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/",
+        "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
+        "Glob: <USER_HOME>/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py",
+        "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/\"",
+        "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" ",
+        "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
       ],
       "key_files_read": [],
-      "final_output_preview": "Exzellent! Viele Python-Tools im tools/ Verzeichnis gefunden. Jetzt suche ich systematisch in allen Verzeichnissen nach Python-Dateien:\n\nPFAD-LOG:\n5. [Aktion: Bash ls] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools → 60+ Python-Dateien gefunden\n\nLasse mich jetzt noch die anderen Verzeichn"
+      "final_output_preview": "Exzellent! Viele Python-Tools im tools/ Verzeichnis gefunden. Jetzt suche ich systematisch in allen Verzeichnissen nach Python-Dateien:\n\nPFAD-LOG:\n5. [Aktion: Bash ls] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools → 60+ Python-Dateien gefunden\n\nLasse mich jetzt noch die anderen Verzeichn"
     },
     {
       "task_id": "a79cfdb",
@@ -136,26 +136,26 @@
       },
       "success": true,
       "visited_paths": [
-        "Glob: /c/Users/User/**/BACH*/**",
-        "Glob: /c/Users/User/**/bach*/**",
-        "Grep: BACH|bach_api in /c/Users/User",
-        "Bash: ls -la \"/c/Users/User/OneDrive\" 2>/dev/null | head -20",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI\" 2>/dev/null",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\"",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\"",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start\"",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/README.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/README.md",
+        "Glob: <USER_HOME>/**/BACH*/**",
+        "Glob: <USER_HOME>/**/bach*/**",
+        "Grep: BACH|bach_api in <USER_HOME>",
+        "Bash: ls -la \"<USER_HOME>/OneDrive\" 2>/dev/null | head -20",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI\" 2>/dev/null",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\"",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\"",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start\"",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/README.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/README.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       ],
-      "final_output_preview": "Perfekt! Ich habe alle notwendigen Informationen gesammelt. Jetzt erstelle ich den vollständigen Bericht.\n\n---\n\n## PFAD-LOG:\n\n1. [Glob] `**/BACH*/**` in `/c/Users/User` → Timeout (zu breit)\n2. [Glob] `**/bach*/**` in `/c/Users/User` → Timeout (zu breit)\n3. [Bash] `ls /c/Users/User/OneDrive` → GEFUND"
+      "final_output_preview": "Perfekt! Ich habe alle notwendigen Informationen gesammelt. Jetzt erstelle ich den vollständigen Bericht.\n\n---\n\n## PFAD-LOG:\n\n1. [Glob] `**/BACH*/**` in `<USER_HOME>` → Timeout (zu breit)\n2. [Glob] `**/bach*/**` in `<USER_HOME>` → Timeout (zu breit)\n3. [Bash] `ls <USER_HOME>/OneDrive` → GEFUND"
     },
     {
       "task_id": "a877330",
@@ -170,21 +170,21 @@
       "success": true,
       "visited_paths": [
         "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
-        "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log",
-        "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**",
-        "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/logs/**",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-        "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 ",
-        "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/",
-        "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*",
-        "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*",
-        "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*",
+        "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log",
+        "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**",
+        "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/logs/**",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+        "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 ",
+        "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/",
+        "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*",
+        "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*",
+        "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*",
         "..."
       ],
       "key_files_read": [
         "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       ],
       "final_output_preview": "Excellent! Ich sehe, dass `logs` ein _HandlerProxy ist und es gibt eine logs-API. Auch in `bach_paths.py` wird auf `LOGS_DIR` verwiesen. Aber das Verzeichnis war leer. Lass mich nach tatsächlichen Log-Dateien mit einer breiteren Suche greifen:"
     },
@@ -200,22 +200,22 @@
       },
       "success": true,
       "visited_paths": [
-        "Bash: find /c/Users/User -type d -name \"*BACH*\" 2>/dev/null | head -20",
-        "Glob: /c/Users/User/**/BACH*",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/\" 2>/dev/null | grep -i bach",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-        "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null",
-        "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null",
-        "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py",
+        "Bash: find <USER_HOME> -type d -name \"*BACH*\" 2>/dev/null | head -20",
+        "Glob: <USER_HOME>/**/BACH*",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\" 2>/dev/null | grep -i bach",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+        "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null",
+        "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null",
+        "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py"
       ],
       "final_output_preview": "10. [Aktion: Read] `dump_schema.py` → **Einfaches Dump-Skript für Datenbank-Schema**\n\n**Schritt 9: Hub-Verzeichnis (Registry und Pfade)**"
     },
@@ -231,26 +231,26 @@
       },
       "success": true,
       "visited_paths": [
-        "Glob: C:/Users/User/**/BACH*/**",
-        "Glob: C:/Users/User/**/bach*/**",
-        "Grep: BACH in C:/Users/User/.claude",
-        "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
-        "Grep: docker|Docker|DOCKER in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-        "Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*.",
-        "Bash: ls -R /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt",
+        "Glob: <USER_HOME>/**/BACH*/**",
+        "Glob: <USER_HOME>/**/bach*/**",
+        "Grep: BACH in <USER_HOME>/.claude",
+        "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
+        "Grep: docker|Docker|DOCKER in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+        "Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*.",
+        "Bash: ls -R <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt"
       ],
-      "final_output_preview": "Gut, ich habe genug Informationen gesammelt. Lass mich nun zusammenfassen, was ich herausgefunden habe.\n\n---\n\n## PFAD-LOG\n\n1. [Read] C:/Users/User/.claude/projects/C--Users-User/memory/MEMORY.md → BACH-Pfad gefunden: `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`\n2. [Bash] ls -la BACH system"
+      "final_output_preview": "Gut, ich habe genug Informationen gesammelt. Lass mich nun zusammenfassen, was ich herausgefunden habe.\n\n---\n\n## PFAD-LOG\n\n1. [Read] <USER_HOME>/.claude/projects/C--Users-User/memory/MEMORY.md → BACH-Pfad gefunden: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`\n2. [Bash] ls -la BACH system"
     },
     {
       "task_id": "ae480d9",
@@ -264,22 +264,22 @@
       },
       "success": true,
       "visited_paths": [
-        "Bash: ls -la \"/c/Users/User/\" | head -30",
-        "Bash: find /c/Users/User -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20",
-        "Bash: find /c/Users/User/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-        "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*belege*",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*tax*",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**",
+        "Bash: ls -la \"<USER_HOME>/\" | head -30",
+        "Bash: find <USER_HOME> -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20",
+        "Bash: find <USER_HOME>/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+        "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*belege*",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*tax*",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       ],
       "final_output_preview": "Ausgezeichnet! Gefunden! Lassen Sie mich noch mehr Details sammeln:"
     },
@@ -295,24 +295,24 @@
       },
       "success": true,
       "visited_paths": [
-        "Bash: cd /c/Users/User && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head",
-        "Bash: cd /c/Users/User && ls -la OneDrive/ 2>/dev/null | head -20",
-        "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-        "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d ",
-        "Grep: task.*create|create.*task in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
-        "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name",
-        "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null ",
-        "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql",
+        "Bash: cd <USER_HOME> && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head",
+        "Bash: cd <USER_HOME> && ls -la OneDrive/ 2>/dev/null | head -20",
+        "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+        "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d ",
+        "Grep: task.*create|create.*task in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
+        "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name",
+        "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null ",
+        "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql",
         "..."
       ],
       "key_files_read": [
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
-        "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py"
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
+        "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py"
       ],
-      "final_output_preview": "Jetzt suche ich die schema.sql Datei:\n\n**PFAD-LOG:**\n8. [Aktion: Read] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py → Datenbank-Verwaltung mit schema.sql"
+      "final_output_preview": "Jetzt suche ich die schema.sql Datei:\n\n**PFAD-LOG:**\n8. [Aktion: Read] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py → Datenbank-Verwaltung mit schema.sql"
     }
   ],
   "statistics": {

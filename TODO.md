@@ -7,7 +7,7 @@ Dieses TODO ist der öffentliche Aufgaben-Einstieg. Historische Befunde bleiben
 
 ## Status
 
-| Bereich | Status | Nachweis |
+| Category | Status | Nachweis |
 |---|---|---|
 | Kernlogik | PASS | 166 Pytest-Tests, `compileall`, Ruff |
 | Lokale Sicherheit | PASS | Bandit ohne High-Severity-Befund; Legacy-Experimente fail-closed |

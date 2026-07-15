@@ -7,7 +7,7 @@
     "tools_restricted": "Bash,Glob,Grep,Read",
     "skills_disabled": true
   },
-  "target_path": "C:\\Users\\User\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system",
+  "target_path": "<USER_HOME>\\OneDrive\\KI&AI\\BACH_v2_vanilla\\system",
   "start_time": "2026-02-15T11:28:34.388102",
   "end_time": "2026-02-15T11:56:03.499166",
   "wall_clock_seconds": 1649.1,

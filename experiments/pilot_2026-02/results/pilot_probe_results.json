@@ -3,61 +3,61 @@
     "model": "Haiku",
     "task": "Task erstellen",
     "visited_paths": [
-      "Bash: cd /c/Users/User && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head",
-      "Bash: cd /c/Users/User && ls -la OneDrive/ 2>/dev/null | head -20",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d ",
-      "Grep: task.*create|create.*task in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name",
-      "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null ",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db\" -name \"*.sql\" 2>/d",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/migrations/*",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*db*\" -name \"*",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*schema*\" -o -",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/\" 2>/dev/null",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"schema.sql\" 2>",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema/\" 2>/dev"
+      "Bash: cd <USER_HOME> && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head",
+      "Bash: cd <USER_HOME> && ls -la OneDrive/ 2>/dev/null | head -20",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d ",
+      "Grep: task.*create|create.*task in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name",
+      "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null ",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db\" -name \"*.sql\" 2>/d",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/migrations/*",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*db*\" -name \"*",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*schema*\" -o -",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/\" 2>/dev/null",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"schema.sql\" 2>",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema/\" 2>/dev"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:11:44.045Z",
         "tool": "Bash",
         "id": "toolu_01U9WFCeLcAb4g5j1hS4yBHd",
-        "path": "Bash: cd /c/Users/User && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head"
+        "path": "Bash: cd <USER_HOME> && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head"
       },
       {
         "timestamp": "2026-02-15T00:11:44.070Z",
         "tool": "Bash",
         "id": "toolu_012BTxKyqhz3NNRQeAtaKGNi",
-        "path": "Bash: cd /c/Users/User && ls -la OneDrive/ 2>/dev/null | head -20"
+        "path": "Bash: cd <USER_HOME> && ls -la OneDrive/ 2>/dev/null | head -20"
       },
       {
         "timestamp": "2026-02-15T00:12:18.793Z",
         "tool": "Bash",
         "id": "toolu_017uBe9omCdAivU9bjZrwdUR",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "timestamp": "2026-02-15T00:12:19.806Z",
         "tool": "Bash",
         "id": "toolu_016eBnF32wg8DqxVSzRRcJWT",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d "
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d "
       },
       {
         "timestamp": "2026-02-15T00:13:32.151Z",
         "tool": "Grep",
         "id": "toolu_01WSMkSyVXzFKvkhAQL9iwiE",
-        "path": "Grep: task.*create|create.*task in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "path": "Grep: task.*create|create.*task in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "timestamp": "2026-02-15T00:13:32.268Z",
         "tool": "Read",
         "id": "toolu_019ZBnCeazxfKAg1BD16rg9q",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       },
       {
         "timestamp": "2026-02-15T00:13:37.010Z",
@@ -69,7 +69,7 @@
         "timestamp": "2026-02-15T00:15:42.239Z",
         "tool": "Read",
         "id": "toolu_01Auxovj3zviNfMvucNNQZTX",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
       },
       {
         "timestamp": "2026-02-15T00:15:42.837Z",
@@ -81,13 +81,13 @@
         "timestamp": "2026-02-15T00:15:49.411Z",
         "tool": "Bash",
         "id": "toolu_017Drbojrz5qDa9wQzk3dKmv",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name"
       },
       {
         "timestamp": "2026-02-15T00:15:49.936Z",
         "tool": "Bash",
         "id": "toolu_01RZmSRZfwN8ckPgHR1SpYRJ",
-        "path": "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null "
+        "path": "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null "
       },
       {
         "timestamp": "2026-02-15T00:15:50.485Z",
@@ -99,37 +99,37 @@
         "timestamp": "2026-02-15T00:18:13.641Z",
         "tool": "Glob",
         "id": "toolu_012v1AFT6HV2FBcAdibGDcjw",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql"
       },
       {
         "timestamp": "2026-02-15T00:18:14.095Z",
         "tool": "Bash",
         "id": "toolu_01G8q9yabCCCLzdVyTyC7UjJ",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db\" -name \"*.sql\" 2>/d"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db\" -name \"*.sql\" 2>/d"
       },
       {
         "timestamp": "2026-02-15T00:18:14.392Z",
         "tool": "Glob",
         "id": "toolu_01KbPoAUAHcQNbEevWWRin2y",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/migrations/*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/migrations/*"
       },
       {
         "timestamp": "2026-02-15T00:18:32.040Z",
         "tool": "Bash",
         "id": "toolu_015p4gYQ2njSfVsHhrGB34m1",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*db*\" -name \"*"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*db*\" -name \"*"
       },
       {
         "timestamp": "2026-02-15T00:18:33.007Z",
         "tool": "Bash",
         "id": "toolu_016ezRi1igmQKGh3PJvZq9T6",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*schema*\" -o -"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*schema*\" -o -"
       },
       {
         "timestamp": "2026-02-15T00:20:14.888Z",
         "tool": "Bash",
         "id": "toolu_01XDwP2XDvUwG7wivzeZLix8",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/\" 2>/dev/null"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:20:15.357Z",
@@ -141,19 +141,19 @@
         "timestamp": "2026-02-15T00:20:40.398Z",
         "tool": "Read",
         "id": "toolu_01QBC1GbdqouXwib6XrZFVYp",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py"
       },
       {
         "timestamp": "2026-02-15T00:20:49.504Z",
         "tool": "Bash",
         "id": "toolu_016YU9kCyAwNJYRMSNgQYGxc",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"schema.sql\" 2>"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"schema.sql\" 2>"
       },
       {
         "timestamp": "2026-02-15T00:20:51.734Z",
         "tool": "Bash",
         "id": "toolu_017FQSC9BpdRZMnVxFZpirUx",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema/\" 2>/dev"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema/\" 2>/dev"
       }
     ],
     "success": true,
@@ -164,27 +164,27 @@
     "timeline": [
       {
         "time": "2026-02-15T00:11:44.045Z",
-        "action": "Bash: Bash: cd /c/Users/User && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head"
+        "action": "Bash: Bash: cd <USER_HOME> && find . -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head"
       },
       {
         "time": "2026-02-15T00:11:44.070Z",
-        "action": "Bash: Bash: cd /c/Users/User && ls -la OneDrive/ 2>/dev/null | head -20"
+        "action": "Bash: Bash: cd <USER_HOME> && ls -la OneDrive/ 2>/dev/null | head -20"
       },
       {
         "time": "2026-02-15T00:12:18.793Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "time": "2026-02-15T00:12:19.806Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d "
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -maxdepth 2 -type d "
       },
       {
         "time": "2026-02-15T00:13:32.151Z",
-        "action": "Grep: Grep: task.*create|create.*task in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "action": "Grep: Grep: task.*create|create.*task in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "time": "2026-02-15T00:13:32.268Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       },
       {
         "time": "2026-02-15T00:13:37.010Z",
@@ -192,7 +192,7 @@
       },
       {
         "time": "2026-02-15T00:15:42.239Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
       },
       {
         "time": "2026-02-15T00:15:42.837Z",
@@ -200,11 +200,11 @@
       },
       {
         "time": "2026-02-15T00:15:49.411Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"*.db\" -o -name"
       },
       {
         "time": "2026-02-15T00:15:49.936Z",
-        "action": "Bash: Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null "
+        "action": "Bash: Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null "
       },
       {
         "time": "2026-02-15T00:15:50.485Z",
@@ -212,27 +212,27 @@
       },
       {
         "time": "2026-02-15T00:18:13.641Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*migration*.sql"
       },
       {
         "time": "2026-02-15T00:18:14.095Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db\" -name \"*.sql\" 2>/d"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db\" -name \"*.sql\" 2>/d"
       },
       {
         "time": "2026-02-15T00:18:14.392Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/migrations/*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/migrations/*"
       },
       {
         "time": "2026-02-15T00:18:32.040Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*db*\" -name \"*"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*db*\" -name \"*"
       },
       {
         "time": "2026-02-15T00:18:33.007Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*schema*\" -o -"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -path \"*schema*\" -o -"
       },
       {
         "time": "2026-02-15T00:20:14.888Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:20:15.357Z",
@@ -240,18 +240,18 @@
       },
       {
         "time": "2026-02-15T00:20:40.398Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py"
       },
       {
         "time": "2026-02-15T00:20:49.504Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"schema.sql\" 2>"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -name \"schema.sql\" 2>"
       },
       {
         "time": "2026-02-15T00:20:51.734Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema/\" 2>/dev"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema/\" 2>/dev"
       }
     ],
-    "final_output": "Jetzt suche ich die schema.sql Datei:\n\n**PFAD-LOG:**\n8. [Aktion: Read] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py → Datenbank-Verwaltung mit schema.sql",
+    "final_output": "Jetzt suche ich die schema.sql Datei:\n\n**PFAD-LOG:**\n8. [Aktion: Read] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py → Datenbank-Verwaltung mit schema.sql",
     "conversation": [
       {
         "role": "user",
@@ -263,23 +263,23 @@
       },
       {
         "role": "assistant",
-        "text": "Gut! Ich habe BACH gefunden. Lassen Sie mich die Struktur analysieren:\n\n**PFAD-LOG:**\n1. [Aktion: Bash find] /c/Users/User → BACH_v2_vanilla gefunden in OneDrive/.AI/\n\nJetzt schaue ich mir die BACH-Struktur an:"
+        "text": "Gut! Ich habe BACH gefunden. Lassen Sie mich die Struktur analysieren:\n\n**PFAD-LOG:**\n1. [Aktion: Bash find] <USER_HOME> → BACH_v2_vanilla gefunden in OneDrive/.AI/\n\nJetzt schaue ich mir die BACH-Struktur an:"
       },
       {
         "role": "assistant",
-        "text": "Excellent! Jetzt muss ich verstehen, wie Tasks in BACH erstellt werden. Lassen Sie mich die Dokumentation und den Quellcode durchsuchen:\n\n**PFAD-LOG:**\n2. [Aktion: Bash ls] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system → Struktur identifiziert (agents, skills, tools, data, etc.)"
+        "text": "Excellent! Jetzt muss ich verstehen, wie Tasks in BACH erstellt werden. Lassen Sie mich die Dokumentation und den Quellcode durchsuchen:\n\n**PFAD-LOG:**\n2. [Aktion: Bash ls] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system → Struktur identifiziert (agents, skills, tools, data, etc.)"
       },
       {
         "role": "assistant",
-        "text": "Perfekt! Ich habe `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py` gefunden. Lassen Sie mich das analysieren:\n\n**PFAD-LOG:**\n3. [Aktion: Grep] Suche nach \"task.*create\" → Gefunden in hub/task.py und vielen anderen Dateien\n4. [Aktion: Read] bach.py → CLI-Einstiegspunkt identifiziert"
+        "text": "Perfekt! Ich habe `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py` gefunden. Lassen Sie mich das analysieren:\n\n**PFAD-LOG:**\n3. [Aktion: Grep] Suche nach \"task.*create\" → Gefunden in hub/task.py und vielen anderen Dateien\n4. [Aktion: Read] bach.py → CLI-Einstiegspunkt identifiziert"
       },
       {
         "role": "assistant",
-        "text": "Perfekt! Ich habe die Task-Verwaltung verstanden. Jetzt muss ich noch überprüfen, wie die Datenbank strukturiert ist und ob es bereits Tasks gibt:\n\n**PFAD-LOG:**\n5. [Aktion: Read] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py → TaskHandler.\\_add() Methode gefunden (Zeilen 148-191)"
+        "text": "Perfekt! Ich habe die Task-Verwaltung verstanden. Jetzt muss ich noch überprüfen, wie die Datenbank strukturiert ist und ob es bereits Tasks gibt:\n\n**PFAD-LOG:**\n5. [Aktion: Read] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py → TaskHandler.\\_add() Methode gefunden (Zeilen 148-191)"
       },
       {
         "role": "assistant",
-        "text": "Gut! Die Datenbank existiert. Schauen Sie sich die Dokumentation für die SQL-Struktur an:\n\n**PFAD-LOG:**\n6. [Aktion: Bash] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/ → bach.db gefunden (21M, aktiv)"
+        "text": "Gut! Die Datenbank existiert. Schauen Sie sich die Dokumentation für die SQL-Struktur an:\n\n**PFAD-LOG:**\n6. [Aktion: Bash] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/ → bach.db gefunden (21M, aktiv)"
       },
       {
         "role": "assistant",
@@ -291,7 +291,7 @@
       },
       {
         "role": "assistant",
-        "text": "Jetzt suche ich die schema.sql Datei:\n\n**PFAD-LOG:**\n8. [Aktion: Read] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py → Datenbank-Verwaltung mit schema.sql"
+        "text": "Jetzt suche ich die schema.sql Datei:\n\n**PFAD-LOG:**\n8. [Aktion: Read] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py → Datenbank-Verwaltung mit schema.sql"
       }
     ],
     "summary": {
@@ -305,133 +305,133 @@
     "model": "Sonnet",
     "task": "BACH starten",
     "visited_paths": [
-      "Glob: /c/Users/User/**/BACH*/**",
-      "Glob: /c/Users/User/**/bach*/**",
-      "Grep: BACH|bach_api in /c/Users/User",
-      "Bash: ls -la \"/c/Users/User/OneDrive\" 2>/dev/null | head -20",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI\" 2>/dev/null",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\"",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\"",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start\"",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/README.md",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/README.md",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/SKILL.md",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub\" 2>/dev/null | h",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/start_console.bat",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/start_gui.bat",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core\" 2>/dev/null | "
+      "Glob: <USER_HOME>/**/BACH*/**",
+      "Glob: <USER_HOME>/**/bach*/**",
+      "Grep: BACH|bach_api in <USER_HOME>",
+      "Bash: ls -la \"<USER_HOME>/OneDrive\" 2>/dev/null | head -20",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI\" 2>/dev/null",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\"",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\"",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start\"",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/SKILL.md",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub\" 2>/dev/null | h",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/start_console.bat",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/start_gui.bat",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core\" 2>/dev/null | "
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:11:47.568Z",
         "tool": "Glob",
         "id": "toolu_0176rwTLh17i2S9eawpaE5gD",
-        "path": "Glob: /c/Users/User/**/BACH*/**"
+        "path": "Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "timestamp": "2026-02-15T00:11:48.557Z",
         "tool": "Glob",
         "id": "toolu_01MU6bZQDQbRoRhCaLa3ejUm",
-        "path": "Glob: /c/Users/User/**/bach*/**"
+        "path": "Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "timestamp": "2026-02-15T00:11:49.107Z",
         "tool": "Grep",
         "id": "toolu_01QQUB2GR6fV9FFEUMYm8PUw",
-        "path": "Grep: BACH|bach_api in /c/Users/User"
+        "path": "Grep: BACH|bach_api in <USER_HOME>"
       },
       {
         "timestamp": "2026-02-15T00:12:14.131Z",
         "tool": "Bash",
         "id": "toolu_01WTbDFyNjF1umUdMupddw1A",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive\" 2>/dev/null | head -20"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive\" 2>/dev/null | head -20"
       },
       {
         "timestamp": "2026-02-15T00:12:23.007Z",
         "tool": "Bash",
         "id": "toolu_01Vd1gJJM15TQEb1impptxWd",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI\" 2>/dev/null"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:13:01.453Z",
         "tool": "Bash",
         "id": "toolu_01PC1uS4EtYe2CHENM54npq9",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\""
       },
       {
         "timestamp": "2026-02-15T00:13:17.017Z",
         "tool": "Bash",
         "id": "toolu_01QuGGK7EDmic2FG212Bd9DF",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\""
       },
       {
         "timestamp": "2026-02-15T00:13:17.657Z",
         "tool": "Bash",
         "id": "toolu_01Vvhs7Mu27KUNgqnj4MNMEL",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start\""
       },
       {
         "timestamp": "2026-02-15T00:13:18.166Z",
         "tool": "Read",
         "id": "toolu_01YFCiocgqFJ9PnibKauFjux",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/README.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md"
       },
       {
         "timestamp": "2026-02-15T00:13:43.552Z",
         "tool": "Read",
         "id": "toolu_01KCiCfi59e2trqeYt1VUjvL",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/README.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md"
       },
       {
         "timestamp": "2026-02-15T00:13:45.092Z",
         "tool": "Read",
         "id": "toolu_017d6MZyF4fCrJo1iXR4iUvs",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat"
       },
       {
         "timestamp": "2026-02-15T00:13:46.024Z",
         "tool": "Read",
         "id": "toolu_01Wbyh8nvRa3oS5cokWNsu3i",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       },
       {
         "timestamp": "2026-02-15T00:13:53.898Z",
         "tool": "Read",
         "id": "toolu_01BwNALNY9jxzM9ak3wiWoEe",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       },
       {
         "timestamp": "2026-02-15T00:13:54.687Z",
         "tool": "Read",
         "id": "toolu_01Km73HQKHNQ3RkQ1iQcktdK",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/SKILL.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/SKILL.md"
       },
       {
         "timestamp": "2026-02-15T00:13:56.271Z",
         "tool": "Bash",
         "id": "toolu_01ThYSeH8xcrMifYKeXM2BWa",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub\" 2>/dev/null | h"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub\" 2>/dev/null | h"
       },
       {
         "timestamp": "2026-02-15T00:14:08.488Z",
         "tool": "Read",
         "id": "toolu_01FGwRuVKcbqj4kp8GCKC8rM",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/start_console.bat"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/start_console.bat"
       },
       {
         "timestamp": "2026-02-15T00:14:09.262Z",
         "tool": "Read",
         "id": "toolu_014mfbgWBLLdVaoVAFhEJWQU",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/start_gui.bat"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/start_gui.bat"
       },
       {
         "timestamp": "2026-02-15T00:14:10.264Z",
         "tool": "Bash",
         "id": "toolu_01XXeA3ubYywYMweY3vCRVCY",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core\" 2>/dev/null | "
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core\" 2>/dev/null | "
       },
       {
         "timestamp": "2026-02-15T00:14:18.731Z",
@@ -456,75 +456,75 @@
     "timeline": [
       {
         "time": "2026-02-15T00:11:47.568Z",
-        "action": "Glob: Glob: /c/Users/User/**/BACH*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "time": "2026-02-15T00:11:48.557Z",
-        "action": "Glob: Glob: /c/Users/User/**/bach*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "time": "2026-02-15T00:11:49.107Z",
-        "action": "Grep: Grep: BACH|bach_api in /c/Users/User"
+        "action": "Grep: Grep: BACH|bach_api in <USER_HOME>"
       },
       {
         "time": "2026-02-15T00:12:14.131Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive\" 2>/dev/null | head -20"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive\" 2>/dev/null | head -20"
       },
       {
         "time": "2026-02-15T00:12:23.007Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI\" 2>/dev/null"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:13:01.453Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\""
       },
       {
         "time": "2026-02-15T00:13:17.017Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\""
       },
       {
         "time": "2026-02-15T00:13:17.657Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start\""
       },
       {
         "time": "2026-02-15T00:13:18.166Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/README.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md"
       },
       {
         "time": "2026-02-15T00:13:43.552Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/README.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md"
       },
       {
         "time": "2026-02-15T00:13:45.092Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat"
       },
       {
         "time": "2026-02-15T00:13:46.024Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       },
       {
         "time": "2026-02-15T00:13:53.898Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       },
       {
         "time": "2026-02-15T00:13:54.687Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/SKILL.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/SKILL.md"
       },
       {
         "time": "2026-02-15T00:13:56.271Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub\" 2>/dev/null | h"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub\" 2>/dev/null | h"
       },
       {
         "time": "2026-02-15T00:14:08.488Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/start_console.bat"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/start_console.bat"
       },
       {
         "time": "2026-02-15T00:14:09.262Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/start_gui.bat"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/start_gui.bat"
       },
       {
         "time": "2026-02-15T00:14:10.264Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core\" 2>/dev/null | "
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core\" 2>/dev/null | "
       },
       {
         "time": "2026-02-15T00:14:18.731Z",
@@ -535,7 +535,7 @@
         "action": "Bash"
       }
     ],
-    "final_output": "Perfekt! Ich habe alle notwendigen Informationen gesammelt. Jetzt erstelle ich den vollständigen Bericht.\n\n---\n\n## PFAD-LOG:\n\n1. [Glob] `**/BACH*/**` in `/c/Users/User` → Timeout (zu breit)\n2. [Glob] `**/bach*/**` in `/c/Users/User` → Timeout (zu breit)\n3. [Bash] `ls /c/Users/User/OneDrive` → GEFUNDEN: Verzeichnis \"KI&AI\"\n4. [Bash] `ls /c/Users/User/OneDrive/.AI` → GEFUNDEN: \"BACH_v2_vanilla\"\n5. [Bash] `ls /c/Users/User/OneDrive/.AI/BACH_v2_vanilla` → GEFUNDEN: system/, start/, README.md, SKILL.md\n6. [Bash] `ls /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system` → GEFUNDEN: bach.py, bach_api.py, bach.bat, hub/, skills/, tools/, data/\n7. [Bash] `ls /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start` → GEFUNDEN: BACH_Launcher.bat, start_console.bat, start_gui.bat, claude_*.bat\n8. [Read] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/README.md` → Projektübersicht gelesen\n9. [Read] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/start/README.md` → Startmodi dokumentiert\n10. [Read] `/c/Us",
+    "final_output": "Perfekt! Ich habe alle notwendigen Informationen gesammelt. Jetzt erstelle ich den vollständigen Bericht.\n\n---\n\n## PFAD-LOG:\n\n1. [Glob] `**/BACH*/**` in `<USER_HOME>` → Timeout (zu breit)\n2. [Glob] `**/bach*/**` in `<USER_HOME>` → Timeout (zu breit)\n3. [Bash] `ls <USER_HOME>/OneDrive` → GEFUNDEN: Verzeichnis \"KI&AI\"\n4. [Bash] `ls <USER_HOME>/OneDrive/.AI` → GEFUNDEN: \"BACH_v2_vanilla\"\n5. [Bash] `ls <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla` → GEFUNDEN: system/, start/, README.md, SKILL.md\n6. [Bash] `ls <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system` → GEFUNDEN: bach.py, bach_api.py, bach.bat, hub/, skills/, tools/, data/\n7. [Bash] `ls <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start` → GEFUNDEN: BACH_Launcher.bat, start_console.bat, start_gui.bat, claude_*.bat\n8. [Read] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md` → Projektübersicht gelesen\n9. [Read] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md` → Startmodi dokumentiert\n10. [Read] `/c/Us",
     "conversation": [
       {
         "role": "user",
@@ -579,7 +579,7 @@
       },
       {
         "role": "assistant",
-        "text": "Perfekt! Ich habe alle notwendigen Informationen gesammelt. Jetzt erstelle ich den vollständigen Bericht.\n\n---\n\n## PFAD-LOG:\n\n1. [Glob] `**/BACH*/**` in `/c/Users/User` → Timeout (zu breit)\n2. [Glob] `**/bach*/**` in `/c/Users/User` → Timeout (zu breit)\n3. [Bash] `ls /c/Users/User/OneDrive` → GEFUNDEN: Verzeichnis \"KI&AI\"\n4. [Bash] `ls /c/Users/User/OneDrive/.AI` → GEFUNDEN: \"BACH_v2_vanilla\"\n5. [Bash] `ls /c/Users/User/OneDrive/.AI/BACH_v2_vanilla` → GEFUNDEN: system/, start/, README.md, SK"
+        "text": "Perfekt! Ich habe alle notwendigen Informationen gesammelt. Jetzt erstelle ich den vollständigen Bericht.\n\n---\n\n## PFAD-LOG:\n\n1. [Glob] `**/BACH*/**` in `<USER_HOME>` → Timeout (zu breit)\n2. [Glob] `**/bach*/**` in `<USER_HOME>` → Timeout (zu breit)\n3. [Bash] `ls <USER_HOME>/OneDrive` → GEFUNDEN: Verzeichnis \"KI&AI\"\n4. [Bash] `ls <USER_HOME>/OneDrive/.AI` → GEFUNDEN: \"BACH_v2_vanilla\"\n5. [Bash] `ls <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla` → GEFUNDEN: system/, start/, README.md, SK"
       }
     ],
     "summary": {
@@ -593,196 +593,196 @@
     "model": "Haiku",
     "task": "Steuerbelege finden",
     "visited_paths": [
-      "Bash: ls -la \"/c/Users/User/\" | head -30",
-      "Bash: find /c/Users/User -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20",
-      "Bash: find /c/Users/User/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*belege*",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*tax*",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null |",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data\" -type d | head -",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
-      "Grep: beleg|BELEG|belege_dir|belege_path|receipt|RECEIPT in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data\" | grep -i \"\\.d",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/user/steuer",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/belege*\" 2>",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/\" 2>/dev/null",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/\" 2>/dev/nul",
-      "Bash: find \"/c/Users/User\" -path \"*BACH*\" -type d -name \"steuer\" 2>/dev/null | head -1",
-      "Grep: belege_dir|belege_path|steuer.*path|documents_dir in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
-      "Grep: base_path|BACH_PATH|project_root|ROOT_DIR in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenliche",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_",
-      "Bash: ls \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_as"
+      "Bash: ls -la \"<USER_HOME>/\" | head -30",
+      "Bash: find <USER_HOME> -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20",
+      "Bash: find <USER_HOME>/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*belege*",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*tax*",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null |",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data\" -type d | head -",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
+      "Grep: beleg|BELEG|belege_dir|belege_path|receipt|RECEIPT in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data\" | grep -i \"\\.d",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/user/steuer",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/belege*\" 2>",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/\" 2>/dev/null",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/\" 2>/dev/nul",
+      "Bash: find \"<USER_HOME>\" -path \"*BACH*\" -type d -name \"steuer\" 2>/dev/null | head -1",
+      "Grep: belege_dir|belege_path|steuer.*path|documents_dir in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
+      "Grep: base_path|BACH_PATH|project_root|ROOT_DIR in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenliche",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_",
+      "Bash: ls \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_as"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:11:48.635Z",
         "tool": "Bash",
         "id": "toolu_01TNhhTcHqmHs3RDPtrZgA74",
-        "path": "Bash: ls -la \"/c/Users/User/\" | head -30"
+        "path": "Bash: ls -la \"<USER_HOME>/\" | head -30"
       },
       {
         "timestamp": "2026-02-15T00:11:48.954Z",
         "tool": "Bash",
         "id": "toolu_01VFkADnUf7pRNezftNrMgkn",
-        "path": "Bash: find /c/Users/User -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20"
+        "path": "Bash: find <USER_HOME> -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20"
       },
       {
         "timestamp": "2026-02-15T00:11:49.360Z",
         "tool": "Bash",
         "id": "toolu_019P6r7ooHdp5aAS1WXNiaE1",
-        "path": "Bash: find /c/Users/User/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20"
+        "path": "Bash: find <USER_HOME>/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20"
       },
       {
         "timestamp": "2026-02-15T00:13:54.659Z",
         "tool": "Bash",
         "id": "toolu_01VigrMmpZQRd1k2z8ChoRjS",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:13:56.311Z",
         "tool": "Bash",
         "id": "toolu_01MHxiS4JFpLSHk39PUoPvoe",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "timestamp": "2026-02-15T00:13:56.315Z",
         "tool": "Bash",
         "id": "toolu_01C1uSSqAWNKwFa943h57sFj",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o"
       },
       {
         "timestamp": "2026-02-15T00:16:13.801Z",
         "tool": "Glob",
         "id": "toolu_01GiyVoFohVPfbvJF7fymNMP",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*"
       },
       {
         "timestamp": "2026-02-15T00:16:14.091Z",
         "tool": "Glob",
         "id": "toolu_01XcxQM6hWN9S5UhNAzjqZuc",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*belege*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*belege*"
       },
       {
         "timestamp": "2026-02-15T00:16:14.357Z",
         "tool": "Glob",
         "id": "toolu_014rEheya6UBKw1nbT3b93ss",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*tax*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*tax*"
       },
       {
         "timestamp": "2026-02-15T00:16:14.772Z",
         "tool": "Glob",
         "id": "toolu_01TykbqgrocVnP4pXiXkdnme",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**"
       },
       {
         "timestamp": "2026-02-15T00:16:24.005Z",
         "tool": "Bash",
         "id": "toolu_013D9Ts4pfondQAdCvgQ6pZT",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null |"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null |"
       },
       {
         "timestamp": "2026-02-15T00:16:24.410Z",
         "tool": "Bash",
         "id": "toolu_01B7asDn4qgLeYDDH1VUBgdw",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data\" -type d | head -"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data\" -type d | head -"
       },
       {
         "timestamp": "2026-02-15T00:16:24.726Z",
         "tool": "Read",
         "id": "toolu_01EoC9cd99iV5Xo5yMQPdbQr",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "timestamp": "2026-02-15T00:16:42.026Z",
         "tool": "Grep",
         "id": "toolu_01BR8JuzZDnKiitbpepmVKKA",
-        "path": "Grep: beleg|BELEG|belege_dir|belege_path|receipt|RECEIPT in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "path": "Grep: beleg|BELEG|belege_dir|belege_path|receipt|RECEIPT in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "timestamp": "2026-02-15T00:16:42.463Z",
         "tool": "Read",
         "id": "toolu_017hzgtpm8CqspYW6Nww8zdV",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md"
       },
       {
         "timestamp": "2026-02-15T00:16:43.065Z",
         "tool": "Bash",
         "id": "toolu_01XTstmURGdk5qXWD1gJj23e",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data\" | grep -i \"\\.d"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data\" | grep -i \"\\.d"
       },
       {
         "timestamp": "2026-02-15T00:16:51.910Z",
         "tool": "Bash",
         "id": "toolu_01WibhbiZFYRFNywBJLjpQBu",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/user/steuer"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/user/steuer"
       },
       {
         "timestamp": "2026-02-15T00:16:52.021Z",
         "tool": "Bash",
         "id": "toolu_01GDTynhAXQHDrCoDY2jdE3J",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/belege*\" 2>"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/belege*\" 2>"
       },
       {
         "timestamp": "2026-02-15T00:16:52.437Z",
         "tool": "Bash",
         "id": "toolu_018aqkLXLvxSJpaR54kmw4sf",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/\" 2>/dev/null"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:21:15.213Z",
         "tool": "Bash",
         "id": "toolu_01SjR8XP5GLzZhf9TbSPdNQ2",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/\" 2>/dev/nul"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/\" 2>/dev/nul"
       },
       {
         "timestamp": "2026-02-15T00:21:15.778Z",
         "tool": "Bash",
         "id": "toolu_01HqiwpVzfZBdFvbPHsiE4TM",
-        "path": "Bash: find \"/c/Users/User\" -path \"*BACH*\" -type d -name \"steuer\" 2>/dev/null | head -1"
+        "path": "Bash: find \"<USER_HOME>\" -path \"*BACH*\" -type d -name \"steuer\" 2>/dev/null | head -1"
       },
       {
         "timestamp": "2026-02-15T00:21:16.682Z",
         "tool": "Grep",
         "id": "toolu_01PyP8V9kEyFbXPyNZdatGnj",
-        "path": "Grep: belege_dir|belege_path|steuer.*path|documents_dir in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "path": "Grep: belege_dir|belege_path|steuer.*path|documents_dir in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "timestamp": "2026-02-15T00:23:30.750Z",
         "tool": "Grep",
         "id": "toolu_01Nd2GE6rr9yBZyK42buWqya",
-        "path": "Grep: base_path|BACH_PATH|project_root|ROOT_DIR in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "path": "Grep: base_path|BACH_PATH|project_root|ROOT_DIR in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "timestamp": "2026-02-15T00:23:31.015Z",
         "tool": "Read",
         "id": "toolu_016iraeZRQAeHMpmFusFiDRW",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       },
       {
         "timestamp": "2026-02-15T00:23:35.881Z",
         "tool": "Bash",
         "id": "toolu_01KS4uciYXXLnFWLDf3DedSD",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenliche"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenliche"
       },
       {
         "timestamp": "2026-02-15T00:23:43.099Z",
         "tool": "Bash",
         "id": "toolu_01CN6gRbXzecm758a1mKY56V",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_"
       },
       {
         "timestamp": "2026-02-15T00:23:43.763Z",
         "tool": "Bash",
         "id": "toolu_01U3TMDrdMa6jYX22XBVoiid",
-        "path": "Bash: ls \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_as"
+        "path": "Bash: ls \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_as"
       },
       {
         "timestamp": "2026-02-15T00:23:44.229Z",
@@ -799,111 +799,111 @@
     "timeline": [
       {
         "time": "2026-02-15T00:11:48.635Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/\" | head -30"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/\" | head -30"
       },
       {
         "time": "2026-02-15T00:11:48.954Z",
-        "action": "Bash: Bash: find /c/Users/User -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20"
+        "action": "Bash: Bash: find <USER_HOME> -maxdepth 3 -type d -name \"*BACH*\" 2>/dev/null | head -20"
       },
       {
         "time": "2026-02-15T00:11:49.360Z",
-        "action": "Bash: Bash: find /c/Users/User/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20"
+        "action": "Bash: Bash: find <USER_HOME>/OneDrive -maxdepth 3 -type d 2>/dev/null | head -20"
       },
       {
         "time": "2026-02-15T00:13:54.659Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:13:56.311Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "time": "2026-02-15T00:13:56.315Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -iname \"*steuer*\" -o"
       },
       {
         "time": "2026-02-15T00:16:13.801Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*steuer*"
       },
       {
         "time": "2026-02-15T00:16:14.091Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*belege*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*belege*"
       },
       {
         "time": "2026-02-15T00:16:14.357Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*tax*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*tax*"
       },
       {
         "time": "2026-02-15T00:16:14.772Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/data/**"
       },
       {
         "time": "2026-02-15T00:16:24.005Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null |"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null |"
       },
       {
         "time": "2026-02-15T00:16:24.410Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data\" -type d | head -"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data\" -type d | head -"
       },
       {
         "time": "2026-02-15T00:16:24.726Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "time": "2026-02-15T00:16:42.026Z",
-        "action": "Grep: Grep: beleg|BELEG|belege_dir|belege_path|receipt|RECEIPT in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "action": "Grep: Grep: beleg|BELEG|belege_dir|belege_path|receipt|RECEIPT in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "time": "2026-02-15T00:16:42.463Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md"
       },
       {
         "time": "2026-02-15T00:16:43.065Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data\" | grep -i \"\\.d"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data\" | grep -i \"\\.d"
       },
       {
         "time": "2026-02-15T00:16:51.910Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/user/steuer"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/user/steuer"
       },
       {
         "time": "2026-02-15T00:16:52.021Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/belege*\" 2>"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\" -type d -path \"*/belege*\" 2>"
       },
       {
         "time": "2026-02-15T00:16:52.437Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:21:15.213Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/\" 2>/dev/nul"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/\" 2>/dev/nul"
       },
       {
         "time": "2026-02-15T00:21:15.778Z",
-        "action": "Bash: Bash: find \"/c/Users/User\" -path \"*BACH*\" -type d -name \"steuer\" 2>/dev/null | head -1"
+        "action": "Bash: Bash: find \"<USER_HOME>\" -path \"*BACH*\" -type d -name \"steuer\" 2>/dev/null | head -1"
       },
       {
         "time": "2026-02-15T00:21:16.682Z",
-        "action": "Grep: Grep: belege_dir|belege_path|steuer.*path|documents_dir in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "action": "Grep: Grep: belege_dir|belege_path|steuer.*path|documents_dir in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "time": "2026-02-15T00:23:30.750Z",
-        "action": "Grep: Grep: base_path|BACH_PATH|project_root|ROOT_DIR in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
+        "action": "Grep: Grep: base_path|BACH_PATH|project_root|ROOT_DIR in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py"
       },
       {
         "time": "2026-02-15T00:23:31.015Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       },
       {
         "time": "2026-02-15T00:23:35.881Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenliche"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenliche"
       },
       {
         "time": "2026-02-15T00:23:43.099Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_"
       },
       {
         "time": "2026-02-15T00:23:43.763Z",
-        "action": "Bash: Bash: ls \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_as"
+        "action": "Bash: Bash: ls \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_as"
       },
       {
         "time": "2026-02-15T00:23:44.229Z",
@@ -922,7 +922,7 @@
       },
       {
         "role": "assistant",
-        "text": "Gut! Ich habe BACH gefunden. Es liegt unter `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla`. Laut der Systemnotiz ist der Pfad: `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`. Nun suche ich nach Steuerbelegs-Verzeichnissen.\n\nPFAD-LOG:\n1. [Aktion: Bash] ls -la \"/c/Users/User/\" → Home-Directory durchsucht\n2. [Aktion: Bash] find BACH directories → Gefunden: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla\n\nIch schaue mir jetzt die BACH-Verzeichnisstruktur an:"
+        "text": "Gut! Ich habe BACH gefunden. Es liegt unter `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla`. Laut der Systemnotiz ist der Pfad: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`. Nun suche ich nach Steuerbelegs-Verzeichnissen.\n\nPFAD-LOG:\n1. [Aktion: Bash] ls -la \"<USER_HOME>/\" → Home-Directory durchsucht\n2. [Aktion: Bash] find BACH directories → Gefunden: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla\n\nIch schaue mir jetzt die BACH-Verzeichnisstruktur an:"
       },
       {
         "role": "assistant",
@@ -938,7 +938,7 @@
       },
       {
         "role": "assistant",
-        "text": "Sehr wichtig! Ich habe den Pfad zu den Steuerbelegs gefunden: `../user/steuer/[JAHR]/belege/` und die Datenbank liegt in `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db`. Lassen Sie mich den konkreten Beleg-Speicherort finden:"
+        "text": "Sehr wichtig! Ich habe den Pfad zu den Steuerbelegs gefunden: `../user/steuer/[JAHR]/belege/` und die Datenbank liegt in `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db`. Lassen Sie mich den konkreten Beleg-Speicherort finden:"
       },
       {
         "role": "assistant",
@@ -950,7 +950,7 @@
       },
       {
         "role": "assistant",
-        "text": "Perfekt! Jetzt habe ich den exakten Pfad! Laut bach_paths.py (Zeile 133-136):\n\n```python\nSTEUER_DIR = USER_PERSOENLICH_DIR / \"steuer\"\nSTEUER_2025 = STEUER_DIR / \"2025\"\nBELEGE_DIR = STEUER_2025 / \"Werbungskosten\" / \"belege\"\n```\n\nUnd `USER_PERSOENLICH_DIR = USER_DIR / \"documents\" / \"persoenlicher_assistent\"`\n\nDie BACH_ROOT ist `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla`, daher:\n\n**Belege-Pfad:** `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_assistent/steuer/2025/Wer"
+        "text": "Perfekt! Jetzt habe ich den exakten Pfad! Laut bach_paths.py (Zeile 133-136):\n\n```python\nSTEUER_DIR = USER_PERSOENLICH_DIR / \"steuer\"\nSTEUER_2025 = STEUER_DIR / \"2025\"\nBELEGE_DIR = STEUER_2025 / \"Werbungskosten\" / \"belege\"\n```\n\nUnd `USER_PERSOENLICH_DIR = USER_DIR / \"documents\" / \"persoenlicher_assistent\"`\n\nDie BACH_ROOT ist `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla`, daher:\n\n**Belege-Pfad:** `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/user/documents/persoenlicher_assistent/steuer/2025/Wer"
       },
       {
         "role": "assistant",
@@ -968,61 +968,61 @@
     "model": "Sonnet",
     "task": "Offene Tasks",
     "visited_paths": [
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/TODO*",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json",
-      "Grep: (def|class).*(task|queue|todo) in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
-      "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/TODO*",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json",
+      "Grep: (def|class).*(task|queue|todo) in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py",
+      "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:11:59.039Z",
         "tool": "Bash",
         "id": "toolu_01Y4m4VPMcWi3PD3xtrLskdy",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30"
       },
       {
         "timestamp": "2026-02-15T00:11:59.093Z",
         "tool": "Glob",
         "id": "toolu_01Pi5i7L6Q7Zf553MQkffNzB",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md"
       },
       {
         "timestamp": "2026-02-15T00:11:59.098Z",
         "tool": "Glob",
         "id": "toolu_0183tj22xqdfPoH3NUSs5bqp",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md"
       },
       {
         "timestamp": "2026-02-15T00:11:59.109Z",
         "tool": "Glob",
         "id": "toolu_01Uj3KBp33u9hnCrY33muKwc",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/TODO*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/TODO*"
       },
       {
         "timestamp": "2026-02-15T00:12:24.722Z",
         "tool": "Bash",
         "id": "toolu_012WuzeoSRHeqPFw73xgQyao",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1"
       },
       {
         "timestamp": "2026-02-15T00:12:31.528Z",
         "tool": "Glob",
         "id": "toolu_0137yosjvC84HBdfNW82UeDb",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json"
       },
       {
         "timestamp": "2026-02-15T00:13:11.315Z",
         "tool": "Read",
         "id": "toolu_0129WnhM57xj4wNUbGs9MpXF",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json"
       },
       {
         "timestamp": "2026-02-15T00:13:19.444Z",
@@ -1034,109 +1034,109 @@
         "timestamp": "2026-02-15T00:13:43.482Z",
         "tool": "Grep",
         "id": "toolu_011vosStdF1wqKptmMrmgs64",
-        "path": "Grep: (def|class).*(task|queue|todo) in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "path": "Grep: (def|class).*(task|queue|todo) in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "timestamp": "2026-02-15T00:13:47.191Z",
         "tool": "Glob",
         "id": "toolu_01PBoTMqKaEDnZiBrEaYuZrW",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**"
       },
       {
         "timestamp": "2026-02-15T00:13:53.641Z",
         "tool": "Bash",
         "id": "toolu_01HQjHvVKKKotqm8TfrqjQtM",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1"
       },
       {
         "timestamp": "2026-02-15T00:13:54.067Z",
         "tool": "Read",
         "id": "toolu_01V4Db38peVFMom1CrnBhDwC",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
       },
       {
         "timestamp": "2026-02-15T00:14:10.562Z",
         "tool": "Bash",
         "id": "toolu_01TzApc8BWA4y2uTjq2Ut8G5",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:14:51.777Z",
         "tool": "Bash",
         "id": "toolu_01GC3PakxMpzVdBEwi6EyTZz",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:04.037Z",
         "tool": "Bash",
         "id": "toolu_014Q6ikwniCz8uNqphYMSYQn",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:04.799Z",
         "tool": "Bash",
         "id": "toolu_01Xpg4YC3LPvoMqQTc8zswig",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:05.555Z",
         "tool": "Bash",
         "id": "toolu_013dQtDe9qD2J2vK5scZe31q",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:06.421Z",
         "tool": "Bash",
         "id": "toolu_01G2ev94TPAt5BPtgwmcqSrf",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:34.825Z",
         "tool": "Bash",
         "id": "toolu_015J84o8xVGdbih6n8BC2EmU",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:35.640Z",
         "tool": "Bash",
         "id": "toolu_01S25HYU34bhnv4YtPab66CM",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:36.609Z",
         "tool": "Bash",
         "id": "toolu_01PqL2cKZE57DWeDjngwNmjQ",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:37.296Z",
         "tool": "Bash",
         "id": "toolu_01SD9oRKqbb3xUcFMcfPLpeY",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:38.113Z",
         "tool": "Bash",
         "id": "toolu_01KRfdxz2iS4v8Lr4qyZ7BrZ",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:38.937Z",
         "tool": "Bash",
         "id": "toolu_012QPrdJoTz1Y31EHW4NT2zv",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:39.762Z",
         "tool": "Bash",
         "id": "toolu_01EDiDCUYuCPpe649h6y52nh",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "timestamp": "2026-02-15T00:15:40.555Z",
         "tool": "Bash",
         "id": "toolu_01K2rdRWukQz2PwaJ2c4CMrK",
-        "path": "Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "path": "Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       }
     ],
     "success": true,
@@ -1147,31 +1147,31 @@
     "timeline": [
       {
         "time": "2026-02-15T00:11:59.039Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>&1 | head -30"
       },
       {
         "time": "2026-02-15T00:11:59.093Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*task*.md"
       },
       {
         "time": "2026-02-15T00:11:59.098Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/*todo*.md"
       },
       {
         "time": "2026-02-15T00:11:59.109Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/**/TODO*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/**/TODO*"
       },
       {
         "time": "2026-02-15T00:12:24.722Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>&1"
       },
       {
         "time": "2026-02-15T00:12:31.528Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/*.json"
       },
       {
         "time": "2026-02-15T00:13:11.315Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json"
       },
       {
         "time": "2026-02-15T00:13:19.444Z",
@@ -1179,75 +1179,75 @@
       },
       {
         "time": "2026-02-15T00:13:43.482Z",
-        "action": "Grep: Grep: (def|class).*(task|queue|todo) in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "action": "Grep: Grep: (def|class).*(task|queue|todo) in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "time": "2026-02-15T00:13:47.191Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**/ati/**"
       },
       {
         "time": "2026-02-15T00:13:53.641Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/ati/\" 2>&1"
       },
       {
         "time": "2026-02-15T00:13:54.067Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py"
       },
       {
         "time": "2026-02-15T00:14:10.562Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:14:51.777Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:04.037Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:04.799Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:05.555Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:06.421Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:34.825Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:35.640Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:36.609Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:37.296Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:38.113Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:38.937Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:39.762Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       },
       {
         "time": "2026-02-15T00:15:40.555Z",
-        "action": "Bash: Bash: cd \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
+        "action": "Bash: Bash: cd \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" && PYTHONIOENCODING=utf"
       }
     ],
     "final_output": "**10. [Aktion: Bash] Hole Details zu weiteren Tasks → Fortsetzung**",
@@ -1258,7 +1258,7 @@
       },
       {
         "role": "assistant",
-        "text": "Ich helfe dir, die offenen Tasks in BACH zu finden. Lass mich systematisch vorgehen.\n\n## PFAD-LOG:\n\n**1. [Aktion: Glob] Suche nach BACH-Verzeichnis → Starte mit bekanntem Pfad aus MEMORY.md**\n\nAus der MEMORY.md weiß ich, dass BACH unter `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/` liegt. Lass mich das verifizieren und nach Task-relevanten Dateien suchen."
+        "text": "Ich helfe dir, die offenen Tasks in BACH zu finden. Lass mich systematisch vorgehen.\n\n## PFAD-LOG:\n\n**1. [Aktion: Glob] Suche nach BACH-Verzeichnis → Starte mit bekanntem Pfad aus MEMORY.md**\n\nAus der MEMORY.md weiß ich, dass BACH unter `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/` liegt. Lass mich das verifizieren und nach Task-relevanten Dateien suchen."
       },
       {
         "role": "assistant",
@@ -1308,71 +1308,71 @@
     "model": "Haiku",
     "task": "Python-Tools finden",
     "visited_paths": [
-      "Bash: find /c/Users/User -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20",
-      "Bash: ls -la /c/Users/User/OneDrive/",
-      "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/",
-      "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/",
-      "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
-      "Glob: /c/Users/User/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py",
-      "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/\"",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" ",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
+      "Bash: find <USER_HOME> -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20",
+      "Bash: ls -la <USER_HOME>/OneDrive/",
+      "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/",
+      "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/",
+      "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
+      "Glob: <USER_HOME>/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py",
+      "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/\"",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" ",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:12:08.660Z",
         "tool": "Bash",
         "id": "toolu_01QroET1Bu42cixhEGD8bwvB",
-        "path": "Bash: find /c/Users/User -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20"
+        "path": "Bash: find <USER_HOME> -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20"
       },
       {
         "timestamp": "2026-02-15T00:12:13.897Z",
         "tool": "Bash",
         "id": "toolu_013zUJcCePsrn5CspRkqeiRN",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/"
       },
       {
         "timestamp": "2026-02-15T00:12:22.823Z",
         "tool": "Bash",
         "id": "toolu_014kMtgmrgVA8NhMS6yc91wQ",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/"
       },
       {
         "timestamp": "2026-02-15T00:12:51.987Z",
         "tool": "Bash",
         "id": "toolu_0128uemPfjW1HQLG3eZPJUw6",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/"
       },
       {
         "timestamp": "2026-02-15T00:13:16.618Z",
         "tool": "Bash",
         "id": "toolu_01BxY4bNtxCKGbRGsvRBN4uN",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
       },
       {
         "timestamp": "2026-02-15T00:13:52.401Z",
         "tool": "Glob",
         "id": "toolu_017DivjrJMPKfMKCmrxRssxV",
-        "path": "Glob: /c/Users/User/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py"
       },
       {
         "timestamp": "2026-02-15T00:13:53.664Z",
         "tool": "Bash",
         "id": "toolu_01R3MtS4cBAiH3J41sfqs8r8",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/"
       },
       {
         "timestamp": "2026-02-15T00:13:56.324Z",
         "tool": "Bash",
         "id": "toolu_01A6Lwv1VkKAdVHKngkDVjAT",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/\""
       },
       {
         "timestamp": "2026-02-15T00:14:38.279Z",
         "tool": "Bash",
         "id": "toolu_01BajaKTjSWGmKFJ8DZxHZb9",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
       },
       {
         "timestamp": "2026-02-15T00:16:43.941Z",
@@ -1384,51 +1384,51 @@
         "timestamp": "2026-02-15T00:16:54.397Z",
         "tool": "Bash",
         "id": "toolu_01RCYBZdoxvv35m8EnyHBii3",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
       }
     ],
     "success": true,
     "error_messages": [
-      "PreToolUse:Bash hook error: Prompt hook condition was not met: Der Bash-Befehl `find /c/Users/User -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -",
-      "<tool_use_error>Directory does not exist: /c/Users/User/OneDrive/KI\\&AI</tool_use_error>",
+      "PreToolUse:Bash hook error: Prompt hook condition was not met: Der Bash-Befehl `find <USER_HOME> -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -",
+      "<tool_use_error>Directory does not exist: <USER_HOME>/OneDrive/KI\\&AI</tool_use_error>",
       "<tool_use_error>Sibling tool call errored</tool_use_error>"
     ],
     "timeline": [
       {
         "time": "2026-02-15T00:12:08.660Z",
-        "action": "Bash: Bash: find /c/Users/User -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20"
+        "action": "Bash: Bash: find <USER_HOME> -name \"BACH*\" -o -name \"bach*\" 2>/dev/null | head -20"
       },
       {
         "time": "2026-02-15T00:12:13.897Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/"
       },
       {
         "time": "2026-02-15T00:12:22.823Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/"
       },
       {
         "time": "2026-02-15T00:12:51.987Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/"
       },
       {
         "time": "2026-02-15T00:13:16.618Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
       },
       {
         "time": "2026-02-15T00:13:52.401Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/KI\\&AI/**/BACH_v2_vanilla/system/**/*.py"
       },
       {
         "time": "2026-02-15T00:13:53.664Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/tools/"
       },
       {
         "time": "2026-02-15T00:13:56.324Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/\""
       },
       {
         "time": "2026-02-15T00:14:38.279Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
       },
       {
         "time": "2026-02-15T00:16:43.941Z",
@@ -1436,10 +1436,10 @@
       },
       {
         "time": "2026-02-15T00:16:54.397Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -maxdepth 1 -type f -"
       }
     ],
-    "final_output": "Exzellent! Viele Python-Tools im tools/ Verzeichnis gefunden. Jetzt suche ich systematisch in allen Verzeichnissen nach Python-Dateien:\n\nPFAD-LOG:\n5. [Aktion: Bash ls] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools → 60+ Python-Dateien gefunden\n\nLasse mich jetzt noch die anderen Verzeichnisse durchsuchen:",
+    "final_output": "Exzellent! Viele Python-Tools im tools/ Verzeichnis gefunden. Jetzt suche ich systematisch in allen Verzeichnissen nach Python-Dateien:\n\nPFAD-LOG:\n5. [Aktion: Bash ls] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools → 60+ Python-Dateien gefunden\n\nLasse mich jetzt noch die anderen Verzeichnisse durchsuchen:",
     "conversation": [
       {
         "role": "user",
@@ -1455,23 +1455,23 @@
       },
       {
         "role": "assistant",
-        "text": "PFAD-LOG:\n1. [Aktion: Bash ls] /c/Users/User/OneDrive → KI&AI Verzeichnis gefunden"
+        "text": "PFAD-LOG:\n1. [Aktion: Bash ls] <USER_HOME>/OneDrive → KI&AI Verzeichnis gefunden"
       },
       {
         "role": "assistant",
-        "text": "Perfekt! BACH_v2_vanilla gefunden.\n\nPFAD-LOG:\n2. [Aktion: Bash ls] /c/Users/User/OneDrive/KI\\&AI → BACH_v2_vanilla gefunden"
+        "text": "Perfekt! BACH_v2_vanilla gefunden.\n\nPFAD-LOG:\n2. [Aktion: Bash ls] <USER_HOME>/OneDrive/KI\\&AI → BACH_v2_vanilla gefunden"
       },
       {
         "role": "assistant",
-        "text": "PFAD-LOG:\n3. [Aktion: Bash ls] /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla → system Verzeichnis gefunden (laut Instruktion)\n\nLasse mich die Struktur des system/ Verzeichnisses erkunden:"
+        "text": "PFAD-LOG:\n3. [Aktion: Bash ls] <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla → system Verzeichnis gefunden (laut Instruktion)\n\nLasse mich die Struktur des system/ Verzeichnisses erkunden:"
       },
       {
         "role": "assistant",
-        "text": "PFAD-LOG:\n4. [Aktion: Bash ls] /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system → Mehrere relevante Verzeichnisse: agents, connectors, core, skills, tools, hub, partners\n\nLaut MEMORY.md sollte es auch einen `tools/` Ordner geben. Lasse mich jetzt alle Python-Dateien suchen:"
+        "text": "PFAD-LOG:\n4. [Aktion: Bash ls] <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system → Mehrere relevante Verzeichnisse: agents, connectors, core, skills, tools, hub, partners\n\nLaut MEMORY.md sollte es auch einen `tools/` Ordner geben. Lasse mich jetzt alle Python-Dateien suchen:"
       },
       {
         "role": "assistant",
-        "text": "Exzellent! Viele Python-Tools im tools/ Verzeichnis gefunden. Jetzt suche ich systematisch in allen Verzeichnissen nach Python-Dateien:\n\nPFAD-LOG:\n5. [Aktion: Bash ls] /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools → 60+ Python-Dateien gefunden\n\nLasse mich jetzt noch die anderen Verzeichnisse durchsuchen:"
+        "text": "Exzellent! Viele Python-Tools im tools/ Verzeichnis gefunden. Jetzt suche ich systematisch in allen Verzeichnissen nach Python-Dateien:\n\nPFAD-LOG:\n5. [Aktion: Bash ls] <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools → 60+ Python-Dateien gefunden\n\nLasse mich jetzt noch die anderen Verzeichnisse durchsuchen:"
       }
     ],
     "summary": {
@@ -1485,140 +1485,140 @@
     "model": "Sonnet",
     "task": "Wiki-Artikel schreiben",
     "visited_paths": [
-      "Glob: C:/Users/User/**/BACH*/**",
-      "Glob: C:/Users/User/**/bach*/**",
-      "Grep: BACH in C:/Users/User/.claude",
-      "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
-      "Grep: docker|Docker|DOCKER in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-      "Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*.",
-      "Bash: ls -R /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt",
-      "Grep: docker in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/ROADMAP.md",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/was_ist_bach.txt",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/ARCHITECTURE.md",
-      "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/informatik/clou",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/cloud_computing/README.txt",
-      "Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system -type f \\( -name \"*.py"
+      "Glob: <USER_HOME>/**/BACH*/**",
+      "Glob: <USER_HOME>/**/bach*/**",
+      "Grep: BACH in <USER_HOME>/.claude",
+      "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/",
+      "Grep: docker|Docker|DOCKER in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+      "Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*.",
+      "Bash: ls -R <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt",
+      "Grep: docker in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/ROADMAP.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/was_ist_bach.txt",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/ARCHITECTURE.md",
+      "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/informatik/clou",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/cloud_computing/README.txt",
+      "Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system -type f \\( -name \"*.py"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:12:18.856Z",
         "tool": "Glob",
         "id": "toolu_01KigEk3T7V9fUZskqHKiXyC",
-        "path": "Glob: C:/Users/User/**/BACH*/**"
+        "path": "Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "timestamp": "2026-02-15T00:12:18.957Z",
         "tool": "Glob",
         "id": "toolu_01XEyKHXSHHtt8NeHs828XDJ",
-        "path": "Glob: C:/Users/User/**/bach*/**"
+        "path": "Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "timestamp": "2026-02-15T00:12:19.821Z",
         "tool": "Grep",
         "id": "toolu_013h5RujChSwWEVhGyMavKoq",
-        "path": "Grep: BACH in C:/Users/User/.claude"
+        "path": "Grep: BACH in <USER_HOME>/.claude"
       },
       {
         "timestamp": "2026-02-15T00:12:51.244Z",
         "tool": "Bash",
         "id": "toolu_01HQFXppSUUZi6k11PGcnSBj",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
       },
       {
         "timestamp": "2026-02-15T00:12:52.385Z",
         "tool": "Grep",
         "id": "toolu_017hBAPubZGFd8hAKdGahJ1B",
-        "path": "Grep: docker|Docker|DOCKER in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "path": "Grep: docker|Docker|DOCKER in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "timestamp": "2026-02-15T00:13:42.746Z",
         "tool": "Bash",
         "id": "toolu_01TvciPurBEJdWLvfv3Tr6wV",
-        "path": "Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*."
+        "path": "Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*."
       },
       {
         "timestamp": "2026-02-15T00:13:47.054Z",
         "tool": "Bash",
         "id": "toolu_01WW5bnygsJSJ3kBhDBWJzyv",
-        "path": "Bash: ls -R /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/"
+        "path": "Bash: ls -R <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/"
       },
       {
         "timestamp": "2026-02-15T00:14:27.512Z",
         "tool": "Read",
         "id": "toolu_012RptJkeKMRFyR8WvvGj62X",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt"
       },
       {
         "timestamp": "2026-02-15T00:14:30.958Z",
         "tool": "Read",
         "id": "toolu_01PD7CsjzbardQGTH7tE8U9r",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt"
       },
       {
         "timestamp": "2026-02-15T00:14:31.481Z",
         "tool": "Read",
         "id": "toolu_01HhfcQkpFWKNkeXe5h64y9Z",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt"
       },
       {
         "timestamp": "2026-02-15T00:14:32.090Z",
         "tool": "Read",
         "id": "toolu_018n9GJpWVa9jMpB4UnW5jHK",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt"
       },
       {
         "timestamp": "2026-02-15T00:14:41.931Z",
         "tool": "Grep",
         "id": "toolu_01WYBCP4JqCcQgSD7GnywpRg",
-        "path": "Grep: docker in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "path": "Grep: docker in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "timestamp": "2026-02-15T00:14:42.615Z",
         "tool": "Read",
         "id": "toolu_01M3pL5sP8qisk82vLrVr6Df",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt"
       },
       {
         "timestamp": "2026-02-15T00:14:44.316Z",
         "tool": "Read",
         "id": "toolu_01FUyzWm9SUwVyndWm5TLw2L",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/ROADMAP.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/ROADMAP.md"
       },
       {
         "timestamp": "2026-02-15T00:14:49.211Z",
         "tool": "Read",
         "id": "toolu_017WvuWvw32KWA3xrjiTUeZN",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/was_ist_bach.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/was_ist_bach.txt"
       },
       {
         "timestamp": "2026-02-15T00:14:50.279Z",
         "tool": "Read",
         "id": "toolu_015Bn5wh2TqJJSSZTEjXS9e1",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/ARCHITECTURE.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/ARCHITECTURE.md"
       },
       {
         "timestamp": "2026-02-15T00:14:51.392Z",
         "tool": "Bash",
         "id": "toolu_019DZ9M1zHWf3Sq6nJhRN6MH",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/informatik/clou"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/informatik/clou"
       },
       {
         "timestamp": "2026-02-15T00:15:01.386Z",
         "tool": "Read",
         "id": "toolu_01AEaRmf83TG75EhT8A9sBFx",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/cloud_computing/README.txt"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/cloud_computing/README.txt"
       },
       {
         "timestamp": "2026-02-15T00:15:03.301Z",
         "tool": "Bash",
         "id": "toolu_01136YSzAD4qEtMKC3JjSWdC",
-        "path": "Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system -type f \\( -name \"*.py"
+        "path": "Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system -type f \\( -name \"*.py"
       }
     ],
     "success": true,
@@ -1631,82 +1631,82 @@
     "timeline": [
       {
         "time": "2026-02-15T00:12:18.856Z",
-        "action": "Glob: Glob: C:/Users/User/**/BACH*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "time": "2026-02-15T00:12:18.957Z",
-        "action": "Glob: Glob: C:/Users/User/**/bach*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "time": "2026-02-15T00:12:19.821Z",
-        "action": "Grep: Grep: BACH in C:/Users/User/.claude"
+        "action": "Grep: Grep: BACH in <USER_HOME>/.claude"
       },
       {
         "time": "2026-02-15T00:12:51.244Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/"
       },
       {
         "time": "2026-02-15T00:12:52.385Z",
-        "action": "Grep: Grep: docker|Docker|DOCKER in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "action": "Grep: Grep: docker|Docker|DOCKER in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "time": "2026-02-15T00:13:42.746Z",
-        "action": "Bash: Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*."
+        "action": "Bash: Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki -type f -name \"*."
       },
       {
         "time": "2026-02-15T00:13:47.054Z",
-        "action": "Bash: Bash: ls -R /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/"
+        "action": "Bash: Bash: ls -R <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/"
       },
       {
         "time": "2026-02-15T00:14:27.512Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt"
       },
       {
         "time": "2026-02-15T00:14:30.958Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt"
       },
       {
         "time": "2026-02-15T00:14:31.481Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt"
       },
       {
         "time": "2026-02-15T00:14:32.090Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt"
       },
       {
         "time": "2026-02-15T00:14:41.931Z",
-        "action": "Grep: Grep: docker in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "action": "Grep: Grep: docker in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "time": "2026-02-15T00:14:42.615Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt"
       },
       {
         "time": "2026-02-15T00:14:44.316Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/ROADMAP.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/ROADMAP.md"
       },
       {
         "time": "2026-02-15T00:14:49.211Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/was_ist_bach.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/was_ist_bach.txt"
       },
       {
         "time": "2026-02-15T00:14:50.279Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/ARCHITECTURE.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/ARCHITECTURE.md"
       },
       {
         "time": "2026-02-15T00:14:51.392Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/informatik/clou"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system/wiki/informatik/clou"
       },
       {
         "time": "2026-02-15T00:15:01.386Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/cloud_computing/README.txt"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/cloud_computing/README.txt"
       },
       {
         "time": "2026-02-15T00:15:03.301Z",
-        "action": "Bash: Bash: find /c/Users/User/OneDrive/KI\\&AI/BACH_v2_vanilla/system -type f \\( -name \"*.py"
+        "action": "Bash: Bash: find <USER_HOME>/OneDrive/KI\\&AI/BACH_v2_vanilla/system -type f \\( -name \"*.py"
       }
     ],
-    "final_output": "Gut, ich habe genug Informationen gesammelt. Lass mich nun zusammenfassen, was ich herausgefunden habe.\n\n---\n\n## PFAD-LOG\n\n1. [Read] C:/Users/User/.claude/projects/C--Users-User/memory/MEMORY.md → BACH-Pfad gefunden: `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`\n2. [Bash] ls -la BACH system/ → Verzeichnisstruktur erkannt, `wiki/` Verzeichnis gefunden\n3. [Grep] pattern=\"docker\" → 42 Dateien mit Docker-Erwähnungen gefunden\n4. [Bash] ls -R wiki/ → Komplette Wiki-Struktur erkannt, `informatik/devops/` und `webapps/deployment/` gefunden\n5. [Read] wiki/informatik/devops/README.txt → Umfassender DevOps-Artikel mit Docker-Abschnitt gelesen (380 Zeilen)\n6. [Read] wiki/informatik/README.txt → Überblick über Informatik-Wiki-Struktur\n7. [Read] wiki/webapps/deployment/README.txt → Deployment-Artikel mit Docker-Sektion gelesen (488 Zeilen)\n8. [Read] wiki/wiki_konventionen.txt → Wiki-Standards und Formatierungsregeln verstanden\n9. [Read] wiki/n8n.txt → Beispiel-Wiki-Artikel analysiert (Struk",
+    "final_output": "Gut, ich habe genug Informationen gesammelt. Lass mich nun zusammenfassen, was ich herausgefunden habe.\n\n---\n\n## PFAD-LOG\n\n1. [Read] <USER_HOME>/.claude/projects/C--Users-User/memory/MEMORY.md → BACH-Pfad gefunden: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`\n2. [Bash] ls -la BACH system/ → Verzeichnisstruktur erkannt, `wiki/` Verzeichnis gefunden\n3. [Grep] pattern=\"docker\" → 42 Dateien mit Docker-Erwähnungen gefunden\n4. [Bash] ls -R wiki/ → Komplette Wiki-Struktur erkannt, `informatik/devops/` und `webapps/deployment/` gefunden\n5. [Read] wiki/informatik/devops/README.txt → Umfassender DevOps-Artikel mit Docker-Abschnitt gelesen (380 Zeilen)\n6. [Read] wiki/informatik/README.txt → Überblick über Informatik-Wiki-Struktur\n7. [Read] wiki/webapps/deployment/README.txt → Deployment-Artikel mit Docker-Sektion gelesen (488 Zeilen)\n8. [Read] wiki/wiki_konventionen.txt → Wiki-Standards und Formatierungsregeln verstanden\n9. [Read] wiki/n8n.txt → Beispiel-Wiki-Artikel analysiert (Struk",
     "conversation": [
       {
         "role": "user",
@@ -1718,7 +1718,7 @@
       },
       {
         "role": "assistant",
-        "text": "Aus dem MEMORY.md habe ich bereits den BACH-Pfad: `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`. Lass mich dort direkt suchen."
+        "text": "Aus dem MEMORY.md habe ich bereits den BACH-Pfad: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`. Lass mich dort direkt suchen."
       },
       {
         "role": "assistant",
@@ -1738,7 +1738,7 @@
       },
       {
         "role": "assistant",
-        "text": "Gut, ich habe genug Informationen gesammelt. Lass mich nun zusammenfassen, was ich herausgefunden habe.\n\n---\n\n## PFAD-LOG\n\n1. [Read] C:/Users/User/.claude/projects/C--Users-User/memory/MEMORY.md → BACH-Pfad gefunden: `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`\n2. [Bash] ls -la BACH system/ → Verzeichnisstruktur erkannt, `wiki/` Verzeichnis gefunden\n3. [Grep] pattern=\"docker\" → 42 Dateien mit Docker-Erwähnungen gefunden\n4. [Bash] ls -R wiki/ → Komplette Wiki-Struktur erkannt, `informat"
+        "text": "Gut, ich habe genug Informationen gesammelt. Lass mich nun zusammenfassen, was ich herausgefunden habe.\n\n---\n\n## PFAD-LOG\n\n1. [Read] <USER_HOME>/.claude/projects/C--Users-User/memory/MEMORY.md → BACH-Pfad gefunden: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`\n2. [Bash] ls -la BACH system/ → Verzeichnisstruktur erkannt, `wiki/` Verzeichnis gefunden\n3. [Grep] pattern=\"docker\" → 42 Dateien mit Docker-Erwähnungen gefunden\n4. [Bash] ls -R wiki/ → Komplette Wiki-Struktur erkannt, `informat"
       }
     ],
     "summary": {
@@ -1753,24 +1753,24 @@
     "task": "Logs lesen",
     "visited_paths": [
       "C:\\Users\\User\\.claude\\projects\\C--Users-User\\memory\\MEMORY.md",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/logs/**",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 ",
-      "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/_system/data/system/data/backups/*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/config/*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*log*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.txt",
-      "Grep: log|LOG|logging in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/*",
-      "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/messages/*"
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/logs/**",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 ",
+      "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/_system/data/system/data/backups/*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/config/*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*log*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.txt",
+      "Grep: log|LOG|logging in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/*",
+      "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/messages/*"
     ],
     "tool_calls": [
       {
@@ -1783,115 +1783,115 @@
         "timestamp": "2026-02-15T00:12:23.106Z",
         "tool": "Glob",
         "id": "toolu_01WdW4KA1wmYRgjppQREBisS",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
       },
       {
         "timestamp": "2026-02-15T00:12:23.252Z",
         "tool": "Glob",
         "id": "toolu_01XfqZyTpqzTUDGUbLjafvPg",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**"
       },
       {
         "timestamp": "2026-02-15T00:12:23.597Z",
         "tool": "Glob",
         "id": "toolu_01V97bmY9h7E4Ncv2qVA7ZWw",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/logs/**"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/logs/**"
       },
       {
         "timestamp": "2026-02-15T00:12:40.713Z",
         "tool": "Bash",
         "id": "toolu_01BmTJTNPXZTCXeL2heLtkY8",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "timestamp": "2026-02-15T00:12:40.734Z",
         "tool": "Bash",
         "id": "toolu_01Rvi9ZpczDkvKcPTSTdGCK4",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 "
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 "
       },
       {
         "timestamp": "2026-02-15T00:13:32.080Z",
         "tool": "Bash",
         "id": "toolu_01CGjC6AiwU5iiAZxCRVyuHb",
-        "path": "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/"
+        "path": "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/"
       },
       {
         "timestamp": "2026-02-15T00:13:41.216Z",
         "tool": "Glob",
         "id": "toolu_01F2kcEopLdDprUY1ZuS6ybK",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*"
       },
       {
         "timestamp": "2026-02-15T00:13:43.373Z",
         "tool": "Glob",
         "id": "toolu_01SKCFfvz1544Qx41sueVP3w",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*"
       },
       {
         "timestamp": "2026-02-15T00:13:47.075Z",
         "tool": "Glob",
         "id": "toolu_01EojETZSTQKcZ6AxyjjR6Lb",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*"
       },
       {
         "timestamp": "2026-02-15T00:13:47.131Z",
         "tool": "Glob",
         "id": "toolu_01M2rgQdcKTEiuieYw7Z7NcW",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/_system/data/system/data/backups/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/_system/data/system/data/backups/*"
       },
       {
         "timestamp": "2026-02-15T00:13:47.162Z",
         "tool": "Glob",
         "id": "toolu_01NWvVDvo3sfRyc6UCjNw5Ss",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/config/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/config/*"
       },
       {
         "timestamp": "2026-02-15T00:13:50.415Z",
         "tool": "Glob",
         "id": "toolu_01WL8F5cXzuBim3iB6rEqW1d",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
       },
       {
         "timestamp": "2026-02-15T00:13:50.643Z",
         "tool": "Glob",
         "id": "toolu_01W5h7nTVxj1EAqG17oFsAdL",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*log*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*log*"
       },
       {
         "timestamp": "2026-02-15T00:13:50.878Z",
         "tool": "Glob",
         "id": "toolu_011b7UXaWZ9f16fm6aq71FiV",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.txt"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.txt"
       },
       {
         "timestamp": "2026-02-15T00:13:53.685Z",
         "tool": "Grep",
         "id": "toolu_01NCGN5aWiquWu4hctz8gwJR",
-        "path": "Grep: log|LOG|logging in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "path": "Grep: log|LOG|logging in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "timestamp": "2026-02-15T00:13:58.705Z",
         "tool": "Read",
         "id": "toolu_01BWmqhmxuyRAQ6bXgRnWnya",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       },
       {
         "timestamp": "2026-02-15T00:13:59.900Z",
         "tool": "Read",
         "id": "toolu_01DGZPnRWZ3jDH8ywkWtyi6h",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       },
       {
         "timestamp": "2026-02-15T00:14:04.886Z",
         "tool": "Glob",
         "id": "toolu_01J96SwRsicGdnj7L9E6Jbhc",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/*"
       },
       {
         "timestamp": "2026-02-15T00:14:05.105Z",
         "tool": "Glob",
         "id": "toolu_011HPd7ELvnVoWfo8E9M6nKq",
-        "path": "Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/messages/*"
+        "path": "Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/messages/*"
       }
     ],
     "success": true,
@@ -1906,79 +1906,79 @@
       },
       {
         "time": "2026-02-15T00:12:23.106Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
       },
       {
         "time": "2026-02-15T00:12:23.252Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/**"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/**"
       },
       {
         "time": "2026-02-15T00:12:23.597Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/logs/**"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/logs/**"
       },
       {
         "time": "2026-02-15T00:12:40.713Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "time": "2026-02-15T00:12:40.734Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 "
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" -type d -maxdepth 2 "
       },
       {
         "time": "2026-02-15T00:13:32.080Z",
-        "action": "Bash: Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/"
+        "action": "Bash: Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/\" 2>/dev/"
       },
       {
         "time": "2026-02-15T00:13:41.216Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/logs/*"
       },
       {
         "time": "2026-02-15T00:13:43.373Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/forensic/*"
       },
       {
         "time": "2026-02-15T00:13:47.075Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/system/data/system/data/backups/*"
       },
       {
         "time": "2026-02-15T00:13:47.131Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/_system/data/system/data/backups/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/_system/data/system/data/backups/*"
       },
       {
         "time": "2026-02-15T00:13:47.162Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/config/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/config/*"
       },
       {
         "time": "2026-02-15T00:13:50.415Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.log"
       },
       {
         "time": "2026-02-15T00:13:50.643Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*log*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*log*"
       },
       {
         "time": "2026-02-15T00:13:50.878Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/*.txt"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/*.txt"
       },
       {
         "time": "2026-02-15T00:13:53.685Z",
-        "action": "Grep: Grep: log|LOG|logging in /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system"
+        "action": "Grep: Grep: log|LOG|logging in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system"
       },
       {
         "time": "2026-02-15T00:13:58.705Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       },
       {
         "time": "2026-02-15T00:13:59.900Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       },
       {
         "time": "2026-02-15T00:14:04.886Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/*"
       },
       {
         "time": "2026-02-15T00:14:05.105Z",
-        "action": "Glob: Glob: .//c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/messages/*"
+        "action": "Glob: Glob: ./<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/messages/*"
       }
     ],
     "final_output": "Excellent! Ich sehe, dass `logs` ein _HandlerProxy ist und es gibt eine logs-API. Auch in `bach_paths.py` wird auf `LOGS_DIR` verwiesen. Aber das Verzeichnis war leer. Lass mich nach tatsächlichen Log-Dateien mit einer breiteren Suche greifen:",
@@ -1993,7 +1993,7 @@
       },
       {
         "role": "assistant",
-        "text": "Perfekt! BACH-Pfad gefunden: `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`\n\nJetzt suche ich nach Log-Dateien im BACH-System:"
+        "text": "Perfekt! BACH-Pfad gefunden: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`\n\nJetzt suche ich nach Log-Dateien im BACH-System:"
       },
       {
         "role": "assistant",
@@ -2039,147 +2039,147 @@
     "model": "Sonnet",
     "task": "Agenten auflisten",
     "visited_paths": [
-      "Glob: C:/Users/User/**/BACH*/**",
-      "Glob: C:/Users/User/**/bach*/**",
-      "Grep: BACH_v2 in C:/Users/User",
-      "Bash: ls -la \"/c/Users/User/OneDrive/\"",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/\"",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\"",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\"",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\"",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\"",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\" -maxdepth 1 -",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\" -max",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati\" -type f -n",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler\" -ty",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production\" -ty",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection\" -ty",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
+      "Glob: <USER_HOME>/**/BACH*/**",
+      "Glob: <USER_HOME>/**/bach*/**",
+      "Grep: BACH_v2 in <USER_HOME>",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/\"",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\"",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\"",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\"",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\"",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\"",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\" -maxdepth 1 -",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\" -max",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati\" -type f -n",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler\" -ty",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production\" -ty",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection\" -ty",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:12:31.358Z",
         "tool": "Glob",
         "id": "toolu_01TKTvQPxGNArQuSErqdQaqY",
-        "path": "Glob: C:/Users/User/**/BACH*/**"
+        "path": "Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "timestamp": "2026-02-15T00:12:31.403Z",
         "tool": "Glob",
         "id": "toolu_01TnCnGH1YE7Rod6rSnBBq4Z",
-        "path": "Glob: C:/Users/User/**/bach*/**"
+        "path": "Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "timestamp": "2026-02-15T00:12:31.477Z",
         "tool": "Grep",
         "id": "toolu_018soQUL7rvYsEfYsTS5c2RW",
-        "path": "Grep: BACH_v2 in C:/Users/User"
+        "path": "Grep: BACH_v2 in <USER_HOME>"
       },
       {
         "timestamp": "2026-02-15T00:12:56.652Z",
         "tool": "Bash",
         "id": "toolu_01B61daFQ6UNUX692Ew88RWF",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/\""
       },
       {
         "timestamp": "2026-02-15T00:13:17.092Z",
         "tool": "Bash",
         "id": "toolu_016j8qBkvcsvTzWgkmQRjXAq",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\""
       },
       {
         "timestamp": "2026-02-15T00:13:37.041Z",
         "tool": "Bash",
         "id": "toolu_01BjSZc2XSTMLK8NEP39NYiS",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\""
       },
       {
         "timestamp": "2026-02-15T00:13:48.479Z",
         "tool": "Bash",
         "id": "toolu_015YXHV86r9vHwrHmdZUxrZA",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\""
       },
       {
         "timestamp": "2026-02-15T00:13:59.937Z",
         "tool": "Bash",
         "id": "toolu_01QnvVc4gXhKjGkFgzbYLwtE",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\""
       },
       {
         "timestamp": "2026-02-15T00:14:07.751Z",
         "tool": "Read",
         "id": "toolu_01YGgXajgRGxbGRYWoDKREGQ",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md"
       },
       {
         "timestamp": "2026-02-15T00:14:10.252Z",
         "tool": "Bash",
         "id": "toolu_015kaC7iGu7RCrUUEdXSVVTN",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\""
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\""
       },
       {
         "timestamp": "2026-02-15T00:14:19.664Z",
         "tool": "Bash",
         "id": "toolu_01JYjuGr5r61LfWp9PyPqBad",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\" -maxdepth 1 -"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\" -maxdepth 1 -"
       },
       {
         "timestamp": "2026-02-15T00:14:20.743Z",
         "tool": "Bash",
         "id": "toolu_01HCBmpQDRBHsQiXxvKkpxR8",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\" -max"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\" -max"
       },
       {
         "timestamp": "2026-02-15T00:14:38.388Z",
         "tool": "Bash",
         "id": "toolu_01WHE5M6BavkQc4hsrTzJSsX",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati\" -type f -n"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati\" -type f -n"
       },
       {
         "timestamp": "2026-02-15T00:14:39.420Z",
         "tool": "Bash",
         "id": "toolu_018QjWUSAnZmDXTj8d8RuPpU",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler\" -ty"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler\" -ty"
       },
       {
         "timestamp": "2026-02-15T00:14:41.746Z",
         "tool": "Bash",
         "id": "toolu_012Mdmw66qLQwDA2W89KV2DF",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production\" -ty"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production\" -ty"
       },
       {
         "timestamp": "2026-02-15T00:14:41.756Z",
         "tool": "Bash",
         "id": "toolu_019v3PqM3oQHY1aPqVPcGXn1",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection\" -ty"
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection\" -ty"
       },
       {
         "timestamp": "2026-02-15T00:15:08.047Z",
         "tool": "Read",
         "id": "toolu_01QAKTn6vWyjWUuvqgAamzz2",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md"
       },
       {
         "timestamp": "2026-02-15T00:15:09.335Z",
         "tool": "Read",
         "id": "toolu_01PFjjgyFb9viuvMGyxJv2tk",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md"
       },
       {
         "timestamp": "2026-02-15T00:15:10.529Z",
         "tool": "Read",
         "id": "toolu_01JHyg8A4665BA7eN5a8wfQj",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md"
       },
       {
         "timestamp": "2026-02-15T00:15:11.204Z",
         "tool": "Read",
         "id": "toolu_012DQVZ5jDdVbVEAxWNegaCN",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
       }
     ],
     "success": true,
@@ -2192,83 +2192,83 @@
     "timeline": [
       {
         "time": "2026-02-15T00:12:31.358Z",
-        "action": "Glob: Glob: C:/Users/User/**/BACH*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "time": "2026-02-15T00:12:31.403Z",
-        "action": "Glob: Glob: C:/Users/User/**/bach*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "time": "2026-02-15T00:12:31.477Z",
-        "action": "Grep: Grep: BACH_v2 in C:/Users/User"
+        "action": "Grep: Grep: BACH_v2 in <USER_HOME>"
       },
       {
         "time": "2026-02-15T00:12:56.652Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/\""
       },
       {
         "time": "2026-02-15T00:13:17.092Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\""
       },
       {
         "time": "2026-02-15T00:13:37.041Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\""
       },
       {
         "time": "2026-02-15T00:13:48.479Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\""
       },
       {
         "time": "2026-02-15T00:13:59.937Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\""
       },
       {
         "time": "2026-02-15T00:14:07.751Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md"
       },
       {
         "time": "2026-02-15T00:14:10.252Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\""
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\""
       },
       {
         "time": "2026-02-15T00:14:19.664Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/\" -maxdepth 1 -"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/\" -maxdepth 1 -"
       },
       {
         "time": "2026-02-15T00:14:20.743Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\" -max"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/\" -max"
       },
       {
         "time": "2026-02-15T00:14:38.388Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati\" -type f -n"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati\" -type f -n"
       },
       {
         "time": "2026-02-15T00:14:39.420Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler\" -ty"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler\" -ty"
       },
       {
         "time": "2026-02-15T00:14:41.746Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production\" -ty"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production\" -ty"
       },
       {
         "time": "2026-02-15T00:14:41.756Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection\" -ty"
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection\" -ty"
       },
       {
         "time": "2026-02-15T00:15:08.047Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md"
       },
       {
         "time": "2026-02-15T00:15:09.335Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md"
       },
       {
         "time": "2026-02-15T00:15:10.529Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md"
       },
       {
         "time": "2026-02-15T00:15:11.204Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md"
       }
     ],
     "final_output": "Gut! Jeder Agent hat eine SKILL.md Datei. Ich lese nun die SKILL.md Dateien der verbleibenden Agenten, um vollständige Informationen zu erhalten.",
@@ -2329,105 +2329,105 @@
     "model": "Haiku",
     "task": "DB exportieren",
     "visited_paths": [
-      "Bash: find /c/Users/User -type d -name \"*BACH*\" 2>/dev/null | head -20",
-      "Glob: /c/Users/User/**/BACH*",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/\" 2>/dev/null | grep -i bach",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
-      "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
-      "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null",
-      "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null",
-      "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql",
-      "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py",
-      "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" ",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py",
-      "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py",
-      "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/\" 2>/dev/null"
+      "Bash: find <USER_HOME> -type d -name \"*BACH*\" 2>/dev/null | head -20",
+      "Glob: <USER_HOME>/**/BACH*",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\" 2>/dev/null | grep -i bach",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null",
+      "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head",
+      "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null",
+      "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null",
+      "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py",
+      "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" ",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py",
+      "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/\" 2>/dev/null"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:12:31.216Z",
         "tool": "Bash",
         "id": "toolu_01Y6UCbn2SU165m1NdPcGnic",
-        "path": "Bash: find /c/Users/User -type d -name \"*BACH*\" 2>/dev/null | head -20"
+        "path": "Bash: find <USER_HOME> -type d -name \"*BACH*\" 2>/dev/null | head -20"
       },
       {
         "timestamp": "2026-02-15T00:12:31.242Z",
         "tool": "Glob",
         "id": "toolu_019eDRCyua9oT9Br7Ge52Gc9",
-        "path": "Glob: /c/Users/User/**/BACH*"
+        "path": "Glob: <USER_HOME>/**/BACH*"
       },
       {
         "timestamp": "2026-02-15T00:12:56.765Z",
         "tool": "Bash",
         "id": "toolu_01F1NLqsJk8nSJg5tXA1nNe2",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/\" 2>/dev/null | grep -i bach"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\" 2>/dev/null | grep -i bach"
       },
       {
         "timestamp": "2026-02-15T00:13:19.304Z",
         "tool": "Bash",
         "id": "toolu_019xirBSDkRXLwkWLjdDZGw3",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:13:41.637Z",
         "tool": "Bash",
         "id": "toolu_01Pz9RDi57oV9GPuyUDQovt8",
-        "path": "Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "path": "Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "timestamp": "2026-02-15T00:13:51.141Z",
         "tool": "Bash",
         "id": "toolu_01KpkFeTkaF38uAkWKhfYecu",
-        "path": "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null"
+        "path": "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:13:51.468Z",
         "tool": "Bash",
         "id": "toolu_01QsZySwkMdWP1xMYekaTV3f",
-        "path": "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null"
+        "path": "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null"
       },
       {
         "timestamp": "2026-02-15T00:13:51.781Z",
         "tool": "Bash",
         "id": "toolu_012PCXzrjz4PvfBEHWyU6ZbX",
-        "path": "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu"
+        "path": "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu"
       },
       {
         "timestamp": "2026-02-15T00:14:39.701Z",
         "tool": "Read",
         "id": "toolu_01HgahiraNoRMWTFeGqgbgW7",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql"
       },
       {
         "timestamp": "2026-02-15T00:14:45.567Z",
         "tool": "Glob",
         "id": "toolu_01C7ZFCXx4jYrJkXeEDFW8Tb",
-        "path": "Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py"
       },
       {
         "timestamp": "2026-02-15T00:14:45.992Z",
         "tool": "Bash",
         "id": "toolu_01VidStE2xtvCgETKMdzSabQ",
-        "path": "Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
+        "path": "Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
       },
       {
         "timestamp": "2026-02-15T00:16:53.604Z",
         "tool": "Read",
         "id": "toolu_0119NLmLSLVtSYMvn8hNzbVh",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py"
       },
       {
         "timestamp": "2026-02-15T00:16:58.136Z",
         "tool": "Read",
         "id": "toolu_01U4bSktPqHcGnSbKJqtF9fE",
-        "path": "/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py"
       },
       {
         "timestamp": "2026-02-15T00:17:01.809Z",
         "tool": "Bash",
         "id": "toolu_013LuRAUGLm1Yz8JohmvyCBD",
-        "path": "Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/\" 2>/dev/null"
+        "path": "Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/\" 2>/dev/null"
       }
     ],
     "success": true,
@@ -2438,59 +2438,59 @@
     "timeline": [
       {
         "time": "2026-02-15T00:12:31.216Z",
-        "action": "Bash: Bash: find /c/Users/User -type d -name \"*BACH*\" 2>/dev/null | head -20"
+        "action": "Bash: Bash: find <USER_HOME> -type d -name \"*BACH*\" 2>/dev/null | head -20"
       },
       {
         "time": "2026-02-15T00:12:31.242Z",
-        "action": "Glob: Glob: /c/Users/User/**/BACH*"
+        "action": "Glob: Glob: <USER_HOME>/**/BACH*"
       },
       {
         "time": "2026-02-15T00:12:56.765Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/\" 2>/dev/null | grep -i bach"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/\" 2>/dev/null | grep -i bach"
       },
       {
         "time": "2026-02-15T00:13:19.304Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:13:41.637Z",
-        "action": "Bash: Bash: ls -la \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
+        "action": "Bash: Bash: ls -la \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/\" 2>/dev/null | head"
       },
       {
         "time": "2026-02-15T00:13:51.141Z",
-        "action": "Bash: Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:13:51.468Z",
-        "action": "Bash: Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/\" 2>/dev/null"
       },
       {
         "time": "2026-02-15T00:13:51.781Z",
-        "action": "Bash: Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu"
+        "action": "Bash: Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/\" 2>/dev/nu"
       },
       {
         "time": "2026-02-15T00:14:39.701Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql"
       },
       {
         "time": "2026-02-15T00:14:45.567Z",
-        "action": "Glob: Glob: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/**/export*.py"
       },
       {
         "time": "2026-02-15T00:14:45.992Z",
-        "action": "Bash: Bash: find \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
+        "action": "Bash: Bash: find \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system\" -type f -name \"*.py\" "
       },
       {
         "time": "2026-02-15T00:16:53.604Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py"
       },
       {
         "time": "2026-02-15T00:16:58.136Z",
-        "action": "Read: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py"
       },
       {
         "time": "2026-02-15T00:17:01.809Z",
-        "action": "Bash: Bash: ls -lah \"/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/\" 2>/dev/null"
+        "action": "Bash: Bash: ls -lah \"<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/\" 2>/dev/null"
       }
     ],
     "final_output": "10. [Aktion: Read] `dump_schema.py` → **Einfaches Dump-Skript für Datenbank-Schema**\n\n**Schritt 9: Hub-Verzeichnis (Registry und Pfade)**",
@@ -2509,19 +2509,19 @@
       },
       {
         "role": "assistant",
-        "text": "Perfekt! Gefunden! Lasse mich die BACH-Struktur untersuchen:\n\n**Schritt 3: BACH-Verzeichnisstruktur erkunden**\n\n1. [Aktion: Bash] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla` → **Verzeichnis gefunden**"
+        "text": "Perfekt! Gefunden! Lasse mich die BACH-Struktur untersuchen:\n\n**Schritt 3: BACH-Verzeichnisstruktur erkunden**\n\n1. [Aktion: Bash] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla` → **Verzeichnis gefunden**"
       },
       {
         "role": "assistant",
-        "text": "2. [Aktion: Bash] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/` → **Verzeichnisstruktur erkannt: system/, data/, hub/, tools/ wahrscheinlich darin**\n\n**Schritt 4: System-Verzeichnis durchsuchen (Datenbank-Pfade)**"
+        "text": "2. [Aktion: Bash] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/` → **Verzeichnisstruktur erkannt: system/, data/, hub/, tools/ wahrscheinlich darin**\n\n**Schritt 4: System-Verzeichnis durchsuchen (Datenbank-Pfade)**"
       },
       {
         "role": "assistant",
-        "text": "3. [Aktion: Bash] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/` → **Gefunden: data/, db/, system/system/exports/, hub/**\n\n**Schritt 5: Datenbank-Verzeichnisse untersuchen**"
+        "text": "3. [Aktion: Bash] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/` → **Gefunden: data/, db/, system/system/exports/, hub/**\n\n**Schritt 5: Datenbank-Verzeichnisse untersuchen**"
       },
       {
         "role": "assistant",
-        "text": "4. [Aktion: Bash] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/db/` → **leer (nur migrations/)**\n5. [Aktion: Bash] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/` → **41MB, Hauptdatenbank: bach.db (21MB), Schema-SQL-Dateien, JSON-Dateien**\n6. [Aktion: Bash] `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/` → **Exportverzeichnis mit HTML, ZIP, JSON-Dateien**\n\n**Schritt 6: Hauptdatenbank-Schema untersuchen**"
+        "text": "4. [Aktion: Bash] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/db/` → **leer (nur migrations/)**\n5. [Aktion: Bash] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/` → **41MB, Hauptdatenbank: bach.db (21MB), Schema-SQL-Dateien, JSON-Dateien**\n6. [Aktion: Bash] `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/system/system/exports/` → **Exportverzeichnis mit HTML, ZIP, JSON-Dateien**\n\n**Schritt 6: Hauptdatenbank-Schema untersuchen**"
       },
       {
         "role": "assistant",
@@ -2529,7 +2529,7 @@
       },
       {
         "role": "assistant",
-        "text": "8. [Aktion: Glob] `**/export*.py` → **Gefunden: /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py**"
+        "text": "8. [Aktion: Glob] `**/export*.py` → **Gefunden: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py**"
       },
       {
         "role": "assistant",
@@ -2551,182 +2551,182 @@
     "model": "Sonnet",
     "task": "System-Status",
     "visited_paths": [
-      "Glob: C:/Users/User/**/BACH*/**",
-      "Glob: C:/Users/User/**/bach*/**",
-      "Grep: BACH_v2 in C:/Users/User",
-      "Bash: ls -la /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.md",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/README*",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/STATUS*",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/status*.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*status*.md",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db",
-      "Grep: status in C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/*.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/**/*.py",
-      "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/**/*.py",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/status.py",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/app.py",
-      "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/registry.py"
+      "Glob: <USER_HOME>/**/BACH*/**",
+      "Glob: <USER_HOME>/**/bach*/**",
+      "Grep: BACH_v2 in <USER_HOME>",
+      "Bash: ls -la <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.md",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/README*",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/STATUS*",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/status*.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*status*.md",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db",
+      "Grep: status in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/*.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/**/*.py",
+      "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/**/*.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/status.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/app.py",
+      "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/registry.py"
     ],
     "tool_calls": [
       {
         "timestamp": "2026-02-15T00:12:48.362Z",
         "tool": "Glob",
         "id": "toolu_01FsM1vLpyh34pnFiWF4MSFQ",
-        "path": "Glob: C:/Users/User/**/BACH*/**"
+        "path": "Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "timestamp": "2026-02-15T00:12:48.510Z",
         "tool": "Glob",
         "id": "toolu_01YSUxDfuD6HnNt3WPtowMJd",
-        "path": "Glob: C:/Users/User/**/bach*/**"
+        "path": "Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "timestamp": "2026-02-15T00:12:49.358Z",
         "tool": "Grep",
         "id": "toolu_01XeGdN9zGDdhXYTSaozNm9G",
-        "path": "Grep: BACH_v2 in C:/Users/User"
+        "path": "Grep: BACH_v2 in <USER_HOME>"
       },
       {
         "timestamp": "2026-02-15T00:13:17.448Z",
         "tool": "Bash",
         "id": "toolu_01558H21GJP5HGYpi81e6rHE",
-        "path": "Bash: ls -la /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/"
+        "path": "Bash: ls -la <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/"
       },
       {
         "timestamp": "2026-02-15T00:13:31.967Z",
         "tool": "Glob",
         "id": "toolu_016Z1f7fgiEawW32uQLrekS6",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*"
       },
       {
         "timestamp": "2026-02-15T00:13:46.929Z",
         "tool": "Glob",
         "id": "toolu_012r6z6eGGpc5gBtWngyvyqS",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.py"
       },
       {
         "timestamp": "2026-02-15T00:13:46.978Z",
         "tool": "Glob",
         "id": "toolu_01FyiPoFd1f4EW5dAuKy6hKz",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.md"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.md"
       },
       {
         "timestamp": "2026-02-15T00:13:47.015Z",
         "tool": "Glob",
         "id": "toolu_011x2Hx9uPh6n2z2nRQiyoeq",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py"
       },
       {
         "timestamp": "2026-02-15T00:13:52.347Z",
         "tool": "Glob",
         "id": "toolu_01HSWHZoYHci7CoWZKghJhWy",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py"
       },
       {
         "timestamp": "2026-02-15T00:13:53.760Z",
         "tool": "Glob",
         "id": "toolu_01Ji9sLsfNcz1uMhf3CzWGHf",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/README*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/README*"
       },
       {
         "timestamp": "2026-02-15T00:13:53.794Z",
         "tool": "Glob",
         "id": "toolu_01XSuq1JB1JAwb1GqrRQjUdG",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/STATUS*"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/STATUS*"
       },
       {
         "timestamp": "2026-02-15T00:13:55.885Z",
         "tool": "Read",
         "id": "toolu_01PMudGQ3mzKsksymr8Z5o9x",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py"
       },
       {
         "timestamp": "2026-02-15T00:13:59.979Z",
         "tool": "Read",
         "id": "toolu_01HuvbgXpE2nHd4tWTSrPqxE",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       },
       {
         "timestamp": "2026-02-15T00:14:01.672Z",
         "tool": "Read",
         "id": "toolu_01SSu8k2CMPLeLcHACU46wiX",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       },
       {
         "timestamp": "2026-02-15T00:14:01.839Z",
         "tool": "Read",
         "id": "toolu_01U3ffjAJ2axqHRgBndwpA3J",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       },
       {
         "timestamp": "2026-02-15T00:14:07.139Z",
         "tool": "Glob",
         "id": "toolu_012TxUtyJavmJmRQLXbs7cQv",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/status*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/status*.py"
       },
       {
         "timestamp": "2026-02-15T00:14:10.305Z",
         "tool": "Glob",
         "id": "toolu_01DLeZd6KztgLvE3BTZPViBr",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*status*.md"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*status*.md"
       },
       {
         "timestamp": "2026-02-15T00:14:10.342Z",
         "tool": "Read",
         "id": "toolu_019Hp8oR9rzwcbCuLS7DrNwW",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db"
       },
       {
         "timestamp": "2026-02-15T00:14:15.610Z",
         "tool": "Grep",
         "id": "toolu_01JAtLBLPa86kZbdss7dpDEN",
-        "path": "Grep: status in C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools"
+        "path": "Grep: status in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools"
       },
       {
         "timestamp": "2026-02-15T00:14:16.290Z",
         "tool": "Glob",
         "id": "toolu_01M1x8VxfTKzM2SprxaPMZUp",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/*.py"
       },
       {
         "timestamp": "2026-02-15T00:14:21.545Z",
         "tool": "Glob",
         "id": "toolu_01PnejJRTsV1E5rfSiueihgK",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/**/*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/**/*.py"
       },
       {
         "timestamp": "2026-02-15T00:14:22.074Z",
         "tool": "Glob",
         "id": "toolu_01B7Lr9BJx8g1p7k78QNj28m",
-        "path": "Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/**/*.py"
+        "path": "Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/**/*.py"
       },
       {
         "timestamp": "2026-02-15T00:14:29.017Z",
         "tool": "Read",
         "id": "toolu_01TV3wauUZdf65K643FVpAxp",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/status.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/status.py"
       },
       {
         "timestamp": "2026-02-15T00:14:29.937Z",
         "tool": "Read",
         "id": "toolu_01SSrpK6E2pFQhpDhsVYvVqH",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/app.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/app.py"
       },
       {
         "timestamp": "2026-02-15T00:14:30.540Z",
         "tool": "Read",
         "id": "toolu_01N5PtbxdsRTgXGU5WsosNeY",
-        "path": "C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/registry.py"
+        "path": "<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/registry.py"
       }
     ],
     "success": true,
@@ -2746,103 +2746,103 @@
     "timeline": [
       {
         "time": "2026-02-15T00:12:48.362Z",
-        "action": "Glob: Glob: C:/Users/User/**/BACH*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/BACH*/**"
       },
       {
         "time": "2026-02-15T00:12:48.510Z",
-        "action": "Glob: Glob: C:/Users/User/**/bach*/**"
+        "action": "Glob: Glob: <USER_HOME>/**/bach*/**"
       },
       {
         "time": "2026-02-15T00:12:49.358Z",
-        "action": "Grep: Grep: BACH_v2 in C:/Users/User"
+        "action": "Grep: Grep: BACH_v2 in <USER_HOME>"
       },
       {
         "time": "2026-02-15T00:13:17.448Z",
-        "action": "Bash: Bash: ls -la /c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/"
+        "action": "Bash: Bash: ls -la <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/"
       },
       {
         "time": "2026-02-15T00:13:31.967Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*"
       },
       {
         "time": "2026-02-15T00:13:46.929Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.py"
       },
       {
         "time": "2026-02-15T00:13:46.978Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*.md"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*.md"
       },
       {
         "time": "2026-02-15T00:13:47.015Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/*.py"
       },
       {
         "time": "2026-02-15T00:13:52.347Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach*.py"
       },
       {
         "time": "2026-02-15T00:13:53.760Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/README*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/README*"
       },
       {
         "time": "2026-02-15T00:13:53.794Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/STATUS*"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/STATUS*"
       },
       {
         "time": "2026-02-15T00:13:55.885Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py"
       },
       {
         "time": "2026-02-15T00:13:59.979Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py"
       },
       {
         "time": "2026-02-15T00:14:01.672Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py"
       },
       {
         "time": "2026-02-15T00:14:01.839Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py"
       },
       {
         "time": "2026-02-15T00:14:07.139Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools/status*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/status*.py"
       },
       {
         "time": "2026-02-15T00:14:10.305Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/*status*.md"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/*status*.md"
       },
       {
         "time": "2026-02-15T00:14:10.342Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db"
       },
       {
         "time": "2026-02-15T00:14:15.610Z",
-        "action": "Grep: Grep: status in C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/tools"
+        "action": "Grep: Grep: status in <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools"
       },
       {
         "time": "2026-02-15T00:14:16.290Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/*.py"
       },
       {
         "time": "2026-02-15T00:14:21.545Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/**/*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/**/*.py"
       },
       {
         "time": "2026-02-15T00:14:22.074Z",
-        "action": "Glob: Glob: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/**/*.py"
+        "action": "Glob: Glob: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/**/*.py"
       },
       {
         "time": "2026-02-15T00:14:29.017Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/hub/status.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/status.py"
       },
       {
         "time": "2026-02-15T00:14:29.937Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/app.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/app.py"
       },
       {
         "time": "2026-02-15T00:14:30.540Z",
-        "action": "Read: C:/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/core/registry.py"
+        "action": "Read: <USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/registry.py"
       }
     ],
     "final_output": "Perfekt, ich habe den Status-Handler gefunden. Ich lese ihn jetzt.",
@@ -2857,7 +2857,7 @@
       },
       {
         "role": "assistant",
-        "text": "Die erste Suche war zu breit. Laut MEMORY.md liegt BACH unter `/c/Users/User/OneDrive/.AI/BACH_v2_vanilla/system/`. Ich suche dort direkt."
+        "text": "Die erste Suche war zu breit. Laut MEMORY.md liegt BACH unter `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/`. Ich suche dort direkt."
       },
       {
         "role": "assistant",
