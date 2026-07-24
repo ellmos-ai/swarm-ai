@@ -1,0 +1,11 @@
+# Pin the lint rule set explicitly. This repository has no pyproject.toml, and
+# CI installs an unpinned `ruff`, so `ruff check` would otherwise follow whatever
+# default the freshly installed version ships. ruff widens that default between
+# releases (0.16 added UP006/UP009/UP045, BLE001, RUF100, DTZ005 and more), which
+# turned a green build red on 2026-07-24 without any code change. Selecting the
+# classic default set keeps the result independent of the installed ruff version.
+# Widening this list is a deliberate decision, tracked on the roadmap.
+target-version = "py310"
+
+[lint]
+select = ["E4", "E7", "E9", "F"]
