@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Parallel-Chunks Stufe 3: LLM-Zusammenfassungen für Chunks
-SQ047: Wissensindexierung
+Wissensindexierung
 
 Zweck:
 - Lädt alle Chunks aus document_chunks (ohne Summary)

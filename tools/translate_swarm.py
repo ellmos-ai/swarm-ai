@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: MIT
 """
-translate_swarm.py - Schwarm-Uebersetzung mit Parallel-Chunks (SQ062)
+translate_swarm.py - Schwarm-Uebersetzung mit Parallel-Chunks
 ======================================================================
 
 Uebersetzt fehlende Texte in languages_translations via Claude Haiku.
@@ -760,7 +760,7 @@ def show_inventory(namespace=None, target_lang='en', source_lang='de'):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Schwarm-Übersetzung mit Parallel-Chunks (SQ062)"
+        description="Schwarm-Übersetzung mit Parallel-Chunks"
     )
     parser.add_argument(
         "--namespace", "-n",

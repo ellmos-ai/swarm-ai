@@ -1,6 +1,6 @@
 # Schwarm-Entscheidungsbaum: Wann welches Muster?
 
-**Version:** 1.1 | **Stand:** 2026-06-17 | **Bezug:** MASTERPLAN SQ051
+**Version:** 1.1 | **Stand:** 2026-06-17
 
 ## Schritt 1: Anwendungsmodus waehlen
 
@@ -126,4 +126,4 @@ bach task add "Steuerfrage bearbeiten"
 
 ---
 
-*Erstellt: SQ051 Schwarm-Protokolle | Begleit-Datei: schwarm-operationen.md*
+*Begleit-Datei: schwarm-operationen.md*

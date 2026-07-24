@@ -1,6 +1,6 @@
 # Schwarm-Operationen Protokoll
 
-**Version:** 1.1 | **Stand:** 2026-06-17 | **Bezug:** MASTERPLAN SQ051
+**Version:** 1.1 | **Stand:** 2026-06-17
 
 ## Anwendungsmodi
 
@@ -78,7 +78,7 @@ bach task add "Chunk 21-40: DE->EN Uebersetzung" --agent translator_de
 Boss teilt auf -> Worker bearbeiten -> Boss konsolidiert
 
 **Einsatz:** Komplexe Projekte, Abhaengigkeits-Management
-**Tool:** llmauto chain (geplant: SQ073/SQ074)
+**Tool:** llmauto chain (geplant)
 
 **Rollen:**
 - **Boss-Agent:** Zerlegung, Delegation, Konsolidierung, Qualitaetskontrolle
@@ -162,4 +162,4 @@ Verschiedene Experten-Agenten -> jeder fuer sein Fachgebiet
 
 ---
 
-*Erstellt: SQ051 Schwarm-Protokolle | Naechster Schritt: stigmergy_api.py vollstaendige Implementierung (nach Release)*
+*Naechster Schritt: stigmergy_api.py vollstaendige Implementierung (nach Release)*
