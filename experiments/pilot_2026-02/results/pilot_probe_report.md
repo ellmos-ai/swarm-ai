@@ -41,9 +41,9 @@
 - 2 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/core/db.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/bach.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/task.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/core/db.py`
 
 ---
 
@@ -65,10 +65,10 @@
 - 4 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/README.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/README.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/start/BACH_Launcher.bat`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/README.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/start/README.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/start/BACH_Launcher.bat`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/bach_api.py`
 
 ---
 
@@ -90,9 +90,9 @@
 - 2 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/steuer.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/_experts/steuer/steuer-beleg-scan.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/steuer.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/agents/_experts/steuer/steuer-beleg-scan.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/bach_paths.py`
 
 ---
 
@@ -114,8 +114,8 @@
 - 2 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/quick_tasks_queue.json`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/task.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/data/quick_tasks_queue.json`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/task.py`
 
 ---
 
@@ -137,7 +137,7 @@
 - 3 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/` (60+ .py-Dateien)
+- `<USER_HOME>/OneDrive/.AI/BACH/system/tools/` (60+ .py-Dateien)
 
 **Besonderheit:** Minimale Pfad-Anzahl bei hoher Effizienz
 
@@ -161,11 +161,11 @@
 - 4 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/devops/README.txt`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/informatik/README.txt`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/webapps/deployment/README.txt`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/wiki_konventionen.txt`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/wiki/n8n.txt`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/wiki/informatik/devops/README.txt`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/wiki/informatik/README.txt`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/wiki/webapps/deployment/README.txt`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/wiki/wiki_konventionen.txt`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/wiki/n8n.txt`
 
 ---
 
@@ -187,8 +187,8 @@
 - 2 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/bach_paths.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/bach_api.py`
 - `<USER_HOME>\.claude\projects\C--Users-User\memory\MEMORY.md` (als Orientierung)
 
 **Besonderheit:** Nutzte MEMORY.md als Einstiegspunkt
@@ -213,11 +213,11 @@
 - 4 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/README.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/ati/SKILL.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/entwickler/SKILL.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/production/SKILL.md`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/agents/reflection/SKILL.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/agents/README.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/agents/ati/SKILL.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/agents/entwickler/SKILL.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/agents/production/SKILL.md`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/agents/reflection/SKILL.md`
 
 ---
 
@@ -239,9 +239,9 @@
 - 2 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/schema_bach.sql`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/tools/generators/exporter.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/dump_schema.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/data/schema_bach.sql`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/tools/generators/exporter.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/data/dump_schema.py`
 
 ---
 
@@ -263,11 +263,11 @@
 - 11 Fehler
 
 **Kernfunde:**
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/__init__.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/bach_api.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/hub/bach_paths.py`
-- `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/bach.db`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/__init__.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/bach.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/bach_api.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/hub/bach_paths.py`
+- `<USER_HOME>/OneDrive/.AI/BACH/system/data/bach.db`
 
 ---
 
@@ -278,13 +278,13 @@
 #### Erfolgreiche Strategien:
 1. **Grep-Pattern für Funktionalität** (z.B. `task.*create`) - Sehr effektiv
 2. **MEMORY.md als Orientierung** - Einige Agenten nutzten dies als Einstieg
-3. **Systematisches ls-Traversieren** - Von OneDrive -> KI&AI -> BACH_v2_vanilla -> system
+3. **Systematisches ls-Traversieren** - Von OneDrive -> projects -> BACH -> system
 4. **find mit Mustern** - Gut für spezifische Dateitypen (.py, .db, etc.)
 5. **README-Dateien** - Wichtige Ankerpunkte für Verzeichnisse
 
 #### Probleme:
 1. **Zu breite Glob-Patterns** - Timeouts bei `**/BACH*/**` von Root
-2. **Windows-Pfad-Escaping** - `KI&AI` vs `KI\&AI` verursachte gelegentlich Probleme
+2. **Windows-Pfad-Escaping** - `projects` vs `KI\&AI` verursachte gelegentlich Probleme
 3. **Leere Verzeichnisse** - logs/-Verzeichnis war leer, verwirrt manche Agenten
 
 ### Modell-Vergleich
@@ -366,6 +366,6 @@ Alle 10 Pilot-Proben waren erfolgreich (100% Erfolgsquote). Sowohl Haiku als auc
 ---
 
 **Datei-Referenzen:**
-- Rohdaten: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/pilot_probe_results.json`
-- Zusammenfassung: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/pilot_probe_summary.json`
-- Dieser Bericht: `<USER_HOME>/OneDrive/.AI/BACH_v2_vanilla/system/data/pilot_probe_report.md`
+- Rohdaten: `<USER_HOME>/OneDrive/.AI/BACH/system/data/pilot_probe_results.json`
+- Zusammenfassung: `<USER_HOME>/OneDrive/.AI/BACH/system/data/pilot_probe_summary.json`
+- Dieser Bericht: `<USER_HOME>/OneDrive/.AI/BACH/system/data/pilot_probe_report.md`

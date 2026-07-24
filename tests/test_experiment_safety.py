@@ -136,3 +136,27 @@ def test_legacy_cli_rejects_unknown_options(
     with pytest.raises(SystemExit) as exc_info:
         getattr(module, entrypoint)()
     assert exc_info.value.code == 2
+
+
+def test_published_experiment_results_carry_no_private_names():
+    """Published pilot results must not leak private pipeline or internal
+    build-stage folder names.
+
+    The launchers are already checked for hard-coded home paths above, but the
+    *results* (JSON dumps and Markdown reports) record the paths the agents
+    visited on a real system. Home directories were anonymised to
+    ``<USER_HOME>`` at capture time; this guard extends that to the private
+    pipeline wrapper (``KI&AI``) and the internal build-stage suffix
+    (``BACH_v2_vanilla``), so a future re-import cannot quietly reintroduce them.
+    """
+    results = Path(__file__).resolve().parents[1] / "experiments"
+    forbidden = ["KI&AI", "BACH_v2_vanilla", "C:" + "\\Users\\User"]
+    offenders = []
+    for path in results.rglob("*"):
+        if path.suffix.lower() not in {".json", ".md", ".txt"}:
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        for needle in forbidden:
+            if needle in text:
+                offenders.append(f"{path.relative_to(results.parent)}: {needle!r}")
+    assert not offenders, "private names leaked into published results:\n" + "\n".join(offenders)
