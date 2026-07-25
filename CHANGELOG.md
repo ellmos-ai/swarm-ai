@@ -36,6 +36,7 @@
 
 ### Documentation
 
+- Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-25 test run (166 passed).
 - Added `konzepte/team-lock-verfahren.md` and README references for the coordination guardrail used during shared-file swarm work.
 - Synchronized release-gate and `llms.txt` verification metadata to the 2026-07-10 test run.
 - Updated verification metadata to the 2026-07-15 FABLE review (166 tests).
