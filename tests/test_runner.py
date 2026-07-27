@@ -8,7 +8,7 @@ import pytest
 import subprocess
 from unittest.mock import MagicMock, patch
 
-from tools.runner import ClaudeRunner
+from tools.runner import AgentRunner, ClaudeRunner, create_runner
 
 
 class TestClaudeRunnerInit:
@@ -294,3 +294,29 @@ class TestPipe:
         runner = ClaudeRunner()
         with pytest.raises(RuntimeError, match="Claude Fehler"):
             runner.pipe("Test")
+
+
+class TestAgentRunner:
+    def test_factory_keeps_claude_compatible(self):
+        assert isinstance(create_runner("claude"), ClaudeRunner)
+
+    def test_codex_is_read_only_by_default(self):
+        runner = create_runner("codex", model="gpt-test", effort="high")
+        assert isinstance(runner, AgentRunner)
+        cmd = runner.adapter.build_cmd("Hello")
+        assert cmd[cmd.index("--sandbox") + 1] == "read-only"
+        assert cmd[cmd.index("--model") + 1] == "gpt-test"
+
+    def test_codex_write_is_explicit(self):
+        runner = create_runner("codex", write=True)
+        cmd = runner.adapter.build_cmd("Hello")
+        assert cmd[cmd.index("--sandbox") + 1] == "workspace-write"
+
+    def test_agy_receives_workspace(self):
+        runner = create_runner("agy", cwd=r"C:\workspace")
+        cmd = runner.adapter.build_cmd("Hello")
+        assert cmd[cmd.index("--add-dir") + 1] == r"C:\workspace"
+
+    def test_kimi_remains_guarded_until_model_is_configured(self):
+        runner = create_runner("kimi")
+        assert runner.spawner.allow_unverified is False

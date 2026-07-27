@@ -231,3 +231,72 @@ class ClaudeRunner:
         if not result["success"]:
             raise RuntimeError(f"Claude Fehler (rc={result['returncode']}): {result['stderr']}")
         return result["output"]
+
+
+class AgentRunner:
+    """Multi-provider runner backed by COMAS.
+
+    Use this for ``codex``, ``agy`` or ``kimi``. The legacy ``ClaudeRunner``
+    remains unchanged for existing consumers; provider-specific CLI knowledge
+    is centralized in COMAS instead of being copied into swarm-ai.
+    """
+
+    def __init__(
+        self,
+        backend,
+        model=None,
+        timeout=1800,
+        cwd=None,
+        allow_unverified=False,
+        **options,
+    ):
+        if backend == "claude":
+            raise ValueError("Use ClaudeRunner or create_runner for Claude")
+        try:
+            from comas import Spawner
+            from comas.adapters import get_adapter
+        except ImportError as error:
+            raise RuntimeError(
+                "This backend requires COMAS. Install swarm-ai with the "
+                "'providers' extra or install https://github.com/dev-bricks/comas."
+            ) from error
+
+        adapter_options = {"timeout": timeout, "cwd": cwd}
+        if model:
+            adapter_options["model"] = model
+        if backend == "codex":
+            adapter_options["write"] = bool(options.pop("write", False))
+            effort = options.pop("effort", None)
+            if effort:
+                adapter_options["effort"] = effort
+        elif backend == "agy" and cwd:
+            adapter_options["add_dirs"] = options.pop("add_dirs", [cwd])
+        adapter_options.update(options)
+
+        self.backend = backend
+        self.model = model or ""
+        self.timeout = timeout
+        self.cwd = cwd
+        self.adapter = get_adapter(backend, **adapter_options)
+        self.spawner = Spawner(
+            self.adapter, allow_unverified=bool(allow_unverified)
+        )
+
+    def run(self, prompt, **overrides):
+        return self.spawner.run(prompt, **overrides)
+
+    def run_parallel(self, prompts, max_workers=3, **overrides):
+        return self.spawner.run_many(
+            prompts, max_parallel=max_workers, **overrides
+        )
+
+    def pipe(self, prompt, **overrides):
+        return self.spawner.pipe(prompt, **overrides)
+
+
+def create_runner(backend="claude", **options):
+    """Create a backward-compatible Claude runner or a COMAS provider runner."""
+    backend = (backend or "claude").lower()
+    if backend == "claude":
+        return ClaudeRunner(**options)
+    return AgentRunner(backend, **options)

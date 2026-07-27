@@ -11,6 +11,14 @@
 
 swarm-ai is a local-first Python toolkit for developers who want to run the same task through multiple LLM instances and merge the results. It focuses on five reusable coordination patterns: parallel chunk processing, boss/worker execution, stigmergy, consensus voting, and specialist routing.
 
+The runner layer now supports provider selection through COMAS. Existing
+`ClaudeRunner` consumers remain compatible; new code can use
+`create_runner("codex")`, `create_runner("agy")`, or
+`create_runner("kimi", allow_unverified=True)`. Codex is read-only by default,
+Agy receives the configured workspace, and Kimi remains guarded until its local
+model/login gate is satisfied. Install the optional bridge with
+`pip install -e ".[providers]"`.
+
 It is not Docker Swarm, not a hosted agent platform, and not a generic "AI swarm" demo. The repository is a small, inspectable toolkit for experimenting with multi-agent LLM orchestration from the command line or from Python.
 
 ![swarm-ai coordination patterns](README/assets/swarm-patterns.svg)

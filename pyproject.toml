@@ -25,6 +25,9 @@ dependencies = [
   "anthropic>=0.116.0"
 ]
 
+[project.optional-dependencies]
+providers = ["comas @ git+https://github.com/dev-bricks/comas.git"]
+
 [project.urls]
 Homepage = "https://github.com/ellmos-ai/swarm-ai"
 Repository = "https://github.com/ellmos-ai/swarm-ai"
