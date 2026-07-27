@@ -36,6 +36,7 @@
 
 ### Documentation
 
+- Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-27 test run (167 passed).
 - Added PEP 621 compliant `pyproject.toml` with pytest `pythonpath` and `testpaths` configuration.
 - Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-26 test run (167 passed).
 - Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-25 test run (166 passed).

@@ -5,7 +5,7 @@
 Das Repository ist bereits öffentlich. Dieses Gate beschreibt daher keine
 Sichtbarkeitsfreigabe, sondern den nachweisbaren Stand des experimentellen Toolkits.
 
-## Verifizierte Gates (2026-07-26)
+## Verifizierte Gates (2026-07-27)
 
 - [x] `PYTHONIOENCODING=utf-8 python -m pytest -q` → **167 passed**.
 - [x] `python -m ruff check tools tests` → keine Befunde.
