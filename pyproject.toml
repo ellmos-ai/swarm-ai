@@ -26,7 +26,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-providers = ["comas @ git+https://github.com/dev-bricks/comas.git"]
+providers = ["coma @ git+https://github.com/dev-bricks/coma.git"]
 
 [project.urls]
 Homepage = "https://github.com/ellmos-ai/swarm-ai"

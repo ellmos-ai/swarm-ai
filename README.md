@@ -11,7 +11,7 @@
 
 swarm-ai is a local-first Python toolkit for developers who want to run the same task through multiple LLM instances and merge the results. It focuses on five reusable coordination patterns: parallel chunk processing, boss/worker execution, stigmergy, consensus voting, and specialist routing.
 
-The runner layer now supports provider selection through COMAS. Existing
+The runner layer now supports provider selection through COMA. Existing
 `ClaudeRunner` consumers remain compatible; new code can use
 `create_runner("codex")`, `create_runner("agy")`, or
 `create_runner("kimi", allow_unverified=True)`. Codex is read-only by default,

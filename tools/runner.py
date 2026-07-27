@@ -234,11 +234,11 @@ class ClaudeRunner:
 
 
 class AgentRunner:
-    """Multi-provider runner backed by COMAS.
+    """Multi-provider runner backed by COMA.
 
     Use this for ``codex``, ``agy`` or ``kimi``. The legacy ``ClaudeRunner``
     remains unchanged for existing consumers; provider-specific CLI knowledge
-    is centralized in COMAS instead of being copied into swarm-ai.
+    is centralized in COMA instead of being copied into swarm-ai.
     """
 
     def __init__(
@@ -253,12 +253,12 @@ class AgentRunner:
         if backend == "claude":
             raise ValueError("Use ClaudeRunner or create_runner for Claude")
         try:
-            from comas import Spawner
-            from comas.adapters import get_adapter
+            from coma import Spawner
+            from coma.adapters import get_adapter
         except ImportError as error:
             raise RuntimeError(
-                "This backend requires COMAS. Install swarm-ai with the "
-                "'providers' extra or install https://github.com/dev-bricks/comas."
+                "This backend requires COMA. Install swarm-ai with the "
+                "'providers' extra or install https://github.com/dev-bricks/coma."
             ) from error
 
         adapter_options = {"timeout": timeout, "cwd": cwd}
@@ -295,7 +295,7 @@ class AgentRunner:
 
 
 def create_runner(backend="claude", **options):
-    """Create a backward-compatible Claude runner or a COMAS provider runner."""
+    """Create a backward-compatible Claude runner or a COMA provider runner."""
     backend = (backend or "claude").lower()
     if backend == "claude":
         return ClaudeRunner(**options)
