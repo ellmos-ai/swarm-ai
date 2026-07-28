@@ -5,9 +5,12 @@
 Das Repository ist bereits öffentlich. Dieses Gate beschreibt daher keine
 Sichtbarkeitsfreigabe, sondern den nachweisbaren Stand des experimentellen Toolkits.
 
-## Verifizierte Gates (2026-07-27)
+## Verifizierte Gates (2026-07-28)
 
-- [x] `PYTHONIOENCODING=utf-8 python -m pytest -q` → **167 passed**.
+- [x] `PYTHONIOENCODING=utf-8 python -m pytest -q` → **174 passed** mit
+  Anthropic SDK 0.40.0 und 0.120.0 auf Python 3.10 und 3.13.
+- [x] Eigene CI-Matrix prüft die Anthropic-Untergrenze 0.40.0 und die jeweils
+  neueste kompatible SDK-Version gegen die SDK-nahen Pytest-Module.
 - [x] `python -m ruff check tools tests` → keine Befunde.
 - [x] `python -m compileall -q tools tests experiments` → erfolgreich.
 - [x] Bandit-Scan der produktiven Tools → keine High-Severity-Befunde.

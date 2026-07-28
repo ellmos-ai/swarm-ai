@@ -43,6 +43,44 @@ jobs:
           PYTHONIOENCODING: utf-8
         run: python -m pytest -q
 
+  anthropic-compat:
+    name: >-
+      Anthropic SDK ${{ matrix.anthropic.label }} /
+      Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.13"]
+        anthropic:
+          - label: minimum-0.40.0
+            spec: "anthropic==0.40.0"
+          - label: latest
+            spec: "anthropic>=0.40.0"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install SDK compatibility dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest "${{ matrix.anthropic.spec }}"
+
+      - name: Run Anthropic SDK compatibility tests
+        env:
+          PYTHONIOENCODING: utf-8
+        run: >-
+          python -m pytest -q
+          tests/test_anthropic_compat.py
+          tests/test_consensus.py
+          tests/test_summarize_chunks.py
+          tests/test_translate_swarm.py
+
   security:
     runs-on: ubuntu-latest
     steps:

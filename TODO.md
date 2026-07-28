@@ -9,7 +9,7 @@ Dieses TODO ist der öffentliche Aufgaben-Einstieg. Historische Befunde bleiben
 
 | Category | Status | Nachweis |
 |---|---|---|
-| Kernlogik | PASS | 166 Pytest-Tests, `compileall`, Ruff |
+| Kernlogik | PASS | 172 Kern- plus 2 SDK-Vertragstests, `compileall`, Ruff |
 | Lokale Sicherheit | PASS | Bandit ohne High-Severity-Befund; Legacy-Experimente fail-closed |
 | Datenbanken | PASS | Standalone-Init für Stigmergie, Übersetzung und Summaries |
 | Lieferkette | PASS | Actions SHA-gepinnt, CodeQL und Dependabot ergänzt |
@@ -26,8 +26,10 @@ Dieses TODO ist der öffentliche Aufgaben-Einstieg. Historische Befunde bleiben
 - [ ] PyPI-Strategie klären: Paketname, Entry Points, Versionsschema und Release-Checkliste.
 - [ ] Einen neuen Benchmark mit aktuellem Modell ausführen; Export enthält nun
   Python-, Plattform- und Repository-Metadaten.
-- [ ] SDK-Untergrenze in einer eigenen Kompatibilitätsmatrix gegen aktuelle
-  Anthropic-SDK-Versionen prüfen.
+- [x] SDK-Untergrenze in einer eigenen Kompatibilitätsmatrix gegen aktuelle
+  Anthropic-SDK-Versionen prüfen. (Erledigt 2026-07-28: `anthropic>=0.40.0`;
+  CI testet Minimum und Latest auf Python 3.10/3.13. Version 0.39.0 scheitert
+  mit aktuellem HTTPX bereits bei der Client-Konstruktion.)
 
 ## Im Review 2026-07-15 erledigt
 

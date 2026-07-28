@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- Restored the empirically supported Anthropic SDK floor to 0.40.0 and added
+  minimum/latest SDK contract tests across Python 3.10 and 3.13.
 - Added a clear `ValueError` for `ClaudeRunner.run_parallel()` dict items that omit the required `prompt` key.
 - Made `ClaudeRunner` read-only by default and restrictive even with an empty tool set.
 - Corrected consensus confidence under partial failures and validated classification/boolean responses.
