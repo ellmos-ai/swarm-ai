@@ -5,9 +5,9 @@
 Das Repository ist bereits öffentlich. Dieses Gate beschreibt daher keine
 Sichtbarkeitsfreigabe, sondern den nachweisbaren Stand des experimentellen Toolkits.
 
-## Verifizierte Gates (2026-07-28)
+## Verifizierte Gates (2026-07-30)
 
-- [x] `PYTHONIOENCODING=utf-8 python -m pytest -q` → **174 passed** mit
+- [x] `PYTHONIOENCODING=utf-8 python -m pytest -q` → **174 test items** (170 passed, 4 skipped when optional COMA backend is not installed) mit
   Anthropic SDK 0.40.0 und 0.120.0 auf Python 3.10 und 3.13.
 - [x] Eigene CI-Matrix prüft die Anthropic-Untergrenze 0.40.0 und die jeweils
   neueste kompatible SDK-Version gegen die SDK-nahen Pytest-Module.

@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Handled optional COMA provider test dependency gracefully with `pytest.importorskip` in `test_runner.py`. [G 2026-07-30]
 - Restored the empirically supported Anthropic SDK floor to 0.40.0 and added
   minimum/latest SDK contract tests across Python 3.10 and 3.13.
 - Installed the declared COMA provider dependency in full CI so provider
@@ -40,6 +41,7 @@
 
 ### Documentation
 
+- Synchronized `llms.txt`, `RELEASE_GATE.md`, and test suite verification to 2026-07-30 (170 passed, 4 skipped for optional COMA backend). [G 2026-07-30]
 - Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-27 test run (167 passed).
 - Added PEP 621 compliant `pyproject.toml` with pytest `pythonpath` and `testpaths` configuration.
 - Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-26 test run (167 passed).
