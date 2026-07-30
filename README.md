@@ -1,5 +1,8 @@
 # swarm-ai
 
+<img src="assets/banner.png" width="100%" alt="Swarm Ai banner">
+
+
 **LLM swarm intelligence toolkit for parallel Claude and LLM agent orchestration.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
