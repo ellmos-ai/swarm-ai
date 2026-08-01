@@ -1,0 +1,726 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>
+      .title { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 900; font-size: 68px; letter-spacing: -2px; }
+      .subtitle { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.5px; }
+      .badge-text { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+      .card-title { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 15px; }
+      .card-sub { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 500; font-size: 12px; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; font-weight: 600; }
+    </style>
+
+    <linearGradient id="bg-ocean-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#031327"/>
+      <stop offset="50%" stop-color="#072545"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="bg-ocean-light" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f0f9ff"/>
+      <stop offset="100%" stop-color="#e0f2fe"/>
+    </linearGradient>
+
+    <linearGradient id="goldfish-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="50%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+
+    <!-- Mask that brightens underwater view into clear white light as goldfish swim out -->
+    <mask id="reveal-mask-fish" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="630">
+      <rect x="0" y="0" width="1200" height="630" fill="#000000" />
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="r" values="0; 100; 800; 900; 900; 0" keyTimes="0; 0.08; 0.25; 0.8; 0.9; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      
+      <!-- Goldfish mask particle 0 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 1100; 1100; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 270; 270; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 1 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 890; 890; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 348; 348; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 2 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 1033; 1033; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 520; 520; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 3 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 812; 812; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 482; 482; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 4 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 850; 850; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 580; 580; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 5 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 678; 678; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 560; 560; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 6 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 600; 600; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 580; 580; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 7 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 522; 522; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 560; 560; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 8 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 350; 350; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 580; 580; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 9 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 388; 388; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 482; 482; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 10 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 167; 167; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 520; 520; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 11 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 310; 310; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 348; 348; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 12 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 100; 100; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 270; 270; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 13 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 310; 310; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 192; 192; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 14 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 167; 167; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 15 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 388; 388; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 58; 58; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 16 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 350; 350; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 17 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 522; 522; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 18 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 600; 600; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 19 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 678; 678; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 20 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 850; 850; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 21 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 812; 812; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 58; 58; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 22 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 1033; 1033; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 50; 50; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 300; 330; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+      <!-- Goldfish mask particle 23 -->
+      <circle cx="600" cy="270" r="0" fill="#ffffff">
+        <animate attributeName="cx" values="600; 890; 890; 600" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="270; 192; 192; 270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <animate attributeName="r" values="0; 220; 250; 0" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+      </circle>
+    </mask>
+
+    <pattern id="wave-grid-dark" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 0 30 Q 15 15 30 30 T 60 30" fill="none" stroke="#1e293b" stroke-width="1.5" opacity="0.3"/>
+    </pattern>
+
+    <pattern id="wave-grid-light" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 0 30 Q 15 15 30 30 T 60 30" fill="none" stroke="#bae6fd" stroke-width="1.5" opacity="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- ==================== BASE LAYER: DARK DEEP WATER ==================== -->
+  <g id="dark-water-layer">
+    <rect width="1200" height="630" fill="url(#bg-ocean-dark)"/>
+    <rect width="1200" height="630" fill="url(#wave-grid-dark)"/>
+
+    <g stroke="#0284c7" stroke-width="1.5" fill="none" opacity="0.25">
+      <ellipse cx="600" cy="270" rx="300" ry="120"/>
+      <ellipse cx="600" cy="270" rx="500" ry="200"/>
+    </g>
+
+    <!-- Header Badge Dark -->
+    <g transform="translate(600, 62)">
+      <rect x="-160" y="-16" width="320" height="32" rx="16" fill="#0f172a" stroke="#0284c7" stroke-width="1"/>
+      <text x="0" y="5" text-anchor="middle" fill="#38bdf8" class="badge-text">Variant: Goldfish Swarm</text>
+    </g>
+
+    <!-- Title & Subtitle Dark -->
+    <text x="600" y="142" text-anchor="middle" fill="#f8fafc" class="title">swarm-ai</text>
+    <text x="600" y="182" text-anchor="middle" fill="#7dd3fc" class="subtitle">many points, more ground, same time</text>
+
+    <!-- Dark Swimming Goldfish -->
+    
+      <g transform="translate(600,270) rotate(90.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 1100,270; 1100,270; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(105.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 890,348; 890,348; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(120.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 1033,520; 1033,520; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(135.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 812,482; 812,482; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(150.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 850,580; 850,580; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(165.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 678,560; 678,560; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(180.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 600,580; 600,580; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(195.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 522,560; 522,560; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(210.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 350,580; 350,580; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(225.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 388,482; 388,482; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(240.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 167,520; 167,520; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(255.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 310,348; 310,348; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(270.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 100,270; 100,270; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(285.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 310,192; 310,192; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(300.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 167,50; 167,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(315.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 388,58; 388,58; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(330.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 350,50; 350,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(345.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 522,50; 522,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(360.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 600,50; 600,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(375.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 678,50; 678,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(390.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 850,50; 850,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(405.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 812,58; 812,58; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(420.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 1033,50; 1033,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <g transform="translate(600,270) rotate(435.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 890,192; 890,192; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#38bdf8" opacity="0.8" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#0ea5e9" opacity="0.7">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+      </g>
+
+    <!-- Bottom Comparison Section (Dark Mode) -->
+    <g transform="translate(180, 480)">
+      <rect x="0" y="0" width="380" height="110" rx="14" fill="#091e3a" stroke="#1e293b" stroke-width="1.5"/>
+      <text x="20" y="32" fill="#f8fafc" class="card-title">1 Goldfish (Single Point)</text>
+      <text x="20" y="52" fill="#64748b" class="card-sub">Single fish • Slow water clearance</text>
+      <rect x="20" y="66" width="340" height="28" rx="6" fill="#0f172a"/>
+      <circle cx="35" cy="80" r="6" fill="#f97316"/>
+      <text x="360" y="84" text-anchor="end" fill="#f97316" class="mono">5% / T</text>
+
+      <g transform="translate(460, 0)">
+        <rect x="0" y="0" width="380" height="110" rx="14" fill="#091e3a" stroke="#0369a1" stroke-width="1.5"/>
+        <text x="20" y="32" fill="#f8fafc" class="card-title">Goldfish Swarm (Many Points)</text>
+        <text x="20" y="52" fill="#38bdf8" class="card-sub">Entire school • Crystal clear water</text>
+        <rect x="20" y="66" width="340" height="28" rx="6" fill="#0284c7" opacity="0.2"/>
+        <text x="360" y="84" text-anchor="end" fill="#38bdf8" class="mono">100% / T</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== TOP LAYER: REVEALED CLEAR WATER ==================== -->
+  <g id="light-water-layer" mask="url(#reveal-mask-fish)">
+    <rect width="1200" height="630" fill="url(#bg-ocean-light)"/>
+    <rect width="1200" height="630" fill="url(#wave-grid-light)"/>
+
+    <g stroke="#38bdf8" stroke-width="2" stroke-dasharray="10 10" opacity="0.3">
+      <line x1="600" y1="0" x2="300" y2="630" />
+      <line x1="600" y1="0" x2="900" y2="630" />
+      <line x1="600" y1="0" x2="600" y2="630" />
+    </g>
+
+    <!-- Header Badge Light -->
+    <g transform="translate(600, 62)">
+      <rect x="-160" y="-16" width="320" height="32" rx="16" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+      <text x="0" y="5" text-anchor="middle" fill="#0284c7" class="badge-text">Variant: Goldfish Swarm</text>
+    </g>
+
+    <!-- Title & Subtitle Light -->
+    <text x="600" y="142" text-anchor="middle" fill="url(#goldfish-grad)" class="title">swarm-ai</text>
+    <text x="600" y="182" text-anchor="middle" fill="#0369a1" class="subtitle">many points, more ground, same time</text>
+
+    <!-- Central point light mode burst origin -->
+    <circle cx="600" cy="270" r="16" fill="#f97316" opacity="0.3"/>
+    <circle cx="600" cy="270" r="7" fill="#ea580c"/>
+
+    <!-- Light Swimming Goldfish -->
+    
+      <g transform="translate(600,270) rotate(90.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 1100,270; 1100,270; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(105.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 890,348; 890,348; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(120.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 1033,520; 1033,520; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(135.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 812,482; 812,482; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(150.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 850,580; 850,580; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(165.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 678,560; 678,560; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(180.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 600,580; 600,580; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(195.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 522,560; 522,560; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(210.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 350,580; 350,580; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(225.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 388,482; 388,482; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(240.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 167,520; 167,520; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(255.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 310,348; 310,348; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(270.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 100,270; 100,270; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(285.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 310,192; 310,192; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(300.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 167,50; 167,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(315.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 388,58; 388,58; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(330.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 350,50; 350,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(345.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 522,50; 522,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(360.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 600,50; 600,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(375.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 678,50; 678,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(390.0) scale(0.55)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 850,50; 850,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(405.0) scale(0.65)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 812,58; 812,58; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(420.0) scale(0.75)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 1033,50; 1033,50; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#f97316" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#fb923c" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#fb923c" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#fb923c" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+      <g transform="translate(600,270) rotate(435.0) scale(0.85)">
+        <animateTransform attributeName="transform" type="translate" values="600,270; 890,192; 890,192; 600,270" keyTimes="0; 0.25; 0.8; 1" dur="6.0s" repeatCount="indefinite" />
+        <path d="M 0,-18 C 10,-8 12,6 0,16 C -12,6 -10,-8 0,-18 Z" fill="#ea580c" />
+        <path d="M 0,14 Q 10,26 14,32 Q 0,24 -14,32 Q -10,26 0,14 Z" fill="#f97316" opacity="0.9">
+          <animateTransform attributeName="transform" type="rotate" values="-15 0 14; 15 0 14; -15 0 14" dur="0.35s" repeatCount="indefinite"/>
+        </path>
+        <path d="M 6,-2 Q 16,-6 14,4 Z" fill="#f97316" opacity="0.8" />
+        <path d="M -6,-2 Q -16,-6 -14,4 Z" fill="#f97316" opacity="0.8" />
+        <circle cx="3" cy="-10" r="2" fill="#0f172a" />
+        <circle cx="3.5" cy="-10.5" r="0.7" fill="#ffffff" />
+      </g>
+
+    <!-- Bottom Comparison Section (Light Mode) -->
+    <g transform="translate(180, 480)">
+      <!-- Left Card: Single Goldfish -->
+      <rect x="0" y="0" width="380" height="110" rx="14" fill="#ffffff" stroke="#e0f2fe" stroke-width="2"/>
+      <text x="20" y="32" fill="#0f172a" class="card-title">1 Goldfish (Single Point)</text>
+      <text x="20" y="52" fill="#0369a1" class="card-sub">Single swimmer • 1x Water area</text>
+      <rect x="20" y="66" width="340" height="28" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
+      <circle cx="40" cy="80" r="6" fill="#ea580c">
+        <animate attributeName="cx" values="40; 140; 40" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <text x="345" y="85" text-anchor="end" fill="#ea580c" class="mono">5% / T</text>
+
+      <!-- Right Card: Goldfish Swarm -->
+      <g transform="translate(460, 0)">
+        <rect x="0" y="0" width="380" height="110" rx="14" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
+        <text x="20" y="32" fill="#0f172a" class="card-title">Goldfish Swarm (Many Points)</text>
+        <text x="20" y="52" fill="#0284c7" class="card-sub">Full school • 20x Clear water</text>
+        <rect x="20" y="66" width="340" height="28" rx="6" fill="#e0f2fe" stroke="#7dd3fc" stroke-width="1"/>
+        <g fill="#ea580c">
+          <circle cx="40" cy="80" r="5"/>
+          <circle cx="75" cy="80" r="5"/>
+          <circle cx="110" cy="80" r="5"/>
+          <circle cx="145" cy="80" r="5"/>
+          <circle cx="180" cy="80" r="5"/>
+          <circle cx="215" cy="80" r="5"/>
+          <circle cx="250" cy="80" r="5"/>
+          <circle cx="285" cy="80" r="5"/>
+        </g>
+        <text x="345" y="85" text-anchor="end" fill="#0284c7" class="mono">100% / T</text>
+      </g>
+    </g>
+  </g>
+</svg>

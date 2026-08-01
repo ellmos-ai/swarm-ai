@@ -1,6 +1,9 @@
 # swarm-ai
 
-<img src="assets/banner.png" width="100%" alt="Swarm Ai banner">
+![swarm-ai Banner](assets/banner-swarm.svg)
+
+*Variant: Goldfish Swarm banner*
+![swarm-ai Goldfish Variant Banner](assets/banner-goldfish.svg)
 
 
 **LLM swarm intelligence toolkit for parallel Claude and LLM agent orchestration.**
