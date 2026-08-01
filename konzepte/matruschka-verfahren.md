@@ -1,6 +1,6 @@
 # Matruschka-Verfahren (Synonym: Subsidiaritätsprinzip)
 
-**Version:** 1.1 | **Stand:** 2026-08-01
+**Version:** 1.2 | **Stand:** 2026-08-01
 
 Kaskadierte Helfer-Delegation mit Aktivitäts-Limits je Ebene. Wie das
 Team-Lock-Verfahren ist dies **kein sechstes Grundmuster**, sondern ein
@@ -47,6 +47,14 @@ Dienste und kurze Recherchen (eng umrissene Einzelaufträge mit kleinem Kontext)
 Als **Worker** taugt die kleinste Klasse nur im Schwarm: viele parallel auf
 gleichartige kleine Chunks (parallel-chunks-Muster), nicht einer allein auf eine
 große Sammelaufgabe — die endet im Kontextüberlauf.
+
+**Zwei Betriebsarten für den Helfer-Slot:** (a) **Fester Assistent mit
+Kontextbewahrung** — derselbe Helfer wird über Folgeaufträge wiederverwendet und
+behält sein geladenes Wissen (Default bei thematisch zusammenhängenden Diensten).
+(b) **Einweg-Helfer** — pro Kleinauftrag ein frischer Helfer, Ergebnis abliefern,
+danach beenden/verwerfen; so sind auch kleine **Staffelaufträge** möglich (seriell
+nacheinander), solange immer nur EIN Helfer gleichzeitig aktiv ist. Das
+Aktivitäts-Limit gilt in beiden Betriebsarten gleich.
 
 ## Abgrenzung
 
