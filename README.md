@@ -1,8 +1,7 @@
 # swarm-ai
 
-![swarm-ai Banner](assets/banner-swarm.svg)
 
-*Variant: Goldfish Swarm banner*
+*Goldfish Swarm*
 ![swarm-ai Goldfish Variant Banner](assets/banner-goldfish.svg)
 
 
