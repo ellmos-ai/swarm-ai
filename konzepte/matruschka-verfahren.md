@@ -1,6 +1,6 @@
 # Matruschka-Verfahren (Synonym: Subsidiaritätsprinzip)
 
-**Version:** 1.0 | **Stand:** 2026-08-01
+**Version:** 1.1 | **Stand:** 2026-08-01
 
 Kaskadierte Helfer-Delegation mit Aktivitäts-Limits je Ebene. Wie das
 Team-Lock-Verfahren ist dies **kein sechstes Grundmuster**, sondern ein
@@ -40,6 +40,13 @@ drei Kernregeln:
 3. **Delegation nur abwärts, je eine Modellklasse:** nie lateral oder aufwärts
    spawnen; Eskalation nach oben läuft über die Abschlussmeldung an den
    Auftraggeber.
+
+**Rollen-Präzisierung unterste Ebene:** Ein einzelner Helfer der kleinsten
+Modellklasse ist ein **Assistent**, kein Worker — geeignet für Botengänge, kleine
+Dienste und kurze Recherchen (eng umrissene Einzelaufträge mit kleinem Kontext).
+Als **Worker** taugt die kleinste Klasse nur im Schwarm: viele parallel auf
+gleichartige kleine Chunks (parallel-chunks-Muster), nicht einer allein auf eine
+große Sammelaufgabe — die endet im Kontextüberlauf.
 
 ## Abgrenzung
 
