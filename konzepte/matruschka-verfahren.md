@@ -21,7 +21,7 @@ löst sie).
 | Ebene | Rolle | Darf gleichzeitig aktiv halten |
 |---|---|---|
 | 0 | Operator (stärkste Klasse) | z. B. 2 × starke Worker + 1 × mittlerer Worker |
-| 1 | Starker Worker | 1 Helfer der mittleren Klasse |
+| 1 | Starker Worker | 2 Helfer der mittleren Klasse |
 | 2 | Mittlerer Worker/Helfer | 1 Helfer der kleinen Klasse |
 | 3 | Kleiner Helfer | keine weiteren Helfer |
 
