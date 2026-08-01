@@ -1,6 +1,6 @@
 # Schwarm-Operationen Protokoll
 
-**Version:** 1.1 | **Stand:** 2026-06-17
+**Version:** 1.2 | **Stand:** 2026-08-01
 
 ## Anwendungsmodi
 
@@ -47,6 +47,13 @@ Vor jedem Aufgabenschwarm mit möglicher Überschneidung gilt zusätzlich das
 Team-Lock-Verfahren aus `team-lock-verfahren.md`. Es ist kein sechstes Muster,
 sondern schützt gemeinsame Dateien, Tools, MCP-Sitzungen und Ergebnisartefakte
 über einen projektlokalen Koordinationsraum.
+
+Für Besetzung und Delegationstiefe gilt optional das **Matruschka-Verfahren**
+(Synonym: Subsidiaritätsprinzip) aus `matruschka-verfahren.md` — ebenfalls kein
+sechstes Muster, sondern eine Kapazitäts- und Modellklassen-Staffelung je Ebene:
+Jeder Agent darf eine begrenzte Zahl Helfer der nächstkleineren Modellklasse
+gleichzeitig aktiv halten; Limits zählen Aktivität statt Bestand, Agenten werden
+vorgehalten und kontextbezogen wiederverwendet.
 
 ### 1. Parallel-Chunks
 

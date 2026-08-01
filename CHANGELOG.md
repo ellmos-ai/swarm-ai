@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### Added
+
+- `konzepte/matruschka-verfahren.md`: Matruschka-Verfahren (Synonym:
+  Subsidiaritätsprinzip) als Querschnittsverfahren für kaskadierte
+  Helfer-Delegation mit Aktivitäts-Limits je Ebene (Limits = gleichzeitige
+  Aktivität statt Bestand; Vorhalten + kontextbezogenes Wiederverwenden;
+  Delegation nur abwärts). Verweis in `konzepte/schwarm-operationen.md`
+  (Version 1.2). [C 2026-08-01]
+
 ### Fixed
 
 - Handled optional COMA provider test dependency gracefully with `pytest.importorskip` in `test_runner.py`. [G 2026-07-30]
