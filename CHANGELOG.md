@@ -4,6 +4,10 @@
 
 ### Added
 
+- `konzepte/matruschka-verfahren.md` (Version 1.3): Kernregel 4 „Exklusive
+  Schreibbereiche bei paralleler Arbeit" — disjunkte Schreibbereiche oder eigene
+  Kopie für Helfer, Schreibverbote immer mit Begründung, und Messen zählt als
+  Nutzung des Bereichs. Mit Belegfall vom 2026-08-02. [C 2026-08-02]
 - Alt-Datenbanken: `summarize_chunks.py --init-db` übernimmt Laufprotokolle aus
   der abgelösten Tabelle `epstein_runs` idempotent nach `parallel_chunks_runs`
   (`initialize_schema(migrate_legacy=True)` liefert die Anzahl übernommener
