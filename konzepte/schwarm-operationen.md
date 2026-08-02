@@ -78,6 +78,15 @@ bach task add "Chunk 21-40: DE->EN Uebersetzung" --agent translator_de
 # ... etc.
 ```
 
+**Frühere Bezeichnung:** Dieses Muster hieß bis Juni 2026 „Epstein-Muster". Der
+Name war reputativ belastet und sagte nichts über die Sache aus; kanonisch ist
+seither `parallel-chunks` — identisch zur Pattern-ID in `bach swarm`. Der alte
+Name wird nirgends mehr ausgewertet und steht hier nur, damit ältere Notizen
+zuordenbar bleiben. Datenbanken aus der Zeit davor führen ihre Laufprotokolle in
+der Tabelle `epstein_runs`; `summarize_chunks.py --init-db` übernimmt sie
+einmalig und verlustfrei nach `parallel_chunks_runs` und lässt die alte Tabelle
+unangetastet stehen.
+
 ---
 
 ### 2. Hierarchie-Schwarm (Boss + Worker)

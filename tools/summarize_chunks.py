@@ -54,6 +54,11 @@ COST_PER_1M = {
     "sonnet": {"input": 3.00, "output": 15.00},
 }
 
+RUNS_TABLE = "parallel_chunks_runs"
+# Abgeloester Name des Musters (bis 2026-06-17). Nur noch fuer die Uebernahme
+# von Alt-Datenbanken vorgehalten, siehe _migrate_legacy_runs().
+LEGACY_RUNS_TABLE = "epstein_runs"
+
 MAX_RETRIES = 3
 RETRY_BASE_DELAY = 2.0
 CLAIM_TTL_SECONDS = 86400
@@ -73,6 +78,11 @@ SYSTEM_PROMPT = (
     "- Direkt und informativ formulieren\n"
     "- Gib NUR die Zusammenfassung zurück, keine Erklärungen"
 )
+
+
+def _or_default(value, default):
+    """Ersetzt nur NULL durch den Default -- 0, 0.0 und '' bleiben erhalten."""
+    return default if value is None else value
 
 
 def get_api_key() -> str:
@@ -138,8 +148,13 @@ class ChunkSummarizer:
         finally:
             conn.close()
 
-    def initialize_schema(self) -> None:
-        """Create the standalone chunk and run tables when absent."""
+    def initialize_schema(self, *, migrate_legacy: bool = True) -> int:
+        """Create the standalone chunk and run tables when absent.
+
+        Returns:
+            Anzahl der aus der Legacy-Tabelle uebernommenen Laeufe (0, wenn
+            keine Alt-Datenbank vorliegt oder migrate_legacy=False).
+        """
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
         with self._db() as conn:
             conn.execute("""
@@ -167,6 +182,92 @@ class ChunkSummarizer:
                 )
             """)
             self._create_claim_table(conn)
+            if not migrate_legacy:
+                return 0
+            return self._migrate_legacy_runs(conn)
+
+    @staticmethod
+    def _migrate_legacy_runs(conn: sqlite3.Connection) -> int:
+        """Uebernimmt Run-Protokolle aus der abgeloesten Tabelle epstein_runs.
+
+        Datenbanken aus der Zeit vor der Umbenennung (2026-06-17) fuehren ihre
+        Laeufe in epstein_runs. Ohne diesen Schritt legt initialize_schema
+        daneben eine leere parallel_chunks_runs an -- die Altlaeufe blieben
+        zwar auf der Platte, waeren fuer jede Abfrage aber unsichtbar.
+
+        Idempotent: je (started_at, llm_model) wird gezaehlt, wie viele Laeufe
+        im Ziel schon stehen; uebernommen wird nur der Ueberhang. Ein zweiter
+        Aufruf traegt daher nichts nach, zwei echte Altlaeufe mit gleichem
+        Zeitstempel und Modell bleiben aber beide erhalten. Die Legacy-Tabelle
+        wird nicht veraendert und nicht geloescht.
+
+        Returns:
+            Anzahl der uebernommenen Zeilen.
+        """
+        exists = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name=?",
+            (LEGACY_RUNS_TABLE,),
+        ).fetchone()
+        if not exists:
+            return 0
+
+        columns = {
+            row["name"] for row in conn.execute(
+                f"PRAGMA table_info({LEGACY_RUNS_TABLE})"
+            ).fetchall()
+        }
+        # Ohne diese drei Spalten ist die Tabelle kein Run-Protokoll.
+        if not {"started_at", "llm_model", "status"}.issubset(columns):
+            return 0
+
+        known = ("started_at", "finished_at", "llm_model", "status",
+                 "chunks_summarized", "errors_count", "llm_cost_usd", "log")
+        available = [name for name in known if name in columns]
+        select_cols = ", ".join(available)
+
+        # Nach (started_at, llm_model) gruppieren. Der Abgleich zaehlt je Gruppe,
+        # statt nur "existiert schon" zu fragen: so ueberlebt auch der Fall, dass
+        # eine Alt-Datenbank zwei echte Laeufe mit identischem Zeitstempel und
+        # Modell enthaelt -- sonst ginge der zweite still verloren.
+        groups: Dict[tuple, List[tuple]] = {}
+        for row in conn.execute(
+            f"SELECT {select_cols} FROM {LEGACY_RUNS_TABLE} ORDER BY rowid ASC"
+        ).fetchall():
+            record = {name: row[name] for name in available}
+            started_at = record.get("started_at")
+            llm_model = record.get("llm_model")
+            # NOT-NULL-Spalten der Zieltabelle: unbrauchbare Zeilen auslassen,
+            # statt die ganze Migration an einem Altfehler scheitern zu lassen.
+            if started_at is None or llm_model is None:
+                continue
+            status = record.get("status")
+            groups.setdefault((started_at, llm_model), []).append((
+                started_at,
+                record.get("finished_at"),
+                llm_model,
+                "unknown" if status is None else status,
+                _or_default(record.get("chunks_summarized"), 0),
+                _or_default(record.get("errors_count"), 0),
+                _or_default(record.get("llm_cost_usd"), 0.0),
+                _or_default(record.get("log"), ""),
+            ))
+
+        migrated = 0
+        for (started_at, llm_model), rows in groups.items():
+            already = conn.execute(
+                f"SELECT COUNT(*) FROM {RUNS_TABLE} "
+                "WHERE started_at IS ? AND llm_model IS ?",
+                (started_at, llm_model),
+            ).fetchone()[0]
+            for params in rows[already:]:
+                conn.execute(f"""
+                    INSERT INTO {RUNS_TABLE}
+                        (started_at, finished_at, llm_model, status,
+                         chunks_summarized, errors_count, llm_cost_usd, log)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                """, params)
+                migrated += 1
+        return migrated
 
     @staticmethod
     def _create_claim_table(conn: sqlite3.Connection) -> None:
@@ -593,8 +694,13 @@ def main() -> int:
 
     summarizer = ChunkSummarizer(model=args.model, db_path=args.db_path)
     if args.init_db:
-        summarizer.initialize_schema()
+        migrated = summarizer.initialize_schema()
         print(f"Datenbank initialisiert: {summarizer.db_path}")
+        if migrated:
+            print(
+                f"{migrated} Lauf/Laeufe aus {LEGACY_RUNS_TABLE} nach "
+                f"{RUNS_TABLE} uebernommen (Legacy-Tabelle bleibt erhalten)."
+            )
         return 0
     stats = summarizer.run(
         batch_size=args.batch_size, dry_run=args.dry_run, limit=args.limit,

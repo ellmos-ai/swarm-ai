@@ -13,6 +13,8 @@ from tools.summarize_chunks import (
     COST_PER_1M,
     SYSTEM_PROMPT,
     MAX_RETRIES,
+    RUNS_TABLE,
+    LEGACY_RUNS_TABLE,
 )
 
 
@@ -317,3 +319,295 @@ class TestStandaloneSchema:
         second = summarizer.run(dry_run=True)
         assert first["chunks_processed"] == second["chunks_processed"] == 1
         assert first["total_input_tokens"] == second["total_input_tokens"] == 10
+
+
+class TestLegacyRunsMigration:
+    """Tests for the epstein_runs -> parallel_chunks_runs takeover.
+
+    epstein_runs was the run-ledger table's name before the pattern was
+    renamed from "Epstein" to "parallel-chunks" on 2026-06-17. Legacy
+    databases still carry their run history there; initialize_schema()
+    must fold it into parallel_chunks_runs without losing or duplicating
+    anything.
+    """
+
+    @staticmethod
+    def _create_legacy_table(db_path, *, not_null=True):
+        """Creates epstein_runs with the historical run-ledger schema."""
+        constraint = " NOT NULL" if not_null else ""
+        with sqlite3.connect(str(db_path)) as conn:
+            conn.execute(f"""
+                CREATE TABLE {LEGACY_RUNS_TABLE} (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    started_at TEXT{constraint},
+                    finished_at TEXT,
+                    llm_model TEXT{constraint},
+                    status TEXT NOT NULL,
+                    chunks_summarized INTEGER,
+                    errors_count INTEGER,
+                    llm_cost_usd REAL,
+                    log TEXT
+                )
+            """)
+
+    @staticmethod
+    def _insert_legacy_row(db_path, **fields):
+        """Inserts one epstein_runs row; omitted fields become NULL."""
+        columns = ("started_at", "finished_at", "llm_model", "status",
+                   "chunks_summarized", "errors_count", "llm_cost_usd", "log")
+        values = [fields.get(col) for col in columns]
+        placeholders = ", ".join("?" * len(columns))
+        with sqlite3.connect(str(db_path)) as conn:
+            conn.execute(
+                f"INSERT INTO {LEGACY_RUNS_TABLE} "
+                f"({', '.join(columns)}) VALUES ({placeholders})",
+                values,
+            )
+
+    @staticmethod
+    def _fetch_runs(db_path):
+        """Returns all parallel_chunks_runs rows as dicts, ordered by id."""
+        with sqlite3.connect(str(db_path)) as conn:
+            conn.row_factory = sqlite3.Row
+            rows = conn.execute(
+                "SELECT started_at, finished_at, llm_model, status, "
+                "chunks_summarized, errors_count, llm_cost_usd, log "
+                f"FROM {RUNS_TABLE} ORDER BY id ASC"
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    def test_migrates_existing_legacy_runs_on_initialize(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            finished_at="2026-05-01T10:05:00+00:00",
+            llm_model="haiku",
+            status="completed",
+            chunks_summarized=42,
+            errors_count=1,
+            llm_cost_usd=0.0123,
+            log="alter Lauf",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        migrated = summarizer.initialize_schema()
+
+        assert migrated == 1
+        runs = self._fetch_runs(db_path)
+        assert len(runs) == 1
+        assert runs[0] == {
+            "started_at": "2026-05-01T10:00:00+00:00",
+            "finished_at": "2026-05-01T10:05:00+00:00",
+            "llm_model": "haiku",
+            "status": "completed",
+            "chunks_summarized": 42,
+            "errors_count": 1,
+            "llm_cost_usd": 0.0123,
+            "log": "alter Lauf",
+        }
+
+    def test_migration_is_idempotent(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="completed",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        first = summarizer.initialize_schema()
+        second = summarizer.initialize_schema()
+
+        assert first == 1
+        assert second == 0
+        assert len(self._fetch_runs(db_path)) == 1
+
+    def test_legacy_table_survives_migration_unchanged(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="completed",
+        )
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-02T10:00:00+00:00",
+            llm_model="sonnet",
+            status="failed",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        summarizer.initialize_schema()
+
+        with sqlite3.connect(str(db_path)) as conn:
+            count = conn.execute(
+                f"SELECT COUNT(*) FROM {LEGACY_RUNS_TABLE}"
+            ).fetchone()[0]
+        assert count == 2
+
+    def test_fresh_database_without_legacy_table(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        summarizer = ChunkSummarizer(db_path=db_path)
+
+        migrated = summarizer.initialize_schema()
+
+        assert migrated == 0
+        assert self._fetch_runs(db_path) == []
+
+    def test_migrate_legacy_false_skips_takeover(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="completed",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        migrated = summarizer.initialize_schema(migrate_legacy=False)
+
+        assert migrated == 0
+        assert self._fetch_runs(db_path) == []
+        with sqlite3.connect(str(db_path)) as conn:
+            count = conn.execute(
+                f"SELECT COUNT(*) FROM {LEGACY_RUNS_TABLE}"
+            ).fetchone()[0]
+        assert count == 1
+
+    def test_legacy_table_with_foreign_schema_is_ignored(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        with sqlite3.connect(str(db_path)) as conn:
+            conn.execute(f"CREATE TABLE {LEGACY_RUNS_TABLE} (foo INTEGER)")
+            conn.execute(f"INSERT INTO {LEGACY_RUNS_TABLE} VALUES (1)")
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        migrated = summarizer.initialize_schema()
+
+        assert migrated == 0
+        assert self._fetch_runs(db_path) == []
+
+    def test_rows_with_null_started_at_or_model_are_skipped(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path, not_null=False)
+        self._insert_legacy_row(
+            db_path, started_at=None, llm_model="haiku", status="completed",
+        )
+        self._insert_legacy_row(
+            db_path, started_at="2026-05-01T10:00:00+00:00", llm_model=None,
+            status="completed",
+        )
+        self._insert_legacy_row(
+            db_path, started_at="2026-05-03T10:00:00+00:00",
+            llm_model="sonnet", status="completed",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        migrated = summarizer.initialize_schema()
+
+        assert migrated == 1
+        runs = self._fetch_runs(db_path)
+        assert len(runs) == 1
+        assert runs[0]["started_at"] == "2026-05-03T10:00:00+00:00"
+        assert runs[0]["llm_model"] == "sonnet"
+
+    def test_duplicate_started_at_and_model_rows_all_survive(self, tmp_path):
+        """Zwei echte Alt-Laeufe mit identischem Zeitstempel+Modell duerfen
+        beim Migrieren nicht kollidieren -- der Abgleich zaehlt je Gruppe,
+        statt nur 'existiert schon' zu fragen (sonst ginge der zweite Lauf
+        still verloren)."""
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="completed",
+            chunks_summarized=10,
+            log="erster Lauf",
+        )
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="failed",
+            chunks_summarized=3,
+            log="zweiter Lauf",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        first = summarizer.initialize_schema()
+
+        assert first == 2
+        runs = self._fetch_runs(db_path)
+        assert len(runs) == 2
+        logs = {run["log"] for run in runs}
+        assert logs == {"erster Lauf", "zweiter Lauf"}
+
+        second = summarizer.initialize_schema()
+
+        assert second == 0
+        assert len(self._fetch_runs(db_path)) == 2
+
+    def test_falsy_legacy_values_are_preserved(self, tmp_path):
+        """status='' sowie numerische 0-Werte duerfen nicht durch den
+        Default ersetzt werden -- nur ein echtes NULL wird ersetzt."""
+        db_path = tmp_path / "chunks.db"
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="",
+            chunks_summarized=0,
+            errors_count=0,
+            llm_cost_usd=0.0,
+            log="",
+        )
+
+        summarizer = ChunkSummarizer(db_path=db_path)
+        migrated = summarizer.initialize_schema()
+
+        assert migrated == 1
+        runs = self._fetch_runs(db_path)
+        assert len(runs) == 1
+        assert runs[0]["status"] == ""
+        assert runs[0]["chunks_summarized"] == 0
+        assert runs[0]["errors_count"] == 0
+        assert runs[0]["llm_cost_usd"] == 0.0
+        assert runs[0]["log"] == ""
+
+    def test_mixed_new_and_legacy_runs_are_both_preserved(self, tmp_path):
+        db_path = tmp_path / "chunks.db"
+        summarizer = ChunkSummarizer(db_path=db_path)
+        summarizer.initialize_schema(migrate_legacy=False)
+        with sqlite3.connect(str(db_path)) as conn:
+            conn.execute(f"""
+                INSERT INTO {RUNS_TABLE} (started_at, llm_model, status)
+                VALUES (?, ?, ?)
+            """, ("2026-06-20T10:00:00+00:00", "sonnet", "completed"))
+
+        self._create_legacy_table(db_path)
+        self._insert_legacy_row(
+            db_path,
+            started_at="2026-05-01T10:00:00+00:00",
+            llm_model="haiku",
+            status="completed",
+        )
+
+        migrated = summarizer.initialize_schema()
+
+        assert migrated == 1
+        runs = self._fetch_runs(db_path)
+        assert len(runs) == 2
+        started_ats = {run["started_at"] for run in runs}
+        assert started_ats == {
+            "2026-06-20T10:00:00+00:00",
+            "2026-05-01T10:00:00+00:00",
+        }

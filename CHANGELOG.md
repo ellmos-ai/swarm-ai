@@ -4,6 +4,22 @@
 
 ### Added
 
+- Alt-Datenbanken: `summarize_chunks.py --init-db` übernimmt Laufprotokolle aus
+  der abgelösten Tabelle `epstein_runs` idempotent nach `parallel_chunks_runs`
+  (`initialize_schema(migrate_legacy=True)` liefert die Anzahl übernommener
+  Läufe). **Gewählt wurde die Datenmigration statt eines Kompatibilitäts-Views:**
+  Der kanonische Tabellenname bleibt `parallel_chunks_runs` (umbenannt am
+  2026-06-17), und ein View könnte eine in der Alt-Datenbank real existierende
+  Tabelle gleichen Namens ohnehin nicht überlagern. Ohne Migration legte
+  `initialize_schema` daneben eine leere Tabelle an — die Altläufe blieben auf
+  der Platte, wären aber für jede Abfrage unsichtbar. Die Legacy-Tabelle wird
+  nicht verändert und nicht gelöscht; der Abgleich zählt je
+  (`started_at`, `llm_model`)-Gruppe, damit auch zwei echte Altläufe mit
+  identischem Zeitstempel und Modell erhalten bleiben. [C 2026-08-02]
+- `konzepte/schwarm-operationen.md`: frühere Bezeichnung des Musters
+  („Epstein-Muster", bis Juni 2026) als Herkunftsnotiz aufgenommen — der Name
+  wird nirgends mehr ausgewertet, bleibt aber dokumentiert, damit ältere Notizen
+  und Datenbanken zuordenbar sind. [C 2026-08-02]
 - `konzepte/matruschka-verfahren.md`: Matruschka-Verfahren (Synonym:
   Subsidiaritätsprinzip) als Querschnittsverfahren für kaskadierte
   Helfer-Delegation mit Aktivitäts-Limits je Ebene (Limits = gleichzeitige
