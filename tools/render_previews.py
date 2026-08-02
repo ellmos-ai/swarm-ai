@@ -1,5 +1,4 @@
 import os
-import time
 import subprocess
 
 edge_path = r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
