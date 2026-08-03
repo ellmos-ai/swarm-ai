@@ -1,13 +1,18 @@
-# swarm-ai
+# swarm-ai
 
 **LLM-Schwarmintelligenz-Toolkit für parallele Claude- und LLM-Agenten-Orchestrierung.**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Tests](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml)
+[![Pytest](https://img.shields.io/badge/pytest-172%20passed-brightgreen)](tests/)
 [![Lizenz MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![ellmos](https://img.shields.io/badge/ellmos-Agenten--Orchestrierung-4b5563)](https://github.com/ellmos-ai)
+[![open-bricks](https://img.shields.io/badge/open--bricks-ecosystem-0284c7)](https://github.com/open-bricks)
 
 **English:** [README.md](README.md)
+
+> [!NOTE]
+> Für LLM- & KI-Agenten-Integrationsdetails, strukturierte Dateikarten und Muster-Verifizierungs-Indizes siehe [`llms.txt`](llms.txt).
 
 swarm-ai ist ein local-first Python-Toolkit für Entwicklerinnen und Entwickler, die dieselbe Aufgabe über mehrere LLM-Instanzen ausführen und die Ergebnisse anschließend zusammenführen wollen. Der Fokus liegt auf fünf wiederverwendbaren Koordinationsmustern: parallele Chunk-Verarbeitung, Boss-/Worker-Ausführung, Stigmergie, Konsensabstimmung und Spezialisten-Routing.
 

@@ -70,6 +70,7 @@
 
 ### Documentation
 
+- Synchronized `llms.txt`, `RELEASE_GATE.md`, and test suite verification to 2026-08-03 (172 passed, 1 skipped). Integrated open-bricks ecosystem & Pytest badges and GFM Callout box for `llms.txt` in English & German READMEs. Fixed unused `import time` in `tools/render_previews.py` (ruff 100% clean). [G 2026-08-03]
 - Synchronized `llms.txt`, `RELEASE_GATE.md`, and test suite verification to 2026-07-30 (170 passed, 4 skipped for optional COMA backend). [G 2026-07-30]
 - Synchronized `llms.txt`, `RELEASE_GATE.md`, and verification metadata to the 2026-07-27 test run (167 passed).
 - Added PEP 621 compliant `pyproject.toml` with pytest `pythonpath` and `testpaths` configuration.

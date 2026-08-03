@@ -9,10 +9,15 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
 [![Tests](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml)
+[![Pytest](https://img.shields.io/badge/pytest-172%20passed-brightgreen)](tests/)
 [![License MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![ellmos](https://img.shields.io/badge/ellmos-agent%20orchestration-4b5563)](https://github.com/ellmos-ai)
+[![open-bricks](https://img.shields.io/badge/open--bricks-ecosystem-0284c7)](https://github.com/open-bricks)
 
 **Deutsch:** [README_de.md](README_de.md)
+
+> [!NOTE]
+> For LLM & AI agent integration details, structured file maps, and pattern verification indices, see [`llms.txt`](llms.txt).
 
 swarm-ai is a local-first Python toolkit for developers who want to run the same task through multiple LLM instances and merge the results. It focuses on five reusable coordination patterns: parallel chunk processing, boss/worker execution, stigmergy, consensus voting, and specialist routing.
 
