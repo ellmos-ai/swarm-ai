@@ -24,7 +24,6 @@ import math
 import os
 import sys
 import re
-import shutil
 import threading
 from pathlib import Path
 from datetime import datetime
@@ -456,21 +455,21 @@ def main():
         print("  *** TESTMODUS: 3 Agenten, Pool 2 ***")
 
     print(f"{'='*65}")
-    print(f"  MAINTENANCE SWARM v2.2 - Portschluessel-Spiel")
+    print("  MAINTENANCE SWARM v2.2 - Portschluessel-Spiel")
     print(f"  {config['agents']} Bots, Pool: {config['pool']}")
     print(f"  Timeout: {config['timeout']}s, Model: {MODEL}")
     print(f"  Ziel:    {TARGET_PATH}")
-    print(f"  Suche:   Encoding-Fehler, NUL-Dateien, kaputte JSONs, PORTSCHLUESSEL")
+    print("  Suche:   Encoding-Fehler, NUL-Dateien, kaputte JSONs, PORTSCHLUESSEL")
     print(f"  Karte:   {MAP_DIR}")
-    print(f"           Todesarten: verhungert (Timeout) / falle (Error)")
-    print(f"           Tote zeigen: kein Schatz dort, Bereich durchsucht")
+    print("           Todesarten: verhungert (Timeout) / falle (Error)")
+    print("           Tote zeigen: kein Schatz dort, Bereich durchsucht")
     print(f"  Start:   {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*65}")
     print()
 
     # Karte initialisieren
     init_map()
-    print(f"  Karte initialisiert")
+    print("  Karte initialisiert")
 
     experiment_start = time.time()
     semaphore = threading.Semaphore(config["pool"])
@@ -582,29 +581,29 @@ def main():
 
     print()
     print(f"{'='*65}")
-    print(f"  MAINTENANCE SWARM BEENDET!")
+    print("  MAINTENANCE SWARM BEENDET!")
     print(f"{'='*65}")
     print(f"  Dauer:           {experiment_elapsed/60:.1f} min")
     print(f"  Kosten:          ${total_cost:.2f}")
     print()
-    print(f"  --- BOTS ---")
+    print("  --- BOTS ---")
     print(f"  Fertig:          {len(completed)}/{len(all_results)}")
     print(f"  Verhungert:      {map_dead_hunger}/{len(all_results)}")
     print(f"  Falle:           {map_dead_trap}/{len(all_results)}")
     print(f"  Fehler:          {len(errors)}/{len(all_results)}")
     print()
-    print(f"  --- KARTE DES RUMTREIBERS ---")
+    print("  --- KARTE DES RUMTREIBERS ---")
     print(f"  Eintraege:       {len(map_entries)}")
     print(f"  Findings (Karte):{len(unique_map_findings)}")
     print(f"  Durchsucht:      {', '.join(unique_searched[:15]) or 'keine'}")
     print()
-    print(f"  --- FUNDE ---")
+    print("  --- FUNDE ---")
     print(f"  Gefunden:        {total_found}")
     print(f"  Behoben:         {total_fixed}")
     print(f"  Geloescht:       {total_deleted}")
     print()
     if unique_details:
-        print(f"  --- DETAILS (dedupliziert) ---")
+        print("  --- DETAILS (dedupliziert) ---")
         for d in unique_details[:30]:
             print(f"    - {d[:100]}")
         if len(unique_details) > 30:

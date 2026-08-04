@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
-import sys
 
 # Ergebnisse laden
 with open('pilot_probe_results.json', 'r', encoding='utf-8') as f:
@@ -36,9 +35,9 @@ for task_id, data in sorted(results.items()):
 summary['statistics'] = {
     'total_tool_calls': sum(p['stats']['tool_calls'] for p in summary['probes']),
     'total_paths_visited': sum(p['stats']['visited_paths'] for p in summary['probes']),
-    'successful_probes': sum(1 for p in summary['probes'] if p['success'] == True),
-    'failed_probes': sum(1 for p in summary['probes'] if p['success'] == False),
-    'inconclusive_probes': sum(1 for p in summary['probes'] if p['success'] == None),
+    'successful_probes': sum(1 for p in summary['probes'] if p['success']),
+    'failed_probes': sum(1 for p in summary['probes'] if not p['success']),
+    'inconclusive_probes': sum(1 for p in summary['probes'] if p['success'] is None),
     'haiku_probes': sum(1 for p in summary['probes'] if p['model'] == 'Haiku'),
     'sonnet_probes': sum(1 for p in summary['probes'] if p['model'] == 'Sonnet')
 }

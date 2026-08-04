@@ -72,8 +72,8 @@ Siehe auch:
   - data/elephant_path_treasure_hunt.py (Launcher-Script)
 """
 
-import argparse
-from pathlib import Path
+import argparse  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 DUNGEON_MARKER = ".swarm-ai-dungeon-template"
 DUNGEON_MARKER_CONTENT = "SWARM_AI_DUNGEON_TEMPLATE_V1"
@@ -130,7 +130,7 @@ def create_dungeon(base_dir, codewort="STIGMERGIE", decoy="FALSCHGOLD", *,
     marker.write_text(DUNGEON_MARKER_CONTENT + "\n", encoding="utf-8")
 
     # --- README.md ---
-    (base / "README.md").write_text(f"""# Schatzsuche im Dungeon
+    (base / "README.md").write_text("""# Schatzsuche im Dungeon
 
 Du bist ein Schatzsucher. Irgendwo in diesem Dungeon ist ein Schatz versteckt -
 ein geheimes CODEWORT.
@@ -222,22 +222,22 @@ Finde den Syntaxfehler und beschreibe ihn.
 Weiter zu `raum_3/`. Aber Vorsicht - dort wird es trickreich.
 """, encoding="utf-8")
 
-    (base / "raum_2" / "falle_2.json").write_text(f"""{{
-  "dungeon_config": {{
+    (base / "raum_2" / "falle_2.json").write_text("""{
+  "dungeon_config": {
     "name": "Schatzsuche",
     "version": 1.0,
     "rooms": [
-      {{"id": 1, "name": "Bibliothek", "has_trap": true}},
-      {{"id": 2, "name": "Datenarchiv", "has_trap": true}},
-      {{"id": 3, "name": "Labyrinth", "has_trap": true}}
-      {{"id": 4, "name": "Kammer", "has_treasure": true}}
+      {"id": 1, "name": "Bibliothek", "has_trap": true},
+      {"id": 2, "name": "Datenarchiv", "has_trap": true},
+      {"id": 3, "name": "Labyrinth", "has_trap": true}
+      {"id": 4, "name": "Kammer", "has_treasure": true}
     ],
-    "treasure": {{
+    "treasure": {
       "location": "kammer/tresor/schatz.txt",
       "hint": "Das Codewort hat mit Insekten-Kommunikation zu tun"
-    }}
-  }}
-}}
+    }
+  }
+}
 """, encoding="utf-8")
 
     # --- Raum 3: Das Labyrinth ---
@@ -341,8 +341,8 @@ Melde "{codewort}" als dein Codewort!
     print(f"Dungeon erstellt in: {base}")
     print(f"  Codewort: {codewort}")
     print(f"  Koeder:   {decoy}")
-    print(f"  Raeume:   4 + Tresor")
-    print(f"  Fallen:   5 (Bug, JSON, Config, Ablenkung, Falsche Truhe)")
+    print("  Raeume:   4 + Tresor")
+    print("  Fallen:   5 (Bug, JSON, Config, Ablenkung, Falsche Truhe)")
 
 
 if __name__ == "__main__":

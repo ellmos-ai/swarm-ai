@@ -342,7 +342,7 @@ def main():
     RESULTS_DIR.mkdir(exist_ok=True)
 
     print(f"{'='*60}")
-    print(f"  ELEPHANT PATH EXPERIMENT v6.1 - POST-SCHILDER-TEST")
+    print("  ELEPHANT PATH EXPERIMENT v6.1 - POST-SCHILDER-TEST")
     print(f"  {NUM_PROBES} {MODEL.title()}, max {MAX_CONCURRENT} parallel")
     print(f"  Timeout: {TIMEOUT_SECONDS}s, Ziel: {TARGET_PATH}")
     print("  Naive Mode: Claude --safe-mode, nur Glob/Grep/Read")
@@ -367,7 +367,7 @@ def main():
     print()
 
     # Auf alle Ergebnisse warten
-    print(f"  Warte auf Ergebnisse...")
+    print("  Warte auf Ergebnisse...")
     for t in threads:
         t.join(timeout=TIMEOUT_SECONDS + 60)
 
@@ -416,7 +416,7 @@ def main():
     total_stdout = sum(r.get("stdout_bytes", 0) for r in results.values())
     print()
     print(f"{'='*60}")
-    print(f"  FERTIG!")
+    print("  FERTIG!")
     print(f"  Dauer:        {experiment_elapsed/60:.1f} min")
     print(f"  Completed:    {completed_count}")
     print(f"  Errors:       {error_count}")

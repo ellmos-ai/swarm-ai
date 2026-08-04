@@ -33,6 +33,7 @@
 
 ### Fixed
 
+- Technical Hygiene & Maintenance: fixed 38 ruff lint issues across experiment scripts (unused imports, extraneous f-strings, boolean/None comparisons), added noqa E402 import guards in dungeon_template.py, updated llms.txt Last-checked timestamp to 2026-08-04 and verified test suite count (182 passed, 1 skipped). [G 2026-08-04]
 - Handled optional COMA provider test dependency gracefully with `pytest.importorskip` in `test_runner.py`. [G 2026-07-30]
 - Restored the empirically supported Anthropic SDK floor to 0.40.0 and added
   minimum/latest SDK contract tests across Python 3.10 and 3.13.

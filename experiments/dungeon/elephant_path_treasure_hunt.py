@@ -348,12 +348,10 @@ def run_agent(agent_id, round_num, results_lock, round_results, sem):
             )
             stdout_data = result.stdout
             stderr_data = result.stderr
-            returncode = result.returncode
         except subprocess.TimeoutExpired as e:
             timed_out = True
             stdout_data = e.stdout or b""
             stderr_data = e.stderr or b""
-            returncode = -1
 
         elapsed = time.time() - start_time
         with open(stream_file, "wb") as f:
@@ -432,12 +430,12 @@ def main():
     dungeon_base = Path(TARGET_PATH) / DUNGEON_PATH
 
     print(f"{'='*65}")
-    print(f"  SCHATZSUCHE v2.0 - Runden-basiertes Swarm Pattern E")
+    print("  SCHATZSUCHE v2.0 - Runden-basiertes Swarm Pattern E")
     print(f"  {num_rounds} Runden x {agents_per_round} Agenten = {total_agents} total")
     print(f"  Max {MAX_CONCURRENT} gleichzeitig pro Runde")
     print(f"  Timeout: {TIMEOUT_SECONDS}s, Model: {MODEL}")
     print(f"  Dungeon: {dungeon_base}")
-    print(f"  Agenten koennen Fallen REPARIEREN (Edit/Write)")
+    print("  Agenten koennen Fallen REPARIEREN (Edit/Write)")
     print(f"  Start: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*65}")
     print()
@@ -565,18 +563,18 @@ def main():
 
     print()
     print(f"{'='*65}")
-    print(f"  SCHATZSUCHE BEENDET!")
+    print("  SCHATZSUCHE BEENDET!")
     print(f"{'='*65}")
     print(f"  Dauer:           {experiment_elapsed/60:.1f} min")
     print(f"  Kosten:          ${total_cost:.2f}")
     print(f"  Runden:          {num_rounds}")
     print(f"  Agenten total:   {total_agents}")
     print()
-    print(f"  --- SCHATZ ---")
+    print("  --- SCHATZ ---")
     print(f"  Gefunden:        {total_treasure}/{total_agents} ({100*total_treasure/max(total_agents,1):.0f}%)")
     print(f"  Koeder:          {total_decoy}/{total_agents}")
     print()
-    print(f"  --- FALLEN-EVOLUTION ---")
+    print("  --- FALLEN-EVOLUTION ---")
     for round_data in all_round_data:
         r = round_data["round"]
         before = round_data["traps_fixed_before"]
@@ -585,7 +583,7 @@ def main():
         bar_after = "." * (3 - after) + "#" * after
         print(f"  Runde {r:2d}: [{bar_before}] → [{bar_after}]  ({after - before:+d} Fixes)")
     print()
-    print(f"  --- FINAL ---")
+    print("  --- FINAL ---")
     for name, status in final_traps.items():
         icon = "GEFIXT" if status.get("fixed") else "KAPUTT"
         desc = KNOWN_TRAPS[name]["description"]

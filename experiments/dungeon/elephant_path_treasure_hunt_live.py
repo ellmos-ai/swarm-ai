@@ -39,7 +39,6 @@ import re
 import threading
 from pathlib import Path
 from datetime import datetime
-from collections import defaultdict
 
 # --- Defaults (ueberschreibbar via CLI) ---
 DEFAULT_DUNGEON = "."                       # Ganzes BACH-System
@@ -407,7 +406,7 @@ def main():
     # Schatz pruefen
     if not treasure_full.exists():
         print(f"  FEHLER: Schatzdatei nicht gefunden: {treasure_full}")
-        print(f"  Erstelle sie mit einem CODEWORT oder nutze --treasure <pfad>")
+        print("  Erstelle sie mit einem CODEWORT oder nutze --treasure <pfad>")
         return
 
     treasure_content = treasure_full.read_text(encoding="utf-8", errors="replace")
@@ -415,13 +414,13 @@ def main():
     codeword = cw_match.group(1) if cw_match else "???"
 
     print(f"{'='*65}")
-    print(f"  SCHATZSUCHE LIVE v3.0 - Continuous Flow")
+    print("  SCHATZSUCHE LIVE v3.0 - Continuous Flow")
     print(f"  {config['agents']} Agenten, Pool: {config['pool']}")
     print(f"  Timeout: {config['timeout']}s, Model: {MODEL}")
     print(f"  Dungeon:  {config['dungeon']}")
     print(f"  Schatz:   {config['treasure']}")
     print(f"  Codewort: {'*' * len(codeword)}")
-    print(f"  Leichen:  Gescheiterte hinterlassen Warnungen")
+    print("  Leichen:  Gescheiterte hinterlassen Warnungen")
     print(f"  Start:    {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*65}")
     print()
@@ -480,7 +479,7 @@ def main():
 
     print()
     print(f"{'='*65}")
-    print(f"  SCHATZSUCHE BEENDET!")
+    print("  SCHATZSUCHE BEENDET!")
     print(f"{'='*65}")
     print(f"  Dauer:          {experiment_elapsed/60:.1f} min")
     print(f"  Kosten:         ${total_cost:.2f}")
