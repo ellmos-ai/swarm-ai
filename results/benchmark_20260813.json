@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0",
+  "timestamp": "2026-08-13T05:12:40.563417+00:00",
+  "dry_run": true,
+  "model": "claude-haiku-4-5-20251001",
+  "model_pricing": {
+    "currency": "USD",
+    "unit": "per_1m_tokens",
+    "input": 1.0,
+    "output": 5.0,
+    "source": "configured MODEL_COSTS_PER_1M or explicit CLI override"
+  },
+  "max_workers": 3,
+  "max_budget_usd": null,
+  "environment": {
+    "python": "3.12.10",
+    "implementation": "CPython",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "repository": "ellmos-ai/swarm-ai",
+    "git_revision": "5896e4cd1226121d72330fcad97e7c8d3fb983b9"
+  },
+  "task_count": 5,
+  "tasks": [
+    {
+      "name": "code_review",
+      "category": "software_dev",
+      "category_label": "Software-Entwicklung",
+      "estimated_input_tokens": 114,
+      "estimated_output_tokens": 256,
+      "estimated_cost_usd": 0.001394
+    },
+    {
+      "name": "refactoring",
+      "category": "software_dev",
+      "category_label": "Software-Entwicklung",
+      "estimated_input_tokens": 181,
+      "estimated_output_tokens": 256,
+      "estimated_cost_usd": 0.001461
+    },
+    {
+      "name": "bug_fix",
+      "category": "software_dev",
+      "category_label": "Software-Entwicklung",
+      "estimated_input_tokens": 97,
+      "estimated_output_tokens": 256,
+      "estimated_cost_usd": 0.001377
+    },
+    {
+      "name": "feature_design",
+      "category": "software_dev",
+      "category_label": "Software-Entwicklung",
+      "estimated_input_tokens": 75,
+      "estimated_output_tokens": 256,
+      "estimated_cost_usd": 0.001355
+    },
+    {
+      "name": "test_generation",
+      "category": "software_dev",
+      "category_label": "Software-Entwicklung",
+      "estimated_input_tokens": 139,
+      "estimated_output_tokens": 256,
+      "estimated_cost_usd": 0.001419
+    }
+  ],
+  "estimated_total_cost_usd": 0.007006
+}

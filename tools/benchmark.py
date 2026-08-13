@@ -19,6 +19,7 @@ import argparse
 import json
 import math
 import platform
+import subprocess
 import sys
 import time
 from datetime import datetime, timezone
@@ -30,7 +31,14 @@ _parent = str(PACKAGE_DIR.parent)
 if _parent not in sys.path:
     sys.path.insert(0, _parent)
 
+from tools.consensus_swarm import resolve_model_costs  # noqa: E402
 from tools.runner import ClaudeRunner  # noqa: E402
+
+
+DEFAULT_MODEL = "claude-haiku-4-5-20251001"
+ESTIMATED_CHARS_PER_TOKEN = 4
+ESTIMATED_OUTPUT_TOKENS = 256
+EXPORT_SCHEMA_VERSION = "1.0"
 
 
 # ============================================================
@@ -379,6 +387,118 @@ def _get_all_tasks(categories=None):
     return tasks
 
 
+def _estimate_tokens(text):
+    """Estimate UTF-8 text tokens without pretending to have API usage data."""
+    if not text:
+        return 0
+    return max(1, math.ceil(len(text.encode("utf-8")) / ESTIMATED_CHARS_PER_TOKEN))
+
+
+def _estimate_cost(input_tokens, output_tokens, pricing):
+    """Estimate USD cost from token counts and explicit per-million prices."""
+    return (
+        input_tokens * pricing["input"] + output_tokens * pricing["output"]
+    ) / 1_000_000
+
+
+def _record_result(task, result, mode, pricing):
+    """Convert a runner result into a stable, cost-aware export record."""
+    input_tokens = _estimate_tokens(task["prompt"])
+    output_tokens = _estimate_tokens(result.get("output", ""))
+    return {
+        "name": task["name"],
+        "category": task.get("category", ""),
+        "category_label": task.get("category_label", ""),
+        "mode": mode,
+        "success": result["success"],
+        "duration_s": result["duration_s"],
+        "output_length": len(result.get("output", "")),
+        "model": result["model"],
+        "returncode": result["returncode"],
+        "estimated_input_tokens": input_tokens,
+        "estimated_output_tokens": output_tokens,
+        "estimated_cost_usd": _estimate_cost(input_tokens, output_tokens, pricing),
+    }
+
+
+def _git_revision():
+    """Return the local revision when available; never make network calls."""
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=str(PACKAGE_DIR.parent),
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=5,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    revision = result.stdout.strip()
+    return revision if result.returncode == 0 and revision else None
+
+
+def _environment_metadata():
+    """Collect reproducibility metadata without reading secrets or calling APIs."""
+    metadata = {
+        "python": platform.python_version(),
+        "implementation": platform.python_implementation(),
+        "platform": platform.platform(),
+        "repository": "ellmos-ai/swarm-ai",
+    }
+    revision = _git_revision()
+    if revision:
+        metadata["git_revision"] = revision
+    return metadata
+
+
+def _build_export(
+    *, tasks, results, args, pricing, seq_duration=None, par_duration=None,
+):
+    """Build one versioned JSON shape for live and dry-run benchmark exports."""
+    export_data = {
+        "schema_version": EXPORT_SCHEMA_VERSION,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "dry_run": args.dry_run,
+        "model": args.model,
+        "model_pricing": {
+            "currency": "USD",
+            "unit": "per_1m_tokens",
+            "input": pricing["input"],
+            "output": pricing["output"],
+            "source": "configured MODEL_COSTS_PER_1M or explicit CLI override",
+        },
+        "max_workers": args.workers,
+        "max_budget_usd": args.max_budget_usd,
+        "environment": _environment_metadata(),
+        "task_count": len(tasks),
+    }
+    if args.dry_run:
+        export_data["tasks"] = [
+            {
+                "name": task["name"],
+                "category": task.get("category", ""),
+                "category_label": task.get("category_label", ""),
+                "estimated_input_tokens": _estimate_tokens(task["prompt"]),
+                "estimated_output_tokens": ESTIMATED_OUTPUT_TOKENS,
+                "estimated_cost_usd": _estimate_cost(
+                    _estimate_tokens(task["prompt"]), ESTIMATED_OUTPUT_TOKENS, pricing
+                ),
+            }
+            for task in tasks
+        ]
+        export_data["estimated_total_cost_usd"] = sum(
+            task["estimated_cost_usd"] for task in export_data["tasks"]
+        )
+    else:
+        export_data["results"] = results
+        if seq_duration is not None:
+            export_data["sequential_total_s"] = seq_duration
+        if par_duration is not None:
+            export_data["parallel_total_s"] = par_duration
+    return export_data
+
+
 def _format_table(headers, rows, col_widths=None):
     """Formatiert eine ASCII-Tabelle."""
     if not col_widths:
@@ -405,7 +525,7 @@ def _format_table(headers, rows, col_widths=None):
     return "\n".join(lines)
 
 
-def run_benchmark(tasks, runner, mode="sequential", max_workers=3):
+def run_benchmark(tasks, runner, mode="sequential", max_workers=3, pricing=None):
     """Fuehrt Benchmark-Tasks aus.
 
     Args:
@@ -413,11 +533,13 @@ def run_benchmark(tasks, runner, mode="sequential", max_workers=3):
         runner: ClaudeRunner-Instanz
         mode: "sequential" oder "parallel"
         max_workers: Anzahl paralleler Worker (nur bei mode="parallel")
+        pricing: explizite Preise pro 1M Tokens für Kostenschätzungen
 
     Returns:
         Tuple (results_list, total_wall_time_s)
     """
     results = []
+    pricing = pricing or resolve_model_costs(runner.model)
 
     if mode == "parallel":
         prompts = [t["prompt"] for t in tasks]
@@ -428,17 +550,7 @@ def run_benchmark(tasks, runner, mode="sequential", max_workers=3):
         total_duration = time.time() - start
 
         for task, result in zip(tasks, raw_results):
-            results.append({
-                "name": task["name"],
-                "category": task.get("category", ""),
-                "category_label": task.get("category_label", ""),
-                "mode": "parallel",
-                "success": result["success"],
-                "duration_s": result["duration_s"],
-                "output_length": len(result["output"]),
-                "model": result["model"],
-                "returncode": result["returncode"],
-            })
+            results.append(_record_result(task, result, "parallel", pricing))
             status = "OK" if result["success"] else "FEHLER"
             print(f"  [{task.get('category', '')}] {task['name']}: {status} ({result['duration_s']:.0f}s)")
 
@@ -448,17 +560,7 @@ def run_benchmark(tasks, runner, mode="sequential", max_workers=3):
             print(f"  [{task.get('category', '')}] {task['name']}...", end=" ", flush=True)
             result = runner.run(task["prompt"])
             duration = result["duration_s"]
-            results.append({
-                "name": task["name"],
-                "category": task.get("category", ""),
-                "category_label": task.get("category_label", ""),
-                "mode": "sequential",
-                "success": result["success"],
-                "duration_s": duration,
-                "output_length": len(result["output"]),
-                "model": result["model"],
-                "returncode": result["returncode"],
-            })
+            results.append(_record_result(task, result, "sequential", pricing))
             status = "OK" if result["success"] else "FEHLER"
             print(f"{status} ({duration:.0f}s, {len(result['output'])} chars)")
 
@@ -473,7 +575,10 @@ def print_results(results, total_duration, mode_label):
     print(f"  Ergebnisse: {mode_label}")
     print(f"{'='*70}")
 
-    headers = ["Kategorie", "Task", "Status", "Dauer (s)", "Output (chars)", "Modell"]
+    headers = [
+        "Kategorie", "Task", "Status", "Dauer (s)", "Output (chars)",
+        "Kosten~ (USD)", "Modell",
+    ]
     rows = []
     for r in results:
         status = "OK" if r["success"] else "FEHLER"
@@ -483,6 +588,7 @@ def print_results(results, total_duration, mode_label):
             status,
             f"{r['duration_s']:.1f}",
             str(r["output_length"]),
+            f"{r['estimated_cost_usd']:.6f}",
             r["model"],
         ])
 
@@ -492,6 +598,7 @@ def print_results(results, total_duration, mode_label):
     success_count = sum(1 for r in results if r["success"])
     fail_count = len(results) - success_count
     total_output = sum(r["output_length"] for r in results)
+    estimated_cost = sum(r["estimated_cost_usd"] for r in results)
 
     print(f"\n  Gesamt:     {len(results)} Tasks")
     print(f"  Erfolg:     {success_count} | Fehler: {fail_count}")
@@ -500,6 +607,7 @@ def print_results(results, total_duration, mode_label):
         avg_duration = total_duration / len(results)
         print(f"  Avg/Task:   {avg_duration:.1f}s (Wall-Time)")
     print(f"  Output:     {total_output:,} Zeichen gesamt")
+    print(f"  Kosten~:    ${estimated_cost:.6f} (aus geschätzten Tokens)")
 
     # Per-Category Breakdown
     categories = {}
@@ -579,8 +687,12 @@ def main():
     parser.add_argument("--workers", type=int, default=3, help="Anzahl paralleler Worker (default: 3)")
     parser.add_argument("--category", "-c", choices=list(TASK_CATALOG.keys()),
                         help="Nur eine Kategorie benchmarken")
-    parser.add_argument("--model", "-m", default="claude-haiku-4-5-20251001",
+    parser.add_argument("--model", "-m", default=DEFAULT_MODEL,
                         help="Modell (default: haiku fuer guenstige Benchmarks)")
+    parser.add_argument("--input-cost", type=float,
+                        help="USD pro 1M Input-Tokens (für unbekannte Modelle erforderlich)")
+    parser.add_argument("--output-cost", type=float,
+                        help="USD pro 1M Output-Tokens (für unbekannte Modelle erforderlich)")
     parser.add_argument("--timeout", type=int, default=300,
                         help="Timeout pro Task in Sekunden (default: 300)")
     parser.add_argument("--limit", type=int,
@@ -595,6 +707,15 @@ def main():
         parser.error("--workers must be greater than zero")
     if args.timeout <= 0:
         parser.error("--timeout must be greater than zero")
+    if (args.input_cost is None) != (args.output_cost is None):
+        parser.error("--input-cost und --output-cost müssen gemeinsam angegeben werden")
+    cost_override = None
+    if args.input_cost is not None:
+        cost_override = {"input": args.input_cost, "output": args.output_cost}
+    try:
+        pricing = resolve_model_costs(args.model, cost_override)
+    except ValueError as exc:
+        parser.error(str(exc))
 
     # --run/--parallel/--sequential/--compare deaktiviert dry-run
     if args.run or args.parallel or args.sequential or args.compare:
@@ -643,9 +764,24 @@ def main():
 
         print(f"\nGesamt: {len(tasks)} Tasks")
         print(
+            f"Preis: ${pricing['input']:.2f} Input / "
+            f"${pricing['output']:.2f} Output je 1M Tokens"
+        )
+        print(
             "Ausfuehren mit: python benchmark.py --run --limit N "
             "--max-budget-usd USD [--parallel|--sequential|--compare]"
         )
+        if args.export:
+            export_data = _build_export(
+                tasks=tasks, results=[], args=args, pricing=pricing,
+            )
+            export_path = Path(args.export)
+            export_path.parent.mkdir(parents=True, exist_ok=True)
+            export_path.write_text(
+                json.dumps(export_data, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            print(f"\nDry-Run exportiert: {export_path}")
         return 0
 
     # Runner erstellen
@@ -655,6 +791,10 @@ def main():
     print(f"  Worker:     {args.workers}")
     print(f"  Timeout:    {args.timeout}s")
     print(f"  Kategorien: {', '.join(set(t['category'] for t in tasks))}")
+    print(
+        f"  Preis:      ${pricing['input']:.2f} Input / "
+        f"${pricing['output']:.2f} Output je 1M Tokens"
+    )
     print()
 
     run_modes = int(args.sequential or args.compare) + int(args.parallel or args.compare)
@@ -672,14 +812,17 @@ def main():
 
     if args.sequential or args.compare:
         print("--- Sequentieller Durchlauf ---")
-        seq_results, seq_duration = run_benchmark(tasks, runner, mode="sequential")
+        seq_results, seq_duration = run_benchmark(
+            tasks, runner, mode="sequential", pricing=pricing
+        )
         print_results(seq_results, seq_duration, "Sequentiell")
         all_results.extend(seq_results)
 
     if args.parallel or args.compare:
         print("\n--- Paralleler Durchlauf ---")
         par_results, par_duration = run_benchmark(
-            tasks, runner, mode="parallel", max_workers=args.workers
+            tasks, runner, mode="parallel", max_workers=args.workers,
+            pricing=pricing,
         )
         print_results(par_results, par_duration, f"Parallel ({args.workers} Worker)")
         all_results.extend(par_results)
@@ -689,24 +832,15 @@ def main():
 
     # JSON-Export
     if args.export and all_results:
-        export_data = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "model": args.model,
-            "max_workers": args.workers,
-            "max_budget_usd": args.max_budget_usd,
-            "per_call_budget_usd": per_call_budget,
-            "environment": {
-                "python": platform.python_version(),
-                "platform": platform.platform(),
-                "repository": "swarm-ai",
-            },
-            "results": [{k: v for k, v in r.items() if k != "prompt"} for r in all_results],
-        }
-        if seq_duration is not None:
-            export_data["sequential_total_s"] = seq_duration
-        if par_duration is not None:
-            export_data["parallel_total_s"] = par_duration
-
+        export_data = _build_export(
+            tasks=tasks,
+            results=all_results,
+            args=args,
+            pricing=pricing,
+            seq_duration=seq_duration,
+            par_duration=par_duration,
+        )
+        export_data["per_call_budget_usd"] = per_call_budget
         export_path = Path(args.export)
         export_path.parent.mkdir(parents=True, exist_ok=True)
         export_path.write_text(json.dumps(export_data, indent=2, ensure_ascii=False), encoding="utf-8")

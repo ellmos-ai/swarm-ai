@@ -3,7 +3,7 @@
   "id": "swarm_ai",
   "display_name": "swarm_ai",
   "description": "Local-first Python toolkit for inspectable LLM swarm coordination patterns.",
-  "package": null,
+  "package": "ellmos-swarm-ai",
   "entrypoints": {
     "consensus": "python tools/consensus_swarm.py",
     "benchmark": "python tools/benchmark.py",

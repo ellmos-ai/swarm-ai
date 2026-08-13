@@ -1,6 +1,6 @@
 # swarm-ai - LLM Swarm Intelligence Toolkit
 
-## Last-checked: 2026-08-04
+## Last-checked: 2026-08-13
 
 Canonical repository: https://github.com/ellmos-ai/swarm-ai
 
@@ -46,6 +46,10 @@ The project is part of the ellmos family. It is distinct from Docker Swarm, host
 - tools/swarm_haiku_research.json: specialist research chain definition.
 - konzepte/team-lock-verfahren.md: portable project-local coordination guardrail for shared-file swarm work.
 - results/benchmark_20260306.json: benchmark snapshot used in README.
+- results/benchmark_20260813.json: cost-free current benchmark dry-run with
+  model pricing and reproducibility metadata.
+- PYPI_RELEASE.md: distribution name, PEP-440 versioning, CLI entry points, and
+  the readback-gated release checklist.
 - README/assets/swarm-patterns.svg: README architecture and pattern diagram.
 
 ## Verification State
@@ -59,6 +63,7 @@ The project is part of the ellmos family. It is distinct from Docker Swarm, host
 - CLI/API calls require `ANTHROPIC_API_KEY`.
 - `ClaudeRunner` examples require a configured `claude` CLI.
 - No PyPI package release yet.
+- The PEP-621 packaging contract is defined, but no PyPI upload has occurred.
 - No graphical UI, screenshot, or hosted landing page.
 
 ## Related ellmos Projects

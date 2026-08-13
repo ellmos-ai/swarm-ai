@@ -194,6 +194,13 @@ Gemessenes Ergebnis aus `results/benchmark_20260306.json`:
 | Parallele Effizienz | - | 85% | 85% |
 | Gesparte Zeit | - | 792s | 61% |
 
+Der kostenfreie Dry-Run vom 13.08.2026 ist in
+[`results/benchmark_20260813.json`](results/benchmark_20260813.json)
+festgehalten. Er enthält das Modell-Pricing in USD je Million Tokens,
+Kostenschätzungen, Python-/Plattform-/Repository-Metadaten und den lokalen
+Git-Stand. Ein echter API-Benchmark bleibt ein separat freizugebendes
+Release-Gate.
+
 ## Repository-Struktur
 
 ```text
@@ -230,6 +237,9 @@ Aktuelle Prüfung:
 - Ruff, `compileall`, ein Bandit-Gate für hohe Schweregrade und gepinnte Linux-/Windows-/macOS-Actions sind aktiviert.
 - MIT-lizenziert.
 - Noch kein PyPI-Release.
+- Der PyPI-Paketvertrag, stabile CLI-Entry-Points und die Release-Checkliste
+  stehen in [`PYPI_RELEASE.md`](PYPI_RELEASE.md); ein Upload ist noch nicht
+  erfolgt.
 - Keine grafische Oberfläche und keine gehostete Landing-Page.
 
 ## Verwandte ellmos-Projekte

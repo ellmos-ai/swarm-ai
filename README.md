@@ -206,6 +206,12 @@ Measured result from `results/benchmark_20260306.json`:
 | Parallel efficiency | - | 85% | 85% |
 | Time saved | - | 792s | 61% |
 
+The cost-free 2026-08-13 dry-run for the current benchmark catalog is recorded
+in [`results/benchmark_20260813.json`](results/benchmark_20260813.json). It
+includes the selected model's USD-per-million-token pricing, estimated token
+costs, Python/platform/repository metadata, and the local Git revision. A
+live API benchmark remains a separately authorized release gate.
+
 ## Repository Layout
 
 ```text
@@ -242,6 +248,9 @@ Current verification:
 - Ruff, `compileall`, a high-severity Bandit gate, and pinned Linux/Windows/macOS GitHub Actions are enabled.
 - MIT licensed.
 - No package release on PyPI yet.
+- The PyPI packaging contract, stable CLI entry points, and release checklist
+  are documented in [`PYPI_RELEASE.md`](PYPI_RELEASE.md); no upload has been
+  performed.
 - No graphical interface or hosted landing page.
 
 ## Related ellmos Projects

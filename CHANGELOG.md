@@ -4,6 +4,11 @@
 
 ### Added
 
+- Defined the `ellmos-swarm-ai` PEP-621 packaging contract with stable CLI
+  entry-points, package data inclusion, PEP-440 versioning, and a gated
+  TestPyPI/PyPI readback checklist in `PYPI_RELEASE.md`.
+- Extended `tools/benchmark.py` with explicit model pricing, token-cost
+  estimates, reproducibility metadata, and versioned dry-run/live JSON exports.
 - `konzepte/matruschka-verfahren.md` (Version 1.3): Kernregel 4 „Exklusive
   Schreibbereiche bei paralleler Arbeit" — disjunkte Schreibbereiche oder eigene
   Kopie für Helfer, Schreibverbote immer mit Begründung, und Messen zählt als

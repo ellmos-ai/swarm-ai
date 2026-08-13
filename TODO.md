@@ -14,7 +14,7 @@ Dieses TODO ist der öffentliche Aufgaben-Einstieg. Historische Befunde bleiben
 | Datenbanken | PASS | Standalone-Init für Stigmergie, Übersetzung und Summaries |
 | Lieferkette | PASS | Actions SHA-gepinnt, CodeQL und Dependabot ergänzt |
 | Echte API-E2E-Tests | OFFEN | Credentials und Kosten bewusst nicht in CI |
-| Paketierung | OFFEN | Noch kein PyPI-Paket oder stabiler Entry-Point-Vertrag |
+| Paketierung | VERTRAG DEFINIERT / RELEASE OFFEN | `pyproject.toml` und `PYPI_RELEASE.md`; noch kein PyPI-Upload |
 
 ## Offene Aufgaben
 
@@ -23,9 +23,12 @@ Dieses TODO ist der öffentliche Aufgaben-Einstieg. Historische Befunde bleiben
   definieren und ausführen.
 - [ ] Entscheiden, ob `hierarchy.py` und `specialist.py` als eigenständige
   Module portiert oder bewusst als Konzeptbestand geführt werden.
-- [ ] PyPI-Strategie klären: Paketname, Entry Points, Versionsschema und Release-Checkliste.
-- [ ] Einen neuen Benchmark mit aktuellem Modell ausführen; Export enthält nun
-  Python-, Plattform- und Repository-Metadaten.
+- [x] PyPI-Strategie klären: Paketname `ellmos-swarm-ai`, stabile Entry Points,
+  PEP-440-Versionsschema und Release-Checkliste in `PYPI_RELEASE.md` definiert.
+- [ ] Einen neuen kostenpflichtigen Live-Benchmark mit aktuellem Modell
+  freigegeben ausführen; der kostenfreie Dry-Run mit Pricing und
+  Python-/Plattform-/Repository-Export liegt in
+  `results/benchmark_20260813.json`.
 - [x] SDK-Untergrenze in einer eigenen Kompatibilitätsmatrix gegen aktuelle
   Anthropic-SDK-Versionen prüfen. (Erledigt 2026-07-28: `anthropic>=0.40.0`;
   CI testet Minimum und Latest auf Python 3.10/3.13. Version 0.39.0 scheitert
