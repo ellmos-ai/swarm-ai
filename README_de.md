@@ -1,13 +1,15 @@
-# swarm-ai
+# swarm-ai
 
 **LLM-Schwarmintelligenz-Toolkit für parallele Claude- und LLM-Agenten-Orchestrierung.**
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](pyproject.toml)
 [![Tests](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml)
-[![Pytest](https://img.shields.io/badge/pytest-172%20passed-brightgreen)](tests/)
-[![Lizenz MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![ellmos](https://img.shields.io/badge/ellmos-Agenten--Orchestrierung-4b5563)](https://github.com/ellmos-ai)
-[![open-bricks](https://img.shields.io/badge/open--bricks-ecosystem-0284c7)](https://github.com/open-bricks)
+[![Pytest](https://img.shields.io/badge/pytest-193%20passed-brightgreen.svg)](tests/)
+[![Lizenz MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![LLM Ready](https://img.shields.io/badge/LLM--Ready-llms.txt-orange.svg)](llms.txt)
+[![ellmos](https://img.shields.io/badge/ellmos-Agenten--Orchestrierung-4b5563.svg)](https://github.com/ellmos-ai)
+[![open-bricks](https://img.shields.io/badge/open--bricks-ecosystem-0284c7.svg)](https://github.com/open-bricks)
 
 **English:** [README.md](README.md)
 
@@ -16,9 +18,68 @@
 
 swarm-ai ist ein local-first Python-Toolkit für Entwicklerinnen und Entwickler, die dieselbe Aufgabe über mehrere LLM-Instanzen ausführen und die Ergebnisse anschließend zusammenführen wollen. Der Fokus liegt auf fünf wiederverwendbaren Koordinationsmustern: parallele Chunk-Verarbeitung, Boss-/Worker-Ausführung, Stigmergie, Konsensabstimmung und Spezialisten-Routing.
 
+Die Runner-Schicht unterstützt jetzt die Provider-Auswahl über COMA. Bestehende `ClaudeRunner`-Verwendungen bleiben kompatibel; neuer Code kann `create_runner("codex")`, `create_runner("agy")` oder `create_runner("kimi", allow_unverified=True)` nutzen. Codex ist standardmäßig schreibgeschützt, Agy erhält den konfigurierten Workspace, und Kimi bleibt bis zur lokalen Modell-/Login-Freigabe gesperrt. Installiere die optionale Bridge mit `pip install -e ".[providers]"`.
+
 Das Projekt ist kein Docker-Swarm-Werkzeug, keine gehostete Agentenplattform und keine generische "AI swarm"-Demo. Es ist ein kleines, prüfbares Toolkit für Experimente mit Multi-Agent-LLM-Orchestrierung über CLI und Python.
 
 ![swarm-ai Koordinationsmuster](README/assets/swarm-patterns.svg)
+
+## Systemarchitektur
+
+```mermaid
+graph TD
+    subgraph Client["Client-Oberflächen & Einstiegspunkte"]
+        CLI["CLI-Befehle<br/>(swarm-consensus, swarm-benchmark, swarm-translate, swarm-summarize, swarm-stigmergy-init)"]
+        API["Python-API-Schicht<br/>(run_consensus, StigmergyAPI, ClaudeRunner)"]
+    end
+
+    subgraph Coordination["Koordinationsmuster & Guardrails"]
+        P1["1. Parallel Chunks<br/>(translate_swarm, summarize_chunks)"]
+        P2["2. Boss + Worker Hierarchie<br/>(runner.py, swarm_haiku_3.json)"]
+        P3["3. Stigmergie-Marker<br/>(stigmergy_api.py)"]
+        P4["4. Konsens-Abstimmung<br/>(consensus_swarm.py)"]
+        P5["5. Spezialisten-Routing<br/>(swarm_haiku_research.json)"]
+        TL["Team-Lock-Guardrail<br/>(Atomare Ressourcen-Claims & Anwesenheit)"]
+    end
+
+    subgraph Execution["Ausführungs- & Provider-Schicht"]
+        CR["ClaudeRunner / Anthropic SDK"]
+        COMA["COMA Bridge Provider<br/>(Codex, Agy, Kimi)"]
+        DB[(SQLite-Speicher<br/>swarm.db / chunks.db / Pheromone)]
+    end
+
+    CLI --> Coordination
+    API --> Coordination
+    Coordination --> TL
+    Coordination --> Execution
+    Execution --> DB
+```
+
+### Konsens-Ausführungssequenz
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Caller as Aufrufer / CLI
+    participant Orch as Schwarm-Orchestrator
+    participant WorkerA as Agent Worker 1
+    participant WorkerB as Agent Worker 2
+    participant WorkerN as Agent Worker N
+    participant Voter as Konsens-Aggregator
+
+    Caller->>Orch: Frage & Budgetgrenze übermitteln
+    par Parallele Abfrage (Fan-Out)
+        Orch->>WorkerA: Modell-Instanz abfragen
+        Orch->>WorkerB: Modell-Instanz abfragen
+        Orch->>WorkerN: Modell-Instanz abfragen
+    end
+    WorkerA-->>Orch: Unabhängige Antwort zurückliefern
+    WorkerB-->>Orch: Unabhängige Antwort zurückliefern
+    WorkerN-->>Orch: Unabhängige Antwort zurückliefern
+    Orch->>Voter: Antworten & Stimmen aggregieren
+    Voter->>Voter: Übereinstimmung & Konfidenz berechnen
+    Voter-->>Caller: Finales Konsensergebnis + Konfidenz
+```
 
 ## Auffindbarkeitskontext
 
@@ -99,7 +160,7 @@ Trockenlauf ohne Tokenkosten:
 PYTHONIOENCODING=utf-8 python tools/consensus_swarm.py --dry-run "Test question"
 ```
 
-Nutzung aus Python:
+Verwendung aus Python:
 
 ```python
 from tools.consensus_swarm import run_consensus
@@ -117,7 +178,7 @@ print(result["consensus"]["confidence"])
 
 ### Stigmergie-Speicher
 
-Agenten können pheromonartige Pfadmarker in SQLite ablegen, lesen und verdunsten lassen:
+Agenten können Pheromon-Marker in SQLite ablegen, abtasten und verdampfen lassen:
 
 ```python
 from tools.stigmergy_api import StigmergyAPI
@@ -131,11 +192,12 @@ api.evaporate(decay_rate=0.1)
 ```
 
 Das dateibasierte Schema wird automatisch initialisiert. `:memory:` wird
-abgewiesen, weil ein Koordinationsspeicher mehrere Verbindungen überdauern muss.
+abgelehnt, da ein Multi-Connection-Koordinationsspeicher über Verbindungen
+hinweg persistieren muss.
 
-### Parallele Claude-CLI-Aufrufe
+### Parallele Claude CLI-Aufrufe
 
-`ClaudeRunner` verteilt unabhängige Prompts parallel über Claude Code:
+Nutze `ClaudeRunner`, um unabhängige Prompts parallel über Claude Code auszuführen:
 
 ```python
 from tools.runner import ClaudeRunner
@@ -154,14 +216,13 @@ results = runner.run_parallel(
 )
 ```
 
-Der Runner ist standardmäßig nur lesend (`Read`, `Glob`, `Grep`), genehmigt im
-nichtinteraktiven `dontAsk`-Modus nur diese Werkzeuge vorab, sperrt konfigurierte
-MCP-Werkzeuge und speichert keine Sitzungen. Ein größerer Werkzeugumfang muss
-über `allowed_tools` und `available_tools` ausdrücklich freigegeben werden.
+Der Runner ist standardmäßig schreibgeschützt (`Read`, `Glob`, `Grep`),
+genehmigt im nicht-interaktiven `dontAsk`-Modus nur diese Werkzeuge vorab,
+lehnt konfigurierte MCP-Werkzeuge ab und persistiert keine Sitzungen.
 
 ### Eigenständige Chunk-Datenbanken
 
-Die datenbankgebundenen Tools können ihre Schemas selbst initialisieren:
+Die datenbankgebundenen Werkzeuge können ihre Schemas eigenständig initialisieren:
 
 ```bash
 python tools/translate_swarm.py --init-db
@@ -170,10 +231,9 @@ python tools/translate_swarm.py --limit 20 --max-budget-usd 1
 python tools/summarize_chunks.py --limit 20 --max-budget-usd 1
 ```
 
-Übersetzungen werden anhand von Schlüssel und Namespace statt anhand der
-Antwortreihenfolge zugeordnet. Der Summarizer reserviert Chunks zeitlich begrenzt
-in SQLite, damit parallele Läufe nicht doppelt API-Kosten erzeugen. Echte
-API-End-to-End-Tests bleiben eine offene Release-Aufgabe.
+Übersetzungsergebnisse werden nach Schlüssel und Namespace statt nach
+Antwortreihenfolge zugeordnet. Der Summarizer nutzt ablaufende SQLite-Claims,
+sodass parallele Läufe nicht doppelt für denselben Chunk zahlen.
 
 ## Benchmarks
 
@@ -185,74 +245,66 @@ PYTHONIOENCODING=utf-8 python tools/benchmark.py --compare --workers 3 \
   --limit 5 --max-budget-usd 2
 ```
 
-Gemessenes Ergebnis aus `results/benchmark_20260306.json`:
+Messergebnis aus `results/benchmark_20260306.json`:
 
 | Metrik | Sequenziell | Parallel (3 Worker) | Ergebnis |
 |---|---:|---:|---:|
-| Gesamtzeit | 1306s | 514s | 2,54x Speedup |
-| Erfolgsrate | 20/20 | 19/20 | 95% paralleler Erfolg |
+| Gesamtzeit | 1306s | 514s | 2,54x Beschleunigung |
+| Erfolgsquote | 20/20 | 19/20 | 95% paralleler Erfolg |
 | Parallele Effizienz | - | 85% | 85% |
 | Gesparte Zeit | - | 792s | 61% |
 
-Der kostenfreie Dry-Run vom 13.08.2026 ist in
-[`results/benchmark_20260813.json`](results/benchmark_20260813.json)
-festgehalten. Er enthält das Modell-Pricing in USD je Million Tokens,
-Kostenschätzungen, Python-/Plattform-/Repository-Metadaten und den lokalen
-Git-Stand. Ein echter API-Benchmark bleibt ein separat freizugebendes
-Release-Gate.
+Der tokenfreie Trockenlauf für den aktuellen Benchmark-Katalog vom 2026-08-13 ist
+in [`results/benchmark_20260813.json`](results/benchmark_20260813.json) erfasst.
 
 ## Repository-Struktur
 
 ```text
 swarm_ai/
 |-- tools/
-|   |-- runner.py                  # Claude-CLI-Wrapper mit run_parallel()
-|   |-- consensus_swarm.py         # Mehrheitsentscheid und Konfidenzberechnung
+|   |-- runner.py                  # Claude CLI-Wrapper mit run_parallel()
+|   |-- consensus_swarm.py         # Mehrheitsentscheid und Konfidenzbewertung
 |   |-- stigmergy_api.py           # SQLite-Pheromonkoordination
 |   |-- translate_swarm.py         # Paralleles Übersetzungsmuster
 |   |-- summarize_chunks.py        # Paralleles Zusammenfassungsmuster
-|   |-- benchmark.py               # Sequenzielles vs. paralleles Benchmarking
-|   |-- swarm_haiku_3.json         # Boss-/Worker-Chain-Definition
+|   |-- benchmark.py               # Sequenzieller vs. paralleler Benchmark
+|   |-- swarm_haiku_3.json         # Boss + Worker Chain-Definition
 |   `-- swarm_haiku_research.json  # Spezialisten-Research-Chain
 |-- konzepte/                      # Deutsche Designdokumente
 |-- experiments/                   # Experimentelle Prototypen
 |-- results/                       # Benchmark-Snapshots
-`-- tests/                         # Pytest-Suite
+`-- tests/                         # Pytest-Testsuite
 ```
 
 ## Projektstatus
 
-swarm-ai ist öffentlich und als experimentelles Toolkit nutzbar. Die Kernmodule besitzen eine lokale Testsuite; einige Konzept- und Experimentdateien referenzieren weiterhin BACH, weil sie die Herkunft der Muster dokumentieren. Für produktive Nutzung sollten die Module unter `tools/` und die getesteten Python-APIs als Einstieg dienen.
+swarm-ai ist öffentlich und als experimentelles Toolkit nutzbar. Die Kernmodule verfügen über eine lokale Testsuite. Für den produktiven Einsatz sollte von den `tools/`-Modulen und den getesteten Python-APIs ausgegangen werden.
 
-Historische Launcher unter `experiments/` brechen ohne ausdrücklichen Test- oder
-Vollmodus, `SWARM_ENABLE_LEGACY_EXPERIMENTS=I_UNDERSTAND`, ein geprüftes Ziel,
-ein Pro-Agent-Budget und ein Gesamtbudget ab. Schreibfähige Dungeon- und
-Maintenance-Experimente verlangen zusätzlich einen isolierten Fixture-Marker.
-Sie laufen im Claude-Safe-Mode mit fester Werkzeugfreigabe und gesperrtem MCP;
-Benutzer-Memory-Dateien werden nicht verändert.
+Aktuelle Verifikation:
 
-Aktuelle Prüfung:
-
-- 166 lokale Tests auf der Review-Baseline vom 15.07.2026 grün.
-- Ruff, `compileall`, ein Bandit-Gate für hohe Schweregrade und gepinnte Linux-/Windows-/macOS-Actions sind aktiviert.
+- 193 lokale Tests erfolgreich (1 übersprungen).
+- Ruff, `compileall`, ein High-Severity-Bandit-Gate und GitHub Actions für Linux/Windows/macOS sind aktiv.
 - MIT-lizenziert.
-- Noch kein PyPI-Release.
-- Der PyPI-Paketvertrag, stabile CLI-Entry-Points und die Release-Checkliste
-  stehen in [`PYPI_RELEASE.md`](PYPI_RELEASE.md); ein Upload ist noch nicht
-  erfolgt.
-- Keine grafische Oberfläche und keine gehostete Landing-Page.
+- Der PyPI-Packaging-Vertrag, stabile CLI-Einstiegspunkte und die Release-Checkliste sind in [`PYPI_RELEASE.md`](PYPI_RELEASE.md) dokumentiert.
 
-## Verwandte ellmos-Projekte
+## Geschwisterwerkzeuge & Ökosystem
 
-- [BACH](https://github.com/ellmos-ai/bach): vollständiges textbasiertes OS für LLM-Agenten.
-- [USMC](https://github.com/ellmos-ai/usmc): lokaler SQLite-Memory-Baustein für LLM-Agenten.
-- [Rinnsal](https://github.com/ellmos-ai/rinnsal): leichte LLM-Agenten-Infrastruktur.
-- [clutch](https://github.com/ellmos-ai/clutch): providerneutrales Routing für Einzelaufgaben.
-- [MarbleRun](https://github.com/ellmos-ai/MarbleRun): Chain-Ausführung für sequenzielle Agenten-Loops.
+| Werkzeug | Repository | Fokus & Interaktion im Ökosystem |
+|---|---|---|
+| **coma** | [ellmos-ai/coma](https://github.com/ellmos-ai/coma) | Multi-Agent Job Board & Provider Routing Bridge |
+| **clutch** | [ellmos-ai/clutch](https://github.com/ellmos-ai/clutch) | Provider-neutrales Routing für Einzelaufgaben |
+| **MarbleRun** | [ellmos-ai/MarbleRun](https://github.com/ellmos-ai/MarbleRun) | Sequenzielle Agentenketten und Schleifenausführung |
+| **policy-registry** | [ellmos-ai/policy-registry](https://github.com/ellmos-ai/policy-registry) | Governance, Berechtigungs- und Richtlinienverwaltung |
+| **system-explorer** | [ellmos-ai/system-explorer](https://github.com/ellmos-ai/system-explorer) | Systemweite Topologie- und Stack-Inspektion |
+| **sqlite-transit-sync** | [ellmos-ai/sqlite-transit-sync](https://github.com/ellmos-ai/sqlite-transit-sync) | Sichere SQLite Snapshot- und Sync-Pipeline |
+| **workflowhooker** | [ellmos-ai/workflowhooker](https://github.com/ellmos-ai/workflowhooker) | Workflow-Hooking und Lifecycle-Events |
+| **DevCenter** | [dev-bricks/DevCenter](https://github.com/dev-bricks/DevCenter) | Entwickler-Dashboard & Workspace-Management |
+| **CodeBox** | [dev-bricks/CodeBox](https://github.com/dev-bricks/CodeBox) | Multi-Language Code Runner & Plugin Platform |
+| **automation-master** | [dev-bricks/automation-master](https://github.com/dev-bricks/automation-master) | Automatisierte Deployment- & Sync-Orchestrierung |
 
 ## Mitwirken
 
-Siehe [CONTRIBUTING.md](CONTRIBUTING.md). Sinnvolle Beiträge sind Standalone-Bereinigung der Muster, End-to-End-Beispiele, reproduzierbare Benchmarks und klarere Chain-Definitionen.
+Siehe [CONTRIBUTING.md](CONTRIBUTING.md). Schwerpunkte sind eigenständige Muster-Bereinigung, End-to-End-Beispiele, Benchmark-Reproduzierbarkeit und präzisere Chain-Definitionen.
 
 ## Lizenz
 

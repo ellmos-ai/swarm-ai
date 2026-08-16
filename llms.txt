@@ -1,6 +1,6 @@
 # swarm-ai - LLM Swarm Intelligence Toolkit
 
-## Last-checked: 2026-08-13
+## Last-checked: 2026-08-16
 
 Canonical repository: https://github.com/ellmos-ai/swarm-ai
 
@@ -34,8 +34,8 @@ The project is part of the ellmos family. It is distinct from Docker Swarm, host
 
 ## Important Files
 
-- README.md: English public overview, quick start, benchmark summary, related projects.
-- README_de.md: German public overview with correct Umlaute.
+- README.md: English public overview, quick start, architecture Mermaid diagrams, benchmark summary, related projects.
+- README_de.md: German public overview with correct Umlaute and system architecture.
 - tools/runner.py: Claude CLI wrapper with `run_parallel()`.
 - tools/consensus_swarm.py: Anthropic API consensus swarm CLI and Python API.
 - tools/stigmergy_api.py: SQLite-backed pheromone coordination API.
@@ -50,11 +50,11 @@ The project is part of the ellmos family. It is distinct from Docker Swarm, host
   model pricing and reproducibility metadata.
 - PYPI_RELEASE.md: distribution name, PEP-440 versioning, CLI entry points, and
   the readback-gated release checklist.
-- README/assets/swarm-patterns.svg: README architecture and pattern diagram.
+- tests/test_metadata.py: automated metadata and manifest parity test suite.
 
 ## Verification State
 
-- Local test suite: 182 pytest tests passed (1 skipped).
+- Local test suite: 193 pytest tests passed (1 skipped).
 - Core lint/compile/security gates: Ruff, compileall, Bandit high severity.
 - Historical experiments require explicit modes, finite per-agent/total budgets,
   safe mode, and validated fixture targets; they never modify user memory files.
@@ -73,6 +73,10 @@ The project is part of the ellmos family. It is distinct from Docker Swarm, host
 - Rinnsal: https://github.com/ellmos-ai/rinnsal - lightweight LLM agent infrastructure.
 - clutch: https://github.com/ellmos-ai/clutch - provider-neutral routing for a single task.
 - MarbleRun: https://github.com/ellmos-ai/MarbleRun - chain execution for sequential agent loops.
+- policy-registry: https://github.com/ellmos-ai/policy-registry - policy registry and security authority.
+- system-explorer: https://github.com/ellmos-ai/system-explorer - modular environment scanner.
+- sqlite-transit-sync: https://github.com/ellmos-ai/sqlite-transit-sync - SQLite transit synchronization.
+- workflowhooker: https://github.com/ellmos-ai/workflowhooker - workflow automation hook manager.
 - Skills: https://github.com/ellmos-ai/skills - portable skill library.
 
 ## Search Phrases

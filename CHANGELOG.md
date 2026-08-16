@@ -4,6 +4,11 @@
 
 ### Added
 
+- Discoverability, Badges & Metadata Parity: synchronized README.md and README_de.md with interactive Mermaid system architecture & consensus sequence diagrams, 100% accurate test badges (193 passed, 1 skipped), LLM-Ready tags, and an extensive sibling tools matrix across ellmos-ai, dev-bricks, and open-bricks. [G 2026-08-16]
+- Implemented automated metadata, manifest and UTF-8 parity test suite in `tests/test_metadata.py` (4/4 passed). [G 2026-08-16]
+- Configured unified `[tool.ruff]` and `[tool.ruff.lint]` in `pyproject.toml` targeting Python 3.10. [G 2026-08-16]
+- Synchronized `llms.txt` with latest ecosystem links, test statistics and verified discovery keywords. [G 2026-08-16]
+
 - Defined the `ellmos-swarm-ai` PEP-621 packaging contract with stable CLI
   entry-points, package data inclusion, PEP-440 versioning, and a gated
   TestPyPI/PyPI readback checklist in `PYPI_RELEASE.md`.

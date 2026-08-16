@@ -1,18 +1,18 @@
 # swarm-ai
 
-
 *Goldfish Swarm*
 ![swarm-ai Goldfish Variant Banner](assets/banner-goldfish.svg)
 
-
 **LLM swarm intelligence toolkit for parallel Claude and LLM agent orchestration.**
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](pyproject.toml)
 [![Tests](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml)
-[![Pytest](https://img.shields.io/badge/pytest-172%20passed-brightgreen)](tests/)
-[![License MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![ellmos](https://img.shields.io/badge/ellmos-agent%20orchestration-4b5563)](https://github.com/ellmos-ai)
-[![open-bricks](https://img.shields.io/badge/open--bricks-ecosystem-0284c7)](https://github.com/open-bricks)
+[![Pytest](https://img.shields.io/badge/pytest-193%20passed-brightgreen.svg)](tests/)
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![LLM Ready](https://img.shields.io/badge/LLM--Ready-llms.txt-orange.svg)](llms.txt)
+[![ellmos](https://img.shields.io/badge/ellmos-agent%20orchestration-4b5563.svg)](https://github.com/ellmos-ai)
+[![open-bricks](https://img.shields.io/badge/open--bricks-ecosystem-0284c7.svg)](https://github.com/open-bricks)
 
 **Deutsch:** [README_de.md](README_de.md)
 
@@ -21,17 +21,68 @@
 
 swarm-ai is a local-first Python toolkit for developers who want to run the same task through multiple LLM instances and merge the results. It focuses on five reusable coordination patterns: parallel chunk processing, boss/worker execution, stigmergy, consensus voting, and specialist routing.
 
-The runner layer now supports provider selection through COMA. Existing
-`ClaudeRunner` consumers remain compatible; new code can use
-`create_runner("codex")`, `create_runner("agy")`, or
-`create_runner("kimi", allow_unverified=True)`. Codex is read-only by default,
-Agy receives the configured workspace, and Kimi remains guarded until its local
-model/login gate is satisfied. Install the optional bridge with
-`pip install -e ".[providers]"`.
+The runner layer now supports provider selection through COMA. Existing `ClaudeRunner` consumers remain compatible; new code can use `create_runner("codex")`, `create_runner("agy")`, or `create_runner("kimi", allow_unverified=True)`. Codex is read-only by default, Agy receives the configured workspace, and Kimi remains guarded until its local model/login gate is satisfied. Install the optional bridge with `pip install -e ".[providers]"`.
 
 It is not Docker Swarm, not a hosted agent platform, and not a generic "AI swarm" demo. The repository is a small, inspectable toolkit for experimenting with multi-agent LLM orchestration from the command line or from Python.
 
 ![swarm-ai coordination patterns](README/assets/swarm-patterns.svg)
+
+## System Architecture
+
+```mermaid
+graph TD
+    subgraph Client["Client Surfaces & Entrypoints"]
+        CLI["CLI Commands<br/>(swarm-consensus, swarm-benchmark, swarm-translate, swarm-summarize, swarm-stigmergy-init)"]
+        API["Python API Layer<br/>(run_consensus, StigmergyAPI, ClaudeRunner)"]
+    end
+
+    subgraph Coordination["Coordination Patterns & Guardrails"]
+        P1["1. Parallel Chunks<br/>(translate_swarm, summarize_chunks)"]
+        P2["2. Boss + Worker Hierarchy<br/>(runner.py, swarm_haiku_3.json)"]
+        P3["3. Stigmergy Markers<br/>(stigmergy_api.py)"]
+        P4["4. Consensus Voting<br/>(consensus_swarm.py)"]
+        P5["5. Specialist Routing<br/>(swarm_haiku_research.json)"]
+        TL["Team Lock Guardrail<br/>(Atomic Resource Claims & Attendance)"]
+    end
+
+    subgraph Execution["Execution & Provider Layer"]
+        CR["ClaudeRunner / Anthropic SDK"]
+        COMA["COMA Bridge Provider<br/>(Codex, Agy, Kimi)"]
+        DB[(SQLite Stores<br/>swarm.db / chunks.db / pheromones)]
+    end
+
+    CLI --> Coordination
+    API --> Coordination
+    Coordination --> TL
+    Coordination --> Execution
+    Execution --> DB
+```
+
+### Consensus Execution Sequence Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Caller as Caller / CLI
+    participant Orch as Swarm Orchestrator
+    participant WorkerA as Agent Worker 1
+    participant WorkerB as Agent Worker 2
+    participant WorkerN as Agent Worker N
+    participant Voter as Consensus Aggregator
+
+    Caller->>Orch: Submit Question & Budget Cap
+    par Fan-Out Dispatch
+        Orch->>WorkerA: Query Model Instance
+        Orch->>WorkerB: Query Model Instance
+        Orch->>WorkerN: Query Model Instance
+    end
+    WorkerA-->>Orch: Return Independent Response
+    WorkerB-->>Orch: Return Independent Response
+    WorkerN-->>Orch: Return Independent Response
+    Orch->>Voter: Aggregate Responses & Votes
+    Voter->>Voter: Calculate Agreement & Confidence
+    Voter-->>Caller: Final Consensus Result + Confidence
+```
 
 ## Discovery Context
 
@@ -244,22 +295,27 @@ tool allowlist, MCP disabled, and never modify user memory files.
 
 Current verification:
 
-- 166 local tests passing on the 2026-07-15 review baseline.
+- 193 local tests passing (1 skipped).
 - Ruff, `compileall`, a high-severity Bandit gate, and pinned Linux/Windows/macOS GitHub Actions are enabled.
 - MIT licensed.
-- No package release on PyPI yet.
 - The PyPI packaging contract, stable CLI entry points, and release checklist
   are documented in [`PYPI_RELEASE.md`](PYPI_RELEASE.md); no upload has been
   performed.
-- No graphical interface or hosted landing page.
 
-## Related ellmos Projects
+## Sibling Tools & Ecosystem
 
-- [BACH](https://github.com/ellmos-ai/bach): full text-based OS for LLM agents.
-- [USMC](https://github.com/ellmos-ai/usmc): local SQLite memory primitive for LLM agents.
-- [Rinnsal](https://github.com/ellmos-ai/rinnsal): lightweight LLM agent infrastructure.
-- [clutch](https://github.com/ellmos-ai/clutch): provider-neutral routing for a single task.
-- [MarbleRun](https://github.com/ellmos-ai/MarbleRun): chain execution for sequential agent loops.
+| Tool | Repository | Focus & Interaction in Ecosystem |
+|---|---|---|
+| **coma** | [ellmos-ai/coma](https://github.com/ellmos-ai/coma) | Multi-Agent Job Board & Provider Routing Bridge |
+| **clutch** | [ellmos-ai/clutch](https://github.com/ellmos-ai/clutch) | Provider-neutral routing for single tasks |
+| **MarbleRun** | [ellmos-ai/MarbleRun](https://github.com/ellmos-ai/MarbleRun) | Sequential agent loops & chain execution |
+| **policy-registry** | [ellmos-ai/policy-registry](https://github.com/ellmos-ai/policy-registry) | Policy governance & capability permission authority |
+| **system-explorer** | [ellmos-ai/system-explorer](https://github.com/ellmos-ai/system-explorer) | System-wide topology & stack inspection |
+| **sqlite-transit-sync** | [ellmos-ai/sqlite-transit-sync](https://github.com/ellmos-ai/sqlite-transit-sync) | Secure SQLite snapshot & sync pipeline |
+| **workflowhooker** | [ellmos-ai/workflowhooker](https://github.com/ellmos-ai/workflowhooker) | Workflow hooking & lifecycle event interceptor |
+| **DevCenter** | [dev-bricks/DevCenter](https://github.com/dev-bricks/DevCenter) | Developer workstation hub & process control |
+| **CodeBox** | [dev-bricks/CodeBox](https://github.com/dev-bricks/CodeBox) | Multi-language code runner & plugin platform |
+| **automation-master** | [dev-bricks/automation-master](https://github.com/dev-bricks/automation-master) | Automated deployment & synchronization orchestrator |
 
 ## Contributing
 
