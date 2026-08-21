@@ -66,3 +66,40 @@ def test_utf8_integrity_across_markdown():
     for md_file in md_files:
         content = md_file.read_text(encoding="utf-8")
         assert "\ufffd" not in content, f"Replacement character detected in {md_file}"
+
+
+def test_pep621_classifiers_and_urls_parity():
+    pyproject_text = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    assert "Programming Language :: Python :: 3" in pyproject_text
+    assert "Programming Language :: Python :: 3.10" in pyproject_text
+    assert "Programming Language :: Python :: 3.13" in pyproject_text
+    assert "License :: OSI Approved :: MIT License" in pyproject_text
+    assert "Operating System :: OS Independent" in pyproject_text
+    assert "Documentation = " in pyproject_text
+    assert '"Bug Tracker" = ' in pyproject_text
+    assert "Changelog = " in pyproject_text
+    assert "Security = " in pyproject_text
+
+
+def test_security_policy_bilingual_parity():
+    security_md = ROOT / "SECURITY.md"
+    assert security_md.exists(), "SECURITY.md must exist"
+    content = security_md.read_text(encoding="utf-8")
+    assert "# Security Policy / Sicherheitsrichtlinie" in content
+    assert "## English" in content
+    assert "## Deutsch" in content
+    assert "security@ellmos.ai" in content
+    assert "support@lukasgeiger.com" in content
+    assert "lukas@open-bricks.org" in content
+
+
+def test_ci_workflow_parity():
+    ci_path = ROOT / ".github" / "workflows" / "ci.yml"
+    assert ci_path.exists(), "ci.yml must exist"
+    ci_text = ci_path.read_text(encoding="utf-8")
+    assert "ubuntu-latest" in ci_text
+    assert "windows-latest" in ci_text
+    assert "macos-latest" in ci_text
+    assert "3.10" in ci_text
+    assert "3.13" in ci_text
+

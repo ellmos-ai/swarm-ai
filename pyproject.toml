@@ -21,6 +21,19 @@ keywords = [
   "agent-orchestration",
   "python"
 ]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
   "anthropic>=0.40.0"
 ]
@@ -30,7 +43,11 @@ providers = ["coma @ git+https://github.com/dev-bricks/coma.git"]
 
 [project.urls]
 Homepage = "https://github.com/ellmos-ai/swarm-ai"
+Documentation = "https://github.com/ellmos-ai/swarm-ai#readme"
 Repository = "https://github.com/ellmos-ai/swarm-ai"
+"Bug Tracker" = "https://github.com/ellmos-ai/swarm-ai/issues"
+Changelog = "https://github.com/ellmos-ai/swarm-ai/blob/master/CHANGELOG.md"
+Security = "https://github.com/ellmos-ai/swarm-ai/blob/master/SECURITY.md"
 
 [project.scripts]
 swarm-consensus = "tools.consensus_swarm:main"

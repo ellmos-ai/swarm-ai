@@ -4,6 +4,11 @@
 
 ### Added
 
+- Technical Hygiene, Security & Metadata Parity: Added PEP 621 Standard Classifiers (Python 3.10-3.13, OS Independent, AI topic) and expanded project URLs (Documentation, Bug Tracker, Changelog, Security) in `pyproject.toml`. [G 2026-08-21]
+- Comprehensive Bilingual Security Policy: Replaced minimal policy with dual-language (EN/DE) `SECURITY.md` detailing supported versions, local-first & zero-egress architecture guarantees, fail-closed budgeting, and direct security contact endpoints. [G 2026-08-21]
+- Automated Test Suite Extensions: Extended `tests/test_metadata.py` with PEP 621 classifiers/URLs contract tests, bilingual security policy validation, and CI workflow parity assertions (7/7 passed, 196 total tests). [G 2026-08-21]
+- Synchronized `llms.txt` Last-checked timestamp to `2026-08-21` and updated verification metrics. [G 2026-08-21]
+
 - Discoverability, Badges & Metadata Parity: synchronized README.md and README_de.md with interactive Mermaid system architecture & consensus sequence diagrams, 100% accurate test badges (193 passed, 1 skipped), LLM-Ready tags, and an extensive sibling tools matrix across ellmos-ai, dev-bricks, and open-bricks. [G 2026-08-16]
 - Implemented automated metadata, manifest and UTF-8 parity test suite in `tests/test_metadata.py` (4/4 passed). [G 2026-08-16]
 - Configured unified `[tool.ruff]` and `[tool.ruff.lint]` in `pyproject.toml` targeting Python 3.10. [G 2026-08-16]

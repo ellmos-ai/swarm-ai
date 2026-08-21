@@ -5,7 +5,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](pyproject.toml)
 [![Tests](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/ellmos-ai/swarm-ai/actions/workflows/ci.yml)
-[![Pytest](https://img.shields.io/badge/pytest-193%20passed-brightgreen.svg)](tests/)
+[![Pytest](https://img.shields.io/badge/pytest-196%20passed-brightgreen.svg)](tests/)
 [![Lizenz MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![LLM Ready](https://img.shields.io/badge/LLM--Ready-llms.txt-orange.svg)](llms.txt)
 [![ellmos](https://img.shields.io/badge/ellmos-Agenten--Orchestrierung-4b5563.svg)](https://github.com/ellmos-ai)
